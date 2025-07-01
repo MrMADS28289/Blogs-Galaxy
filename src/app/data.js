@@ -1,0 +1,103 @@
+export const projectsData = [
+  {
+    id: 1,
+    name: "Project Alpha",
+    description: "A dummy project for demonstration purposes.",
+    date: "2023-01-01",
+    demoLink: "https://dummy-alpha.example.com",
+  },
+  {
+    id: 2,
+    name: "Beta Build",
+    description: "Sample project to showcase frontend skills.",
+    date: "2023-02-15",
+    demoLink: "https://dummy-beta.example.com",
+  },
+  {
+    id: 3,
+    name: "Gamma Test",
+    description: "Test project with mock data and dummy APIs.",
+    date: "2023-03-10",
+    demoLink: "https://dummy-gamma.example.com",
+  },
+  {
+    id: 4,
+    name: "Delta UI",
+    description: "User interface concept demo with fake content.",
+    date: "2023-04-05",
+    demoLink: "https://dummy-delta.example.com",
+  },
+  {
+    id: 5,
+    name: "Epsilon Tracker",
+    description: "Track sample data with this placeholder tool.",
+    date: "2023-05-20",
+    demoLink: "https://dummy-epsilon.example.com",
+  },
+  {
+    id: 6,
+    name: "Zeta Logs",
+    description: "Log system mockup using dummy entries.",
+    date: "2023-06-08",
+    demoLink: "https://dummy-zeta.example.com",
+  },
+  {
+    id: 7,
+    name: "Eta Planner",
+    description: "Planning app with sample features and layout.",
+    date: "2023-07-14",
+    demoLink: "https://dummy-eta.example.com",
+  },
+  {
+    id: 8,
+    name: "Theta Hub",
+    description: "Centralized mock data viewer interface.",
+    date: "2023-08-30",
+    demoLink: "https://dummy-theta.example.com",
+  },
+  {
+    id: 9,
+    name: "Iota App",
+    description: "Lightweight demo app using placeholder logic.",
+    date: "2023-09-25",
+    demoLink: "https://dummy-iota.example.com",
+  },
+  {
+    id: 10,
+    name: "Kappa Space",
+    description: "Creative project used for layout testing.",
+    date: "2023-10-12",
+    demoLink: "https://dummy-kappa.example.com",
+  },
+];
+
+export const BtnList = [
+  { label: "Home", link: "/", icon: "home", newTab: false },
+  { label: "About", link: "/about", icon: "about", newTab: false },
+  { label: "Projects", link: "/projects", icon: "projects", newTab: false },
+  { label: "Contact", link: "/contact", icon: "contact", newTab: false },
+  {
+    label: "Github",
+    link: "https://www.github.com/codebucks27",
+    icon: "github",
+    newTab: true,
+  },
+  {
+    label: "LinkedIn",
+    link: "https://www.linkedin.com/in/codebucks",
+    icon: "linkedin",
+    newTab: true,
+  },
+  {
+    label: "X",
+    link: "https://www.x.com/code_bucks",
+    icon: "twitter",
+    newTab: true,
+  },
+  {
+    label: "Resume",
+    link: "/resume.pdf",
+    icon: "resume",
+    newTab: true,
+  },
+];
