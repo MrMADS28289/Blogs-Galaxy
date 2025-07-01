@@ -14,6 +14,9 @@ const container = {
     opacity: 1,
     transition: {
       staggerChildren: 0.3,
+      duration: 40,
+      ease: "linear",
+      repeat: Infinity,
     },
   },
 };
@@ -33,7 +36,7 @@ const Navigation = () => {
               variants={container}
               initial="hidden"
               animate="show"
-              className="w-max flex items-center justify-center animate-spin-slow group"
+              className="w-max flex items-center justify-center animate-spin-slow group origin-center"
             >
               {BtnList.map((btn, index) => {
                 const angleRad = (index * angleIncrement * Math.PI) / 180;
