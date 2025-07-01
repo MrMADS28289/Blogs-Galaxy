@@ -42,4 +42,4 @@ const Planet = React.memo(function PlanetModel(props) {
 export default Planet;
 
 // Preload model
-useGLTF.preload("/models/planet.glb");
+

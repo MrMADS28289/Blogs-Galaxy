@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
-  }
+    },
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "types": ["three"]
+  },
+  "exclude": ["node_modules"]
 }

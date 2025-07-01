@@ -25,15 +25,15 @@ const Navigation = () => {
   const isMedium = size >= 768;
 
   return (
-    <div className="w-full fixed h-screen flex items-center justify-center pointer-events-none">
+    <div className="w-full fixed h-screen flex items-center justify-center">
       <ResponsiveComponent>
         {({ size }) => {
-          return size && size >= 480 ? (
+          return (
             <motion.div
               variants={container}
               initial="hidden"
               animate="show"
-              className="w-max flex items-center justify-center relative animate-spin-slow group"
+              className="w-max flex items-center justify-center animate-spin-slow group"
             >
               {BtnList.map((btn, index) => {
                 const angleRad = (index * angleIncrement * Math.PI) / 180;
@@ -48,12 +48,6 @@ const Navigation = () => {
                 return <NavButton key={btn.label} x={x} y={y} {...btn} />;
               })}
             </motion.div>
-          ) : (
-            <div className="flex flex-col items-center space-y-4">
-              {BtnList.map((btn) => (
-                <NavButton key={btn.label} x={0} y={0} {...btn} />
-              ))}
-            </div>
           );
         }}
       </ResponsiveComponent>

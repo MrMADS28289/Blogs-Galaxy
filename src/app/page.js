@@ -6,7 +6,7 @@ import Navigation from "@/components/navigation";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between relative text-white">
+    <main className="flex h-screen flex-col items-center justify-between relative text-white">
       <Image
         priority
         sizes="100vw"
