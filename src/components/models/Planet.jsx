@@ -31,7 +31,7 @@ const Planet = React.memo(function PlanetModel(props) {
       ref={modelRef}
       object={scene}
       scale={[0.6, 0.6, 0.6]} // Resize the planet
-      position={[0, 12, 0]} // Centered in 3D space
+      position={[0, 0, 0]} // Centered in 3D space
       rotation={[0, 0.5, 0]} // Subtle tilt
       dispose={null}
       {...props}

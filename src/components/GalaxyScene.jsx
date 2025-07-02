@@ -11,52 +11,33 @@ function OrbitingPlanet(props) {
     const t = clock.getElapsedTime();
     if (ref.current) {
       ref.current.rotation.y += 0.005;
-      ref.current.position.x = Math.sin(t) * 2; // orbital path
-      ref.current.position.z = Math.cos(t) * 2;
+      // ref.current.position.x = Math.sin(t) * 0.2; // orbital path
+      // ref.current.position.z = Math.cos(t) * 2;
     }
   });
 
   return <primitive object={scene} ref={ref} scale={0.6} />;
 }
 
-function ShootingStars() {
-  const ref = useRef();
-
-  useFrame(({ clock }) => {
-    const elapsed = clock.getElapsedTime();
-    if (ref.current) {
-      ref.current.position.x = Math.sin(elapsed * 2) * 50;
-      ref.current.position.y = Math.cos(elapsed * 2) * 50;
-    }
-  });
-
-  return (
-    <mesh ref={ref} position={[0, 0, -10]}>
-      <sphereGeometry args={[0.1, 16, 16]} />
-      <meshBasicMaterial color="white" />
-    </mesh>
-  );
-}
-
 export default function GalaxyScene() {
   return (
     <div className="absolute inset-0 -z-10">
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-        {/* 3D Starfield */}
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 75 }}
+        style={{ width: "100vw", height: "100vh" }}
+      >
+        {/* Main 3D Starfield (background) */}
         <Stars
-          radius={100}
-          depth={50}
-          count={5000}
-          factor={4}
+          radius={200}
+          depth={100}
+          count={10000}
+          factor={6}
           saturation={0}
-          fade
-          speed={1}
+          fade={true} // Allow fading
+          speed={4} // Slow movement for background effect
         />
 
-        {/* Shooting star */}
-        <ShootingStars />
-
-        {/* Orbiting Planet */}
+        {/* Orbiting Planet - remains in the middle */}
         <OrbitingPlanet />
 
         {/* Controls (optional for debugging) */}
