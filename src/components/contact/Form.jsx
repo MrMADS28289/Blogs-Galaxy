@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import emailjs from "@emailjs/browser";
-import { Toaster, toast } from "sonner";
+
 import { motion } from "framer-motion";
 
 const container = {
@@ -37,40 +36,6 @@ export default function Form() {
         id: toastId,
       }
     );
-
-    // comment out the above toast.info and uncomment the below code to enable emailjs
-
-    // emailjs
-    //   .send(
-    //     process.env.NEXT_PUBLIC_SERVICE_ID,
-    //     process.env.NEXT_PUBLIC_TEMPLATE_ID,
-    //     params,
-    //     {
-    //       publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
-    //       limitRate: {
-    //         throttle: 5000, // you can not send more then 1 email per 5 seconds
-    //       },
-    //     }
-    //   )
-    //   .then(
-    //     () => {
-    //       toast.success(
-    //         "I have received your message, I will get back to you soon!",
-    //         {
-    //           id: toastId,
-    //         }
-    //       );
-    //     },
-    //     (error) => {
-    //       // console.log("FAILED...", error.text);
-    //       toast.error(
-    //         "There was an error sending your message, please try again later!",
-    //         {
-    //           id: toastId,
-    //         }
-    //       );
-    //     }
-    //   );
   };
 
   const onSubmit = (data) => {
@@ -86,7 +51,7 @@ export default function Form() {
 
   return (
     <>
-      <Toaster richColors={true} />
+      
       <motion.form
         variants={container}
         initial="hidden"

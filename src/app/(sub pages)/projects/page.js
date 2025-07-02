@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import bg from "../../../../public/background/projects-background.png";
 import ProjectList from "@/components/projects";
