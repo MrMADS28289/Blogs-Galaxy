@@ -1,5 +1,5 @@
 import Image from "next/image";
-import bg from "../../../../public/background/space2.jpg";
+import bg from "/public/background/space2.jpg";
 import RenderModel from "@/components/RenderModel";
 import MotivationMeteorDetails from "@/components/motivationMeteor";
 import dynamic from "next/dynamic";

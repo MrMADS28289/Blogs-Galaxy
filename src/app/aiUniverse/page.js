@@ -1,5 +1,5 @@
 import Image from "next/image";
-import bg from "../../../../public/background/space2.jpg";
+// import bg from "../../../../public/background/space2.jpg";
 import RenderModel from "@/components/RenderModel";
 import AiUniverseDetails from "@/components/aiUniverse";
 import dynamic from "next/dynamic";
@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Image
-        src={bg}
+        // src={bg}
         priority
         sizes="100vw"
         alt="Next.js Portfolio website's about page background image"

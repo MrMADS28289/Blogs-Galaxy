@@ -1,5 +1,5 @@
 import Image from "next/image";
-import bg from "../../../../public/background/space2.jpg";
+import bg from "/public/background/space1.jpg";
 import RenderModel from "@/components/RenderModel";
 import GeographyNebulaDetails from "@/components/geographyNebula";
 import dynamic from "next/dynamic";
