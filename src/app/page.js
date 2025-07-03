@@ -1,15 +1,16 @@
-'use client';
+"use client";
 import Image from "next/image";
 import bg from "../../public/background/black_sky.jpg";
 import RenderModel from "@/components/RenderModel";
 // import Wizard from "@/components/models/Wizard";
 import Navigation from "@/components/navigation";
-import { useSetAtom } from 'jotai';
-import { isPlanetVisibleAtom } from './jotaiAtoms';
-import { useEffect } from 'react';
+import { useSetAtom } from "jotai";
+import { isPlanetVisibleAtom } from "./jotaiAtoms";
+import { useEffect } from "react";
 
 import dynamic from "next/dynamic";
 import Planet from "@/components/models/Planet";
+import Sound from "@/components/Sound";
 const Wizard = dynamic(() => import("@/components/models/Wizard"), {
   ssr: false,
 });
@@ -31,7 +32,6 @@ export default function Home() {
         fill
         className="-z-50 w-full h-full object-cover object-center opacity-50"
       />
-
       <div className="w-full h-screen">
         <Navigation />
         <RenderModel>

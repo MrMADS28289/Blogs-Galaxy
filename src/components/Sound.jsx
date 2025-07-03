@@ -55,22 +55,47 @@ const Sound = () => {
     const consent = localStorage.getItem("musicConsent");
     const consentTime = localStorage.getItem("consentTime");
 
-    if (
+    const hasValidConsent =
       consent &&
       consentTime &&
-      new Date(consentTime).getTime() + 3 * 24 * 60 * 60 * 1000 > new Date()
-    ) {
-      setIsPlaying(consent === "true");
+      new Date(consentTime).getTime() + 3 * 24 * 60 * 60 * 1000 > new Date();
 
-      if (consent === "true") {
-        ["click", "keydown", "touchstart"].forEach((event) =>
-          document.addEventListener(event, handleFirstUserInteraction)
-        );
+    if (hasValidConsent) {
+      const userConsented = consent === "true";
+      // Do not set isPlaying here yet. It depends on autoplay success.
+
+      if (userConsented) {
+        if (audioRef.current) {
+          audioRef.current.play()
+            .then(() => {
+              setIsPlaying(true); // Autoplay succeeded
+            })
+            .catch(error => {
+              console.log("Autoplay prevented:", error);
+              setIsPlaying(false); // Autoplay failed
+              // If autoplay is prevented, add event listeners for a user interaction
+              ["click", "keydown", "touchstart"].forEach((event) =>
+                document.addEventListener(event, handleFirstUserInteraction)
+              );
+            });
+        }
+      } else {
+        setIsPlaying(false); // User previously consented to NO music
       }
     } else {
       setShowModal(true);
+      setIsPlaying(false); // No consent yet, so not playing
     }
+
+    // Cleanup function for event listeners
+    return () => {
+      ["click", "keydown", "touchstart"].forEach((event) =>
+        document.removeEventListener(event, handleFirstUserInteraction)
+      );
+    };
   }, []);
+
+  
 
   const toggle = () => {
     const newState = !isPlaying;
@@ -87,7 +112,7 @@ const Sound = () => {
       )}
 
       <audio ref={audioRef} loop>
-        <source src={"/audio/birds39-forest-20772.mp3"} type="audio/mpeg" />
+        <source src={"/audio/audiomass-output.mp3"} type="audio/mp3" />
         your browser does not support the audio element.
       </audio>
       <motion.button
