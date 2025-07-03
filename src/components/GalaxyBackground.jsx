@@ -15,7 +15,7 @@ export default function GalaxyBackground() {
           factor={4} // Star size
           saturation={0} // Greyscale
           fade // Enable fading
-          speed={10} // Speed of movement
+          speed={2} // Speed of movement
         />
 
         {/* Optional: add controls if needed */}
