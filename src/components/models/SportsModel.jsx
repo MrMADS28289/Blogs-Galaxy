@@ -6,12 +6,12 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
-const HatModel = React.memo(function HatModel(props) {
+const SportsModel = React.memo(function SportsModel(props) {
   // Use React.memo for performance optimization
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/Planet (2).glb");
+  const { scene } = useGLTF("/models/Planet (1).glb");
 
   // Float animation
   useFrame((state) => {
@@ -27,7 +27,7 @@ const HatModel = React.memo(function HatModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[0.8, 0.8, 0.8]}
+      scale={[4, 4, 4]}
       position={[0, -1.5, 0]}
       rotation={[0, 0.5, 0]}
       dispose={null}
@@ -35,7 +35,7 @@ const HatModel = React.memo(function HatModel(props) {
   );
 });
 
-export default HatModel;
+export default SportsModel;
 
 // Preload model for performance
-useGLTF.preload("/models/Planet (2).glb");
+useGLTF.preload("/models/Planet (1).glb");

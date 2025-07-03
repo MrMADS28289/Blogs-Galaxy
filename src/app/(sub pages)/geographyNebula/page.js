@@ -3,7 +3,7 @@ import bg from "/public/background/space1.jpg";
 import RenderModel from "@/components/RenderModel";
 import GeographyNebulaDetails from "@/components/geographyNebula";
 import dynamic from "next/dynamic";
-const HatModel = dynamic(() => import("@/components/models/HatModel"), {
+const GeographyModel = dynamic(() => import("@/components/models/GeographyModel"), {
   ssr: false,
 });
 
@@ -14,17 +14,11 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <Image
-        src={bg}
-        priority
-        sizes="100vw"
-        alt="Next.js Portfolio website's about page background image"
-        className="-z-50 fixed top-0 left-0 w-full h-full object-cover object-center opacity-50"
-      />
+      
 
       <div className="w-full h-3/5 xs:h-3/4 sm:h-screen absolute top-1/2 -translate-y-1/2 left-0 z-10">
         <RenderModel>
-          <HatModel />
+          <GeographyModel />
         </RenderModel>
       </div>
 

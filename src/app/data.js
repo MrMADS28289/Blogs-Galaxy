@@ -89,53 +89,70 @@ export const projectsData = [
   },
 ];
 
-import TechGalaxy from "../components/techGalaxy";
-import About from "../components/about";
-import Projects from "../components/projects";
-import Contact from "../components/contact/Form";
-import SportsGalaxy from "../components/sportsGalaxy";
-import CreativeCorner from "../components/creativeCorner";
-import MotivationMeteor from "../components/motivationMeteor";
-import GeographyNebula from "../components/geographyNebula";
-import HistoryConstellation from "../components/historyConstellation";
-import AiUniverse from "../components/aiUniverse";
+import AiModel from "../components/models/AiModel";
+import CommunityModel from "../components/models/CommunityModel";
+import CreativeModel from "../components/models/CreativeModel";
+import GeographyModel from "../components/models/GeographyModel";
+import HistoryModel from "../components/models/HistoryModel";
+import MotivationModel from "../components/models/MotivationModel";
+import SportsModel from "../components/models/SportsModel";
+import TechModel from "../components/models/TechModel";
 
 export const BtnList = [
-  { label: "Tech Galaxy", link: "/techGalaxy", icon: "Rocket", newTab: false, component: TechGalaxy },
-  { label: "Geography Nebula", link: "/geographyNebula", icon: "Earth", newTab: false, component: GeographyNebula },
+  {
+    label: "Tech Galaxy",
+    link: "/techGalaxy",
+    icon: "Rocket",
+    newTab: false,
+    component: TechModel,
+  },
+  {
+    label: "Geography Nebula",
+    link: "/geographyNebula",
+    icon: "Earth",
+    newTab: false,
+    component: GeographyModel,
+  },
   {
     label: "History Constellation",
     link: "/historyConstellation",
     icon: "History",
     newTab: false,
-    component: HistoryConstellation,
+    component: HistoryModel,
   },
-  { label: "AI Universe", link: "/aiUniverse", icon: "Brain", newTab: false, component: AiUniverse },
+  {
+    label: "AI Universe",
+    link: "/aiUniverse",
+    icon: "Brain",
+    newTab: false,
+    component: AiModel,
+  },
   {
     label: "Sports Galaxy",
     link: "/sportsGalaxy",
     icon: "Gamepad",
     newTab: false,
-    component: SportsGalaxy,
+    component: SportsModel,
   },
   {
     label: "Creative Corner",
     link: "/creativeCorner",
     icon: "CreativeCommons",
     newTab: false,
-    component: CreativeCorner,
+    component: CreativeModel,
   },
   {
     label: "Motivation Meteor",
     link: "/motivationMeteor",
     icon: "Lightbulb",
     newTab: false,
-    component: MotivationMeteor,
+    component: MotivationModel,
   },
   {
     label: "Community",
     link: "/contact",
     icon: "MessageCircle",
     newTab: false,
+    component: CommunityModel,
   },
 ];

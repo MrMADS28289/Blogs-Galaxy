@@ -8,12 +8,12 @@ import { useSetAtom } from "jotai";
 import { isPlanetVisibleAtom } from "./jotaiAtoms";
 import { useEffect } from "react";
 
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import Planet from "@/components/models/Planet";
-import Sound from "@/components/Sound";
-const Wizard = dynamic(() => import("@/components/models/Wizard"), {
-  ssr: false,
-});
+// import Sound from "@/components/Sound";
+// const Wizard = dynamic(() => import("@/components/models/Wizard"), {
+//   ssr: false,
+// });
 
 export default function Home() {
   const setIsPlanetVisible = useSetAtom(isPlanetVisibleAtom);

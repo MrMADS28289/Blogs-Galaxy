@@ -1,6 +1,7 @@
 import React from "react";
 import ItemLayout from "./ItemLayout";
 import Link from "next/link";
+import Image from "next/image";
 
 const AiUniverseDetails = () => {
   return (
@@ -15,7 +16,9 @@ const AiUniverseDetails = () => {
             Welcome to the AI Universe
           </h2>
           <p className="font-light  text-xs sm:text-sm md:text-base   ">
-            This is the AI Universe, a realm dedicated to Artificial Intelligence. Discover machine learning, deep learning, neural networks, and the future of intelligent systems.
+            This is the AI Universe, a realm dedicated to Artificial
+            Intelligence. Discover machine learning, deep learning, neural
+            networks, and the future of intelligent systems.
           </p>
         </ItemLayout>
 
@@ -31,23 +34,24 @@ const AiUniverseDetails = () => {
           className={"col-span-full xs:col-span-6 lg:col-span-4 text-accent"}
         >
           <p className="font-semibold w-full text-left text-2xl sm:text-5xl">
-            50+{" "}
-            <sub className="font-semibold text-base">datasets</sub>
+            50+ <sub className="font-semibold text-base">datasets</sub>
           </p>
         </ItemLayout>
 
         <ItemLayout
           className={"col-span-full sm:col-span-6 md:col-span-4 !p-0"}
         >
-          <img
+          <Image
             className="w-full h-auto"
             src={`${process.env.NEXT_PUBLIC_GITHUB_STATS_URL}/api/top-langs?username=codebucks27&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
             alt="CodeBucks"
             loading="lazy"
+            width={500}
+            height={300}
           />
         </ItemLayout>
 
-        <ItemLayout className={"col-span-full md:col-span-8 !p-0"}>
+        {/* <ItemLayout className={"col-span-full md:col-span-8 !p-0"}>
           <img
             className="w-full h-auto"
             src={`${process.env.NEXT_PUBLIC_GITHUB_STATS_URL}/api?username=codebucks27&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
@@ -87,7 +91,7 @@ const AiUniverseDetails = () => {
               loading="lazy"
             />
           </Link>
-        </ItemLayout>
+        </ItemLayout> */}
       </div>
     </section>
   );
