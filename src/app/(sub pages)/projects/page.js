@@ -1,6 +1,5 @@
-"use client";
 import Image from "next/image";
-import bg from "../../../../public/background/projects-background.png";
+import bg from "/background/projects-background.png";
 import ProjectList from "@/components/projects";
 import { projectsData } from "../../data";
 import RenderModel from "@/components/RenderModel";
