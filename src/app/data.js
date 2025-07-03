@@ -90,34 +90,37 @@ export const projectsData = [
 ];
 
 export const BtnList = [
-  { label: "Home", link: "/", icon: "home", newTab: false },
-  { label: "About", link: "/about", icon: "about", newTab: false },
-  { label: "Projects", link: "/projects", icon: "projects", newTab: false },
-  { label: "Contact", link: "/contact", icon: "contact", newTab: false },
+  { label: "Tech Galaxy", link: "/", icon: "Rocket", newTab: false },
+  { label: "Geography Nebula", link: "/about", icon: "Earth", newTab: false },
   {
-    label: "Github",
+    label: "History Constellation",
+    link: "/projects",
+    icon: "History",
+    newTab: false,
+  },
+  { label: "AI Universe", link: "/contact", icon: "Brain", newTab: false },
+  {
+    label: "Sports Galaxy",
     link: "https://www.github.com/codebucks27",
-    icon: "github",
+    icon: "Gamepad",
     newTab: true,
   },
   {
-    label: "LinkedIn",
+    label: "Creative Corner",
     link: "https://www.linkedin.com/in/codebucks",
-    icon: "linkedin",
+    icon: "CreativeCommons",
     newTab: true,
   },
   {
-    label: "X",
+    label: "Motivation Meteor",
     link: "https://www.x.com/code_bucks",
-    icon: "twitter",
+    icon: "Lightbulb",
     newTab: true,
   },
   {
-    label: "Resume",
+    label: "Community",
     link: "/resume.pdf",
-    icon: "resume",
+    icon: "MessageCircle",
     newTab: true,
   },
 ];
-
-

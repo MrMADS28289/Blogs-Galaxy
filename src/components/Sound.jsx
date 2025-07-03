@@ -126,12 +126,12 @@ const Sound = () => {
       >
         {isPlaying ? (
           <Volume2
-            className="w-full h-full text-foreground group-hover:text-accent"
+            className="w-full h-full text-foreground group-hover:text-orange-500"
             strokeWidth={1.5}
           />
         ) : (
           <VolumeX
-            className="w-full h-full text-foreground group-hover:text-accent"
+            className="w-full h-full text-foreground group-hover:text-orange-500"
             strokeWidth={1.5}
           />
         )}

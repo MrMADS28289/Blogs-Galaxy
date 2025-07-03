@@ -18,7 +18,7 @@
   }
 
   .custom-bg {
-    @apply bg-background/20 border border-accent/30 border-solid backdrop-blur-[6px] shadow-glass-inset hover:shadow-glass-sm;
+    @apply bg-background/20 border border-orange-500/30 border-dashed backdrop-blur-[1px] shadow-glass-inset hover:shadow-glass-sm;
   }
 }
 

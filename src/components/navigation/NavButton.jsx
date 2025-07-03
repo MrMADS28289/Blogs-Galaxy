@@ -1,12 +1,13 @@
 import {
-  Github,
-  Home,
-  Linkedin,
-  NotebookText,
-  Palette,
-  Phone,
-  Twitter,
-  User,
+  Rocket,
+  Earth,
+  History,
+  Brain,
+  Gamepad,
+  CreativeCommons,
+  Lightbulb,
+  MessageCircle,
+  Activity,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -16,25 +17,25 @@ import { motion } from "framer-motion";
 
 const getIcon = (icon) => {
   switch (icon) {
-    case "home":
-      return <Home className="w-full h-auto" strokeWidth={1.5} />;
-    case "about":
-      return <User className="w-full h-auto" strokeWidth={1.5} />;
-    case "projects":
-      return <Palette className="w-full h-auto" strokeWidth={1.5} />;
-    case "contact":
-      return <Phone className="w-full h-auto" strokeWidth={1.5} />;
-    case "github":
-      return <Github className="w-full h-auto" strokeWidth={1.5} />;
-    case "linkedin":
-      return <Linkedin className="w-full h-auto" strokeWidth={1.5} />;
-    case "twitter":
-      return <Twitter className="w-full h-auto" strokeWidth={1.5} />;
-    case "resume":
-      return <NotebookText className="w-full h-auto" strokeWidth={1.5} />;
+    case "Rocket":
+      return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
+    case "Earth":
+      return <Earth className="w-full h-auto" strokeWidth={1.5} />;
+    case "History":
+      return <History className="w-full h-auto" strokeWidth={1.5} />;
+    case "Brain":
+      return <Brain className="w-full h-auto" strokeWidth={1.5} />;
+    case "Gamepad":
+      return <Gamepad className="w-full h-auto" strokeWidth={1.5} />;
+    case "CreativeCommons":
+      return <CreativeCommons className="w-full h-auto" strokeWidth={1.5} />;
+    case "Lightbulb":
+      return <Lightbulb className="w-full h-auto" strokeWidth={1.5} />;
+    case "MessageCircle":
+      return <MessageCircle className="w-full h-auto" strokeWidth={1.5} />;
 
     default:
-      return <Home className="w-full h-auto" strokeWidth={1.5} />;
+      return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
   }
 };
 
@@ -43,7 +44,7 @@ const item = {
   show: { scale: 1 },
 };
 
-const NavLink = motion(Link);
+const NavLink = motion.create(Link);
 
 const NavButton = ({
   x,
@@ -74,7 +75,7 @@ const NavButton = ({
               prefetch={false}
               scroll={false}
             >
-              <span className="relative  w-14 h-14 p-4 animate-spin-slow-reverse group-hover:pause hover:text-accent">
+              <span className="relative  w-14 h-14 p-4 animate-spin-slow-reverse group-hover:pause hover:text-orange-500">
                 {getIcon(icon)}
 
                 <span className="peer bg-transparent absolute top-0 left-0 w-full h-full" />
@@ -99,7 +100,7 @@ const NavButton = ({
               prefetch={false}
               scroll={false}
             >
-              <span className="relative  w-10 h-10  xs:w-14 xs:h-14 p-2.5 xs:p-4 hover:text-accent">
+              <span className="relative  w-10 h-10  xs:w-14 xs:h-14 p-2.5 xs:p-4 animate-spin-slow-reverse hover:text-orange-500">
                 {getIcon(icon)}
 
                 <span className="peer bg-transparent absolute top-0 left-0 w-full h-full" />
