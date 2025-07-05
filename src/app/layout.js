@@ -4,7 +4,7 @@ import clsx from "clsx";
 // import FireFliesBackground from "@/components/FireFliesBackground";
 import Sound from "@/components/Sound";
 import GalaxyBackground from "@/components/GalaxyBackground";
-import Header from "@/components/Header";
+// import Header from "@/components/Header";
 import JotaiProvider from "./JotaiProvider";
 
 const inter = Inter({
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         )}
       >
         <JotaiProvider>
-          <Header />
+          {/* <Header /> */}
           {children}
           <GalaxyBackground />
           <Sound />

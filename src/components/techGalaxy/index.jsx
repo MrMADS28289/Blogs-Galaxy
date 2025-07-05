@@ -5,7 +5,7 @@ import Link from "next/link";
 const TechGalaxyDetails = () => {
   return (
     <section className="py-20 w-full">
-      <div className="grid grid-cols-12 gap-4 xs:gap-6  md:gap-8 w-full">
+      {/* <div className="grid grid-cols-12 gap-4 xs:gap-6  md:gap-8 w-full">
         <ItemLayout
           className={
             " col-span-full lg:col-span-8 row-span-2 flex-col items-start"
@@ -88,7 +88,7 @@ const TechGalaxyDetails = () => {
             />
           </Link>
         </ItemLayout>
-      </div>
+      </div> */}
     </section>
   );
 };

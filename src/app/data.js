@@ -150,7 +150,7 @@ export const BtnList = [
   },
   {
     label: "Community",
-    link: "/contact",
+    link: "/community",
     icon: "MessageCircle",
     newTab: false,
     component: CommunityModel,

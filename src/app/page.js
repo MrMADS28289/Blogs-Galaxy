@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 // import dynamic from "next/dynamic";
 import Planet from "@/components/models/Planet";
+import Header from "@/components/Header";
 // import Sound from "@/components/Sound";
 // const Wizard = dynamic(() => import("@/components/models/Wizard"), {
 //   ssr: false,
@@ -32,6 +33,7 @@ export default function Home() {
         fill
         className="-z-50 w-full h-full object-cover object-center opacity-50"
       />
+      <Header />
       <div className="w-full h-screen">
         <Navigation />
         <RenderModel>
