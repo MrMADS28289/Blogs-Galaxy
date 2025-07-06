@@ -27,7 +27,7 @@ const HistoryModel = React.memo(function HistoryModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[3.5, 3.5, 3.5]}
+      scale={[2.5, 2.5, 2.5]}
       position={[0, 1, 0]}
       rotation={[0, 0.5, 0]}
       dispose={null}

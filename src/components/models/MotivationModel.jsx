@@ -18,7 +18,7 @@ const MotivationModel = React.memo(function MotivationModel(props) {
     if (modelRef.current) {
       modelRef.current.rotation.y += 0.005;
       modelRef.current.position.y =
-        0 + Math.sin(state.clock.elapsedTime) * 0.25;
+        -2 + Math.sin(state.clock.elapsedTime) * 0.25;
     }
   });
 
@@ -27,10 +27,9 @@ const MotivationModel = React.memo(function MotivationModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[3.5, 3.5, 3.5]}
-      position={[0, 1, 0]}
+      scale={[0.3, 0.3, 0.3]}
+      position={[0, 0, 0]}
       rotation={[0, 0.5, 0]}
-      dispose={null}
     />
   );
 });

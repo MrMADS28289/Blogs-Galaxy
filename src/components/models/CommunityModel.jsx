@@ -16,9 +16,9 @@ const CommunityModel = React.memo(function CommunityModel(props) {
   // Float animation
   useFrame((state) => {
     if (modelRef.current) {
-      modelRef.current.rotation.y += 0.005;
+      // modelRef.current.rotation.y += 0;
       modelRef.current.position.y =
-        0 + Math.sin(state.clock.elapsedTime) * 0.25;
+        0.8 + Math.sin(state.clock.elapsedTime) * 0.25;
     }
   });
 
@@ -27,10 +27,9 @@ const CommunityModel = React.memo(function CommunityModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[3.5, 3.5, 3.5]}
-      position={[0, 1, 0]}
-      rotation={[0, 0.5, 0]}
-      dispose={null}
+      scale={[0.5, 0.5, 0.5]}
+      position={[0, 0, 0]}
+      rotation={[0, 4, 0]}
     />
   );
 });
