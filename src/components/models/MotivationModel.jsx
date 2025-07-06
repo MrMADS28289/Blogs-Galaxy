@@ -11,7 +11,7 @@ const MotivationModel = React.memo(function MotivationModel(props) {
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/Planet (1).glb");
+  const { scene } = useGLTF("/models/Motivation.glb");
 
   // Float animation
   useFrame((state) => {
@@ -38,4 +38,4 @@ const MotivationModel = React.memo(function MotivationModel(props) {
 export default MotivationModel;
 
 // Preload model for performance
-useGLTF.preload("/models/Planet (1).glb");
+useGLTF.preload("/models/Motivation.glb");

@@ -11,7 +11,7 @@ const SportsModel = React.memo(function SportsModel(props) {
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/Planet (1).glb");
+  const { scene } = useGLTF("/models/sports.glb");
 
   // Float animation
   useFrame((state) => {
@@ -38,4 +38,4 @@ const SportsModel = React.memo(function SportsModel(props) {
 export default SportsModel;
 
 // Preload model for performance
-useGLTF.preload("/models/Planet (1).glb");
+useGLTF.preload("/models/sports.glb");

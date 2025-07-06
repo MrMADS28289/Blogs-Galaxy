@@ -11,7 +11,7 @@ const CreativeModel = React.memo(function CreativeModel(props) {
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/Planet (1).glb");
+  const { scene } = useGLTF("/models/creative.glb");
 
   // Float animation
   useFrame((state) => {
@@ -38,4 +38,4 @@ const CreativeModel = React.memo(function CreativeModel(props) {
 export default CreativeModel;
 
 // Preload model for performance
-useGLTF.preload("/models/Planet (1).glb");
+useGLTF.preload("/models/creative.glb");

@@ -11,7 +11,7 @@ const CommunityModel = React.memo(function CommunityModel(props) {
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/Planet (1).glb");
+  const { scene } = useGLTF("/models/Community.glb");
 
   // Float animation
   useFrame((state) => {
@@ -38,4 +38,4 @@ const CommunityModel = React.memo(function CommunityModel(props) {
 export default CommunityModel;
 
 // Preload model for performance
-useGLTF.preload("/models/Planet (1).glb");
+useGLTF.preload("/models/Community.glb");

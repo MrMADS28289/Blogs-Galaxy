@@ -11,7 +11,7 @@ const AiModel = React.memo(function AiModel(props) {
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/tech.glb");
+  const { scene } = useGLTF("/models/Ai.glb");
 
   // Float animation
   useFrame((state) => {
@@ -38,4 +38,4 @@ const AiModel = React.memo(function AiModel(props) {
 export default AiModel;
 
 // Preload model for performance
-useGLTF.preload("/models/tech.glb");
+useGLTF.preload("/models/Ai.glb");

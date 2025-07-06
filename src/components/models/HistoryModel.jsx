@@ -11,7 +11,7 @@ const HistoryModel = React.memo(function HistoryModel(props) {
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/Planet (1).glb");
+  const { scene } = useGLTF("/models/HistoryConstellation.glb");
 
   // Float animation
   useFrame((state) => {
@@ -38,4 +38,4 @@ const HistoryModel = React.memo(function HistoryModel(props) {
 export default HistoryModel;
 
 // Preload model for performance
-useGLTF.preload("/models/Planet (1).glb");
+useGLTF.preload("/models/HistoryConstellation.glb");

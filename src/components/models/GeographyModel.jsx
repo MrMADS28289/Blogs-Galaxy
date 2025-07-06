@@ -11,7 +11,7 @@ const GeographyModel = React.memo(function GeographyModel(props) {
   const modelRef = useRef();
 
   // Load the planet model
-  const { scene } = useGLTF("/models/homePlanet.glb");
+  const { scene } = useGLTF("/models/GeopraphyNebula.glb");
 
   // Float animation
   useFrame((state) => {
@@ -38,4 +38,4 @@ const GeographyModel = React.memo(function GeographyModel(props) {
 export default GeographyModel;
 
 // Preload model for performance
-useGLTF.preload("/models/Planet (1).glb");
+useGLTF.preload("/models/GeopraphyNebula.glb");
