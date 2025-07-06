@@ -89,38 +89,70 @@ export const projectsData = [
   },
 ];
 
+import AiModel from "../components/models/AiModel";
+import CommunityModel from "../components/models/CommunityModel";
+import CreativeModel from "../components/models/CreativeModel";
+import GeographyModel from "../components/models/GeographyModel";
+import HistoryModel from "../components/models/HistoryModel";
+import MotivationModel from "../components/models/MotivationModel";
+import SportsModel from "../components/models/SportsModel";
+import TechModel from "../components/models/TechModel";
+
 export const BtnList = [
-  { label: "Tech Galaxy", link: "/", icon: "Rocket", newTab: false },
-  { label: "Geography Nebula", link: "/about", icon: "Earth", newTab: false },
+  {
+    label: "Tech Galaxy",
+    link: "/techGalaxy",
+    icon: "Rocket",
+    newTab: false,
+    component: TechModel,
+  },
+  {
+    label: "Geography Nebula",
+    link: "/geographyNebula",
+    icon: "Earth",
+    newTab: false,
+    component: GeographyModel,
+  },
   {
     label: "History Constellation",
-    link: "/projects",
+    link: "/historyConstellation",
     icon: "History",
     newTab: false,
+    component: HistoryModel,
   },
-  { label: "AI Universe", link: "/contact", icon: "Brain", newTab: false },
+  {
+    label: "AI Universe",
+    link: "/aiUniverse",
+    icon: "Brain",
+    newTab: false,
+    component: AiModel,
+  },
   {
     label: "Sports Galaxy",
-    link: "https://www.github.com/codebucks27",
+    link: "/sportsGalaxy",
     icon: "Gamepad",
-    newTab: true,
+    newTab: false,
+    component: SportsModel,
   },
   {
     label: "Creative Corner",
-    link: "https://www.linkedin.com/in/codebucks",
+    link: "/creativeCorner",
     icon: "CreativeCommons",
-    newTab: true,
+    newTab: false,
+    component: CreativeModel,
   },
   {
     label: "Motivation Meteor",
-    link: "https://www.x.com/code_bucks",
+    link: "/motivationMeteor",
     icon: "Lightbulb",
-    newTab: true,
+    newTab: false,
+    component: MotivationModel,
   },
   {
     label: "Community",
-    link: "/resume.pdf",
+    link: "/community",
     icon: "MessageCircle",
-    newTab: true,
+    newTab: false,
+    component: CommunityModel,
   },
 ];
