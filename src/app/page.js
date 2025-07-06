@@ -34,7 +34,7 @@ export default function Home() {
         className="-z-50 w-full h-full object-cover object-center opacity-50"
       />
       <Header />
-      <div className="w-full h-screen">
+      <div id="main-canvas-container" className="w-full h-screen">
         <Navigation />
         <RenderModel>
           <Planet />
