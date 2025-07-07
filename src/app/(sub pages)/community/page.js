@@ -1,6 +1,7 @@
 import RenderModel from "@/components/RenderModel";
 import CommunityDetails from "@/components/community";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const CommunityModel = dynamic(() => import("@/components/models/CommunityModel"), {
   ssr: false,
 });
@@ -30,6 +31,7 @@ export default function CommunityPage() {
       </div>
 
       <CommunityDetails />
+      <ScrollButton />
     </>
   );
 }

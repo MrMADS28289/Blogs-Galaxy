@@ -3,6 +3,7 @@ import bg from "/public/background/space2.jpg";
 import RenderModel from "@/components/RenderModel";
 import CreativeCornerDetails from "@/components/creativeCorner";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const CreativeModel = dynamic(() => import("@/components/models/CreativeModel"), {
   ssr: false,
 });
@@ -34,6 +35,7 @@ export default function Home() {
       </div>
 
       <CreativeCornerDetails />
+      <ScrollButton />
     </>
   );
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import RenderModel from "@/components/RenderModel";
 import AiUniverseDetails from "@/components/aiUniverse";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const AiModel = dynamic(() => import("@/components/models/AiModel"), {
   ssr: false,
 });
@@ -34,6 +35,7 @@ export default function Home() {
       </div>
 
       <AiUniverseDetails />
+      <ScrollButton />
     </>
   );
 }

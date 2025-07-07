@@ -3,6 +3,7 @@
 import RenderModel from "@/components/RenderModel";
 import TechGalaxyDetails from "@/components/techGalaxy";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const TechModel = dynamic(() => import("@/components/models/TechModel"), {
   ssr: false,
 });
@@ -32,6 +33,7 @@ export default function Home() {
       </div>
 
       <TechGalaxyDetails />
+      <ScrollButton />
     </>
   );
 }

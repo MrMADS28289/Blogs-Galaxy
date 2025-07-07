@@ -8,7 +8,7 @@ const RenderModel = ({ children, className }) => {
   const [eventSource, setEventSource] = useState(null);
 
   useEffect(() => {
-    setEventSource(document.getElementById('main-canvas-container'));
+    setEventSource(document.getElementById("main-canvas-container"));
   }, []);
 
   return (

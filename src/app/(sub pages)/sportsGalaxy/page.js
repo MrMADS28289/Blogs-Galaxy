@@ -3,6 +3,7 @@ import bg from "/public/background/space2.jpg";
 import RenderModel from "@/components/RenderModel";
 import SportsGalaxyDetails from "@/components/sportsGalaxy";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const SportsModel = dynamic(() => import("@/components/models/SportsModel"), {
   ssr: false,
 });
@@ -34,6 +35,7 @@ export default function Home() {
       </div>
 
       <SportsGalaxyDetails />
+      <ScrollButton />
     </>
   );
 }

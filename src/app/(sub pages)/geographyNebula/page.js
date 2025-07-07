@@ -3,6 +3,7 @@ import bg from "/public/background/space1.jpg";
 import RenderModel from "@/components/RenderModel";
 import GeographyNebulaDetails from "@/components/geographyNebula";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const GeographyModel = dynamic(() => import("@/components/models/GeographyModel"), {
   ssr: false,
 });
@@ -34,6 +35,7 @@ export default function Home() {
       </div>
 
       <GeographyNebulaDetails />
+      <ScrollButton />
     </>
   );
 }

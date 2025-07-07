@@ -3,6 +3,7 @@ import bg from "/public/background/space2.jpg";
 import RenderModel from "@/components/RenderModel";
 import MotivationMeteorDetails from "@/components/motivationMeteor";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const MotivationModel = dynamic(() => import("@/components/models/MotivationModel"), {
   ssr: false,
 });
@@ -34,6 +35,7 @@ export default function Home() {
       </div>
 
       <MotivationMeteorDetails />
+      <ScrollButton />
     </>
   );
 }

@@ -3,6 +3,7 @@ import bg from "/public/background/space2.jpg";
 import RenderModel from "@/components/RenderModel";
 import HistoryConstellationDetails from "@/components/historyConstellation";
 import dynamic from "next/dynamic";
+import ScrollButton from "@/components/ScrollButton";
 const HistoryModel = dynamic(() => import("@/components/models/HistoryModel"), {
   ssr: false,
 });
@@ -34,6 +35,7 @@ export default function Home() {
       </div>
 
       <HistoryConstellationDetails />
+      <ScrollButton />
     </>
   );
 }
