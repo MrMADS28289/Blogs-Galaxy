@@ -5,6 +5,29 @@ import NavButton from "./NavButton";
 import useScreenSize from "../hooks/useScreenSize";
 import ResponsiveComponent from "../ResponsiveComponent";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+// Import all model components directly
+import TechModel from "@/components/models/TechModel";
+import GeographyModel from "@/components/models/GeographyModel";
+import HistoryModel from "@/components/models/HistoryModel";
+import AiModel from "@/components/models/AiModel";
+import SportsModel from "@/components/models/SportsModel";
+import CreativeModel from "@/components/models/CreativeModel";
+import MotivationModel from "@/components/models/MotivationModel";
+import CommunityModel from "@/components/models/CommunityModel";
+
+// Map component names to their imported components
+const modelComponents = {
+  TechGalaxy: TechModel,
+  GeographyNebula: GeographyModel,
+  HistoryConstellation: HistoryModel,
+  AIUniverse: AiModel,
+  SportsGalaxy: SportsModel,
+  CreativeCorner: CreativeModel,
+  MotivationMeteor: MotivationModel,
+  Community: CommunityModel,
+};
 
 const container = {
   hidden: { opacity: 0 },
@@ -43,7 +66,16 @@ const Navigation = () => {
                 const x = `calc(${radius}*${Math.cos(angleRad)})`;
                 const y = `calc(${radius}*${Math.sin(angleRad)})`;
 
-                return <NavButton key={btn.label} x={x} y={y} {...btn} />;
+                const DynamicModel = dynamic(
+                  () => Promise.resolve(modelComponents[btn.label.replace(/\s/g, '')]),
+                  { ssr: false }
+                );
+
+                return (
+                  <NavButton key={btn.label} x={x} y={y} {...btn}>
+                    <DynamicModel />
+                  </NavButton>
+                );
               })}
             </motion.div>
           ) : (
@@ -55,7 +87,15 @@ const Navigation = () => {
                 className="w-full px-2.5 xs:p-0 xs:w-max flex flex-col space-y-4 item-start xs:items-center justify-center relative  group xs:hidden"
               >
                 {BtnList.slice(0, BtnList.length / 2).map((btn) => {
-                  return <NavButton key={btn.label} x={0} y={0} {...btn} />;
+                  const DynamicModel = dynamic(
+                    () => Promise.resolve(modelComponents[btn.label.replace(/\s/g, '')]),
+                    { ssr: false }
+                  );
+                  return (
+                    <NavButton key={btn.label} x={0} y={0} {...btn}>
+                      <DynamicModel />
+                    </NavButton>
+                  );
                 })}
               </motion.div>
 
@@ -67,6 +107,10 @@ const Navigation = () => {
               >
                 {BtnList.slice(BtnList.length / 2, BtnList.length).map(
                   (btn) => {
+                    const DynamicModel = dynamic(
+                      () => Promise.resolve(modelComponents[btn.label.replace(/\s/g, '')]),
+                      { ssr: false }
+                    );
                     return (
                       <NavButton
                         key={btn.label}
@@ -74,7 +118,9 @@ const Navigation = () => {
                         y={0}
                         {...btn}
                         labelDirection="left"
-                      />
+                      >
+                        <DynamicModel />
+                      </NavButton>
                     );
                   }
                 )}

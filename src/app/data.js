@@ -89,70 +89,53 @@ export const projectsData = [
   },
 ];
 
-import AiModel from "../components/models/AiModel";
-import CommunityModel from "../components/models/CommunityModel";
-import CreativeModel from "../components/models/CreativeModel";
-import GeographyModel from "../components/models/GeographyModel";
-import HistoryModel from "../components/models/HistoryModel";
-import MotivationModel from "../components/models/MotivationModel";
-import SportsModel from "../components/models/SportsModel";
-import TechModel from "../components/models/TechModel";
-
 export const BtnList = [
   {
     label: "Tech Galaxy",
     link: "/techGalaxy",
     icon: "Rocket",
     newTab: false,
-    component: TechModel,
   },
   {
     label: "Geography Nebula",
     link: "/geographyNebula",
     icon: "Earth",
     newTab: false,
-    component: GeographyModel,
   },
   {
     label: "History Constellation",
     link: "/historyConstellation",
     icon: "History",
     newTab: false,
-    component: HistoryModel,
   },
   {
     label: "AI Universe",
     link: "/aiUniverse",
     icon: "Brain",
     newTab: false,
-    component: AiModel,
   },
   {
     label: "Sports Galaxy",
     link: "/sportsGalaxy",
     icon: "Gamepad",
     newTab: false,
-    component: SportsModel,
   },
   {
     label: "Creative Corner",
     link: "/creativeCorner",
     icon: "CreativeCommons",
     newTab: false,
-    component: CreativeModel,
   },
   {
     label: "Motivation Meteor",
     link: "/motivationMeteor",
     icon: "Lightbulb",
     newTab: false,
-    component: MotivationModel,
   },
   {
     label: "Community",
     link: "/community",
     icon: "MessageCircle",
     newTab: false,
-    component: CommunityModel,
   },
 ];

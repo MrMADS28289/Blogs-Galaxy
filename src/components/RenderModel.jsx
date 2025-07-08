@@ -1,5 +1,5 @@
 "use client";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls, Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import clsx from "clsx";
 import React, { Suspense, useEffect, useState } from "react";
@@ -22,6 +22,15 @@ const RenderModel = ({ children, className }) => {
       <Suspense fallback={null}>{children}</Suspense>
       <Environment preset="dawn" />
       <OrbitControls autoRotate makeDefault />
+      <Stars
+        radius={100} // How far the stars spread
+        depth={50} // Star layers
+        count={5000} // Total number of stars
+        factor={4} // Star size
+        saturation={0} // Greyscale
+        fade // Enable fading
+        speed={2} // Speed of movement
+      />
     </Canvas>
   );
 };
