@@ -28,7 +28,7 @@ const Sound = () => {
     const hasValidConsent =
       consent &&
       consentTime &&
-      new Date(consentTime).getTime() + 10 * 60 * 1000 > new Date();
+      new Date(consentTime).getTime() + 24 * 60 * 60 * 1000 > new Date();
 
     if (hasValidConsent) {
       const userConsented = consent === "true";
