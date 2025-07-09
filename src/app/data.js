@@ -93,7 +93,7 @@ export const BtnList = [
   {
     label: "Tech Galaxy",
     link: "/techGalaxy",
-    icon: "Rocket",
+    icon: "Laptop",
     newTab: false,
   },
   {
@@ -111,25 +111,25 @@ export const BtnList = [
   {
     label: "AI Universe",
     link: "/aiUniverse",
-    icon: "Brain",
+    icon: "Bot",
     newTab: false,
   },
   {
     label: "Sports Galaxy",
     link: "/sportsGalaxy",
-    icon: "Gamepad",
+    icon: "Award",
     newTab: false,
   },
   {
     label: "Creative Corner",
     link: "/creativeCorner",
-    icon: "CreativeCommons",
+    icon: "Palette",
     newTab: false,
   },
   {
     label: "Motivation Meteor",
     link: "/motivationMeteor",
-    icon: "Lightbulb",
+    icon: "Sparkles",
     newTab: false,
   },
   {

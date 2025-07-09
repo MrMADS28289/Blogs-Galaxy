@@ -7,6 +7,12 @@ import {
   CreativeCommons,
   Lightbulb,
   MessageCircle,
+  Laptop,
+  Bot,
+  Award,
+  Palette,
+  Sparkles,
+  HelpCircle,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -16,12 +22,26 @@ import { motion } from "framer-motion";
 
 const getIcon = (icon) => {
   switch (icon) {
-    case "Rocket":
-      return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
+    case "Laptop":
+      return <Laptop className="w-full h-auto" strokeWidth={1.5} />;
     case "Earth":
       return <Earth className="w-full h-auto" strokeWidth={1.5} />;
     case "History":
       return <History className="w-full h-auto" strokeWidth={1.5} />;
+    case "Bot":
+      return <Bot className="w-full h-auto" strokeWidth={1.5} />;
+    case "Award":
+      return <Award className="w-full h-auto" strokeWidth={1.5} />;
+    case "Palette":
+      return <Palette className="w-full h-auto" strokeWidth={1.5} />;
+    case "Sparkles":
+      return <Sparkles className="w-full h-auto" strokeWidth={1.5} />;
+    case "MessageCircle":
+      return <MessageCircle className="w-full h-auto" strokeWidth={1.5} />;
+
+    // Fallback for old icons or if an icon is not found
+    case "Rocket":
+      return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
     case "Brain":
       return <Brain className="w-full h-auto" strokeWidth={1.5} />;
     case "Gamepad":
@@ -30,11 +50,9 @@ const getIcon = (icon) => {
       return <CreativeCommons className="w-full h-auto" strokeWidth={1.5} />;
     case "Lightbulb":
       return <Lightbulb className="w-full h-auto" strokeWidth={1.5} />;
-    case "MessageCircle":
-      return <MessageCircle className="w-full h-auto" strokeWidth={1.5} />;
 
     default:
-      return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
+      return <HelpCircle className="w-full h-auto" strokeWidth={1.5} />;
   }
 };
 
