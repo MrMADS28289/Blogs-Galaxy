@@ -1,38 +1,8 @@
 "use client";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
-
-const Modal = ({ onClose, toggle }) => {
-  return createPortal(
-    <div className="fixed inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center">
-      <div
-        className="bg-background/20 border border-accent/30 border-solid backdrop-blur-[6px]
-            py-8 px-6 xs:px-10 sm:px-16 rounded shadow-glass-inset text-center space-y-8
-            "
-      >
-        <p className="font-light">Do you like to play the background music?</p>
-        <div className="flex items-center justify-center space-x-4">
-          <button
-            onClick={toggle}
-            className="px-4 py-2 border border-accent/30 border-solid hover:shadow-glass-sm rounded mr-2"
-          >
-            Yes
-          </button>
-          <button
-            onClick={onClose}
-            className="px-4 py-2 border border-accent/30 border-solid hover:shadow-glass-sm rounded"
-          >
-            No
-          </button>
-        </div>
-      </div>
-    </div>,
-
-    document.getElementById("my-modal")
-  );
-};
 
 const Sound = () => {
   const audioRef = useRef(null);
@@ -58,7 +28,7 @@ const Sound = () => {
     const hasValidConsent =
       consent &&
       consentTime &&
-      new Date(consentTime).getTime() + 3 * 24 * 60 * 60 * 1000 > new Date();
+      new Date(consentTime).getTime() + 10 * 60 * 1000 > new Date();
 
     if (hasValidConsent) {
       const userConsented = consent === "true";
@@ -66,11 +36,12 @@ const Sound = () => {
 
       if (userConsented) {
         if (audioRef.current) {
-          audioRef.current.play()
+          audioRef.current
+            .play()
             .then(() => {
               setIsPlaying(true); // Autoplay succeeded
             })
-            .catch(error => {
+            .catch((error) => {
               console.log("Autoplay prevented:", error);
               setIsPlaying(false); // Autoplay failed
               // If autoplay is prevented, add event listeners for a user interaction
@@ -95,8 +66,6 @@ const Sound = () => {
     };
   }, [handleFirstUserInteraction]);
 
-  
-
   const toggle = () => {
     const newState = !isPlaying;
     setIsPlaying(!isPlaying);
@@ -107,9 +76,42 @@ const Sound = () => {
   };
   return (
     <div className="fixed top-4 right-2.5 xs:right-4 z-50 group">
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)} toggle={toggle} />
-      )}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            key="my-modal-animation"
+            animate={{ scale: [1, 1.02, 1] }}
+            transition={{
+              duration: 2,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+            className="fixed inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center z-[999]"
+          >
+            <div className="bg-background/20 border border-orange-500 border-dashed backdrop-blur-[6px] py-8 px-6 xs:px-10 sm:px-16 rounded shadow-glass-inset text-center space-y-8">
+              <p className="font-light">
+                Do you like to play background music? <br /> or are you the kind
+                who adds your own soundtrack while exploring galaxies of blogs?
+              </p>
+              <div className="flex items-center justify-center space-x-4">
+                <button
+                  onClick={toggle}
+                  className="px-4 py-2 border border-orange-500 border-dashed hover:shadow-glass-sm rounded mr-2 hover:text-orange-500"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 border border-orange-500 border-dashed hover:shadow-glass-sm rounded hover:text-orange-500"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <audio ref={audioRef} loop>
         <source src={"/audio/audiomass-output.mp3"} type="audio/mp3" />
