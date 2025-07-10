@@ -3,6 +3,7 @@ import "./globals.css";
 import clsx from "clsx";
 import Sound from "@/components/Sound";
 import JotaiProvider from "./JotaiProvider";
+import CommentsModal from "@/components/CommentsModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
         <JotaiProvider>
           {children}
           <Sound />
+          <CommentsModal />
           <div id="my-modal" />
         </JotaiProvider>
       </body>

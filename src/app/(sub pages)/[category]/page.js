@@ -65,6 +65,11 @@ const CategoryPage = ({ params }) => {
       </div>
       <div className="mt-8 text-center">
         <h1 className="text-4xl font-bold">{categoryDetails.label}</h1>
+        {categoryDetails.description && (
+          <p className="mt-2 text-lg text-gray-400">
+            {categoryDetails.description}
+          </p>
+        )}
       </div>
       <BlogList
         category={category}

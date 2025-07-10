@@ -16,7 +16,7 @@ const BlogList = ({ blogs, error, category, ItemLayoutComponent }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-8 px-3 lg:grid-cols-2">
       {blogs.length > 0 ? (
         blogs
           .filter(Boolean)
