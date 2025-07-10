@@ -19,6 +19,8 @@ import React from "react";
 import ResponsiveComponent from "../ResponsiveComponent";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import { useSetAtom } from "jotai"; // Import useSetAtom
+import { selectedCategoryAtom } from "@/app/jotaiAtoms"; // Import selectedCategoryAtom
 
 const getIcon = (icon) => {
   switch (icon) {
@@ -40,16 +42,16 @@ const getIcon = (icon) => {
       return <MessageCircle className="w-full h-auto" strokeWidth={1.5} />;
 
     // Fallback for old icons or if an icon is not found
-    case "Rocket":
-      return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
-    case "Brain":
-      return <Brain className="w-full h-auto" strokeWidth={1.5} />;
-    case "Gamepad":
-      return <Gamepad className="w-full h-auto" strokeWidth={1.5} />;
-    case "CreativeCommons":
-      return <CreativeCommons className="w-full h-auto" strokeWidth={1.5} />;
-    case "Lightbulb":
-      return <Lightbulb className="w-full h-auto" strokeWidth={1.5} />;
+    // case "Rocket":
+    //   return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
+    // case "Brain":
+    //   return <Brain className="w-full h-auto" strokeWidth={1.5} />;
+    // case "Gamepad":
+    //   return <Gamepad className="w-full h-auto" strokeWidth={1.5} />;
+    // case "CreativeCommons":
+    //   return <CreativeCommons className="w-full h-auto" strokeWidth={1.5} />;
+    // case "Lightbulb":
+    //   return <Lightbulb className="w-full h-auto" strokeWidth={1.5} />;
 
     default:
       return <HelpCircle className="w-full h-auto" strokeWidth={1.5} />;
@@ -72,6 +74,24 @@ const NavButton = ({
   newTab,
   labelDirection = "right",
 }) => {
+  const setSelectedCategory = useSetAtom(selectedCategoryAtom); // Get the setter for selectedCategoryAtom
+
+  const categoryMap = {
+    "Tech Galaxy": "tech",
+    "Geography Nebula": "geography",
+    "History Constellation": "history",
+    "AI Universe": "ai",
+    "Sports Galaxy": "sports",
+    "Creative Corner": "creative",
+    "Motivation Meteor": "motivation",
+    "Community": "community",
+  };
+
+  const handleClick = () => {
+    const simplifiedCategory = categoryMap[label] || label; // Get simplified name or use original if not found
+    setSelectedCategory(simplifiedCategory); // Set the selected category when the button is clicked
+  };
+
   return (
     <ResponsiveComponent>
       {({ size }) => {
@@ -91,6 +111,7 @@ const NavButton = ({
               name={label}
               prefetch={false}
               scroll={false}
+              onClick={handleClick} // Add onClick handler
             >
               <span className="relative  w-14 h-14 p-4 animate-spin-slow-reverse group-hover:pause hover:text-orange-500">
                 {getIcon(icon)}
@@ -116,6 +137,7 @@ const NavButton = ({
               name={label}
               prefetch={false}
               scroll={false}
+              onClick={handleClick} // Add onClick handler
             >
               <span className="relative  w-10 h-10  xs:w-14 xs:h-14 p-2.5 xs:p-4 animate-spin-slow-reverse hover:text-orange-500">
                 {getIcon(icon)}
