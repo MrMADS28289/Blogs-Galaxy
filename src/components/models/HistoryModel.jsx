@@ -29,8 +29,6 @@ const HistoryModel = React.memo(function HistoryModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[2.5, 2.5, 2.5]}
-      position={[0, 1, 0]}
       rotation={[0, 0.5, 0]}
       dispose={null}
       onPointerOver={() => setHovered(true)}

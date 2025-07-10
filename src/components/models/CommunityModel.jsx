@@ -30,8 +30,6 @@ const CommunityModel = React.memo(function CommunityModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[0.5, 0.5, 0.5]}
-      position={[0, 0, 0]}
       rotation={[0, 4, 0]}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}

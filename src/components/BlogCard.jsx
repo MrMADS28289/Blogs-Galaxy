@@ -10,7 +10,7 @@ const BlogCard = ({ blog, className }) => {
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
       className={clsx(
-        "custom-bg p-6 sm:p-8 rounded-xl flex flex-col items-center justify-center space-y-8",
+        "custom-bg p-6 sm:p-8 rounded-xl flex flex-col items-center justify-center space-y-8 mt-[140px]",
         className
       )}
     >

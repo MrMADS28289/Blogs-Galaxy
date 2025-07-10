@@ -29,8 +29,6 @@ const GeographyModel = React.memo(function GeographyModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[0.3, 0.3, 0.3]}
-      position={[0, 0, 0]}
       rotation={[0, 0.5, 0]}
       dispose={null}
       onPointerOver={() => setHovered(true)}

@@ -29,8 +29,6 @@ const AiModel = React.memo(function AiModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[1, 1, 1]}
-      position={[0, 0, 0]}
       rotation={[0, 9, 0]}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}

@@ -29,8 +29,6 @@ const CreativeModel = React.memo(function CreativeModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[3, 3, 3]}
-      position={[0, 1, 0]}
       rotation={[0.4, 0.5, 0]}
       dispose={null}
       onPointerOver={() => setHovered(true)}

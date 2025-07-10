@@ -29,8 +29,6 @@ const TechModel = React.memo(function TechModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[3, 3, 3]}
-      position={[0, 1, 0]}
       rotation={[0, 2, 0]}
       dispose={null}
       onPointerOver={() => setHovered(true)}
