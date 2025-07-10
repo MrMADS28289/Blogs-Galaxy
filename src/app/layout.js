@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
-import Sound from "@/components/Sound";
+import UserMenu from "@/components/navigation/UserMenu";
 import JotaiProvider from "./JotaiProvider";
 import CommentsModal from "@/components/CommentsModal";
 
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       >
         <JotaiProvider>
           {children}
-          <Sound />
+          <UserMenu />
           <CommentsModal />
           <div id="my-modal" />
         </JotaiProvider>

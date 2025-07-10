@@ -6,67 +6,9 @@
 4.  **Task Logging ("take note")**: If you are told "take note", you must record all completed and pending tasks in this `GEMINI.md` file. This will ensure that upon reading this file, you can understand the ongoing work and its status from a new session.
 5.  **Summarize Answers**: Provide a short summary of each answer to help with quick understanding.
 
-# Blogs Galaxy Backend
+## current task
 
-This is the backend for the Blogs Galaxy application, built with Node.js, Express.js, and MongoDB. It provides RESTful APIs for user authentication and managing blog posts.
-
-## Features
-
-- User Authentication (Registration, Login)
-- JWT-based Authorization
-- CRUD operations for Blog Posts
-- Commenting on Blog Posts
-- Rating Blog Posts
-
-## Technologies Used
-
-- Node.js
-- Express.js
-- MongoDB (with Mongoose)
-- bcryptjs (for password hashing)
-- jsonwebtoken (for JWTs)
-- dotenv (for environment variables)
-- cors (for Cross-Origin Resource Sharing)
-
-## Setup
-
-Follow these steps to set up and run the backend locally:
-
-### Prerequisites
-
-- Node.js (LTS version recommended)
-- MongoDB (Community Server or MongoDB Atlas)
-
-### Installation
-
-1.  Navigate to the `blogs-galaxy-backend` directory:
-    ```bash
-    cd blogs-galaxy-backend
-    ```
-2.  Install the dependencies:
-    ```bash
-    npm install
-    ```
-
-### Environment Variables
-
-Create a `.env` file in the `blogs-galaxy-backend` directory with the following content:
-
-```
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-```
-
-- `MONGO_URI`: Your MongoDB connection string (e.g., `mongodb://localhost:27017/blogs-galaxy` or your MongoDB Atlas connection string).
-- `JWT_SECRET`: A strong, random string for signing JWTs.
-
-### Running the Server
-
-To start the backend server, run:
-
-```bash
-npm start
-```
+# Blogs Galaxy Backend info
 
 The server will run on `http://localhost:5000`.
 
