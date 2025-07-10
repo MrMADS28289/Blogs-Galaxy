@@ -46,7 +46,7 @@ const Navigation = () => {
   const isMedium = size >= 768;
 
   return (
-    <div className="w-full fixed h-screen flex items-center justify-center z-20">
+    <div className="fixed z-20 flex h-screen w-full items-center justify-center">
       <ResponsiveComponent>
         {({ size }) => {
           return size && size >= 480 ? (
@@ -54,7 +54,7 @@ const Navigation = () => {
               variants={container}
               initial="hidden"
               animate="show"
-              className="w-max flex items-center justify-center relative hover:pause animate-spin-slow group"
+              className="group relative flex items-center justify-center w-max animate-spin-slow hover:pause"
             >
               {BtnList.map((btn, index) => {
                 const angleRad = (index * angleIncrement * Math.PI) / 180;
@@ -84,7 +84,7 @@ const Navigation = () => {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className="w-full px-2.5 xs:p-0 xs:w-max flex flex-col space-y-4 item-start xs:items-center justify-center relative  group xs:hidden"
+                className="group relative xs:hidden flex w-full flex-col items-start justify-center px-2.5 space-y-4 xs:w-max xs:items-center xs:p-0"
               >
                 {BtnList.slice(0, BtnList.length / 2).map((btn) => {
                   const DynamicModel = dynamic(
@@ -103,7 +103,7 @@ const Navigation = () => {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className="w-full px-2.5 xs:p-0 xs:w-max flex flex-col space-y-4 items-end xs:items-center justify-center relative group xs:hidden"
+                className="group relative xs:hidden flex w-full flex-col items-end justify-center px-2.5 space-y-4 xs:w-max xs:items-center xs:p-0"
               >
                 {BtnList.slice(BtnList.length / 2, BtnList.length).map(
                   (btn) => {

@@ -41,13 +41,12 @@ const ScrollButton = () => {
   return (
     <>
       {isVisible && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2">
           <button
             onClick={scrollToBottom}
-            className="text-foreground rounded-full flex items-center justify-center custom-bg w-14 h-14 p-4 hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-300 ease-in-out animate-[drop-animation_2s_infinite]"
-            aria-label="Scroll down"
+            className="custom-bg flex size-14 items-center justify-center rounded-full p-4 text-foreground transition-all duration-300 ease-in-out animate-[drop-animation_2s_infinite] hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white/50"
           >
-            <FaArrowDown className="w-full h-auto" />
+            <FaArrowDown className="h-auto w-full" />
           </button>
         </div>
       )}
@@ -56,10 +55,9 @@ const ScrollButton = () => {
         <div className="fixed bottom-4 right-4 z-50">
           <button
             onClick={scrollToTop}
-            className="text-foreground rounded-full flex items-center justify-center custom-bg w-14 h-14 p-4 hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all duration-300 ease-in-out animate-[drop-animation_2s_infinite]"
-            aria-label="Scroll to top"
+            className="custom-bg flex size-14 items-center justify-center rounded-full p-4 text-foreground transition-all duration-300 ease-in-out animate-[drop-animation_2s_infinite] hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white/50"
           >
-            <FaArrowUp className="w-full h-auto" />
+            <FaArrowUp className="h-auto w-full" />
           </button>
         </div>
       )}

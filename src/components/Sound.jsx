@@ -75,7 +75,7 @@ const Sound = () => {
     setShowModal(false);
   };
   return (
-    <div className="fixed top-4 right-2.5 xs:right-4 z-50 group">
+    <div className="fixed top-4 right-2.5 z-50 group xs:right-4">
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -87,9 +87,9 @@ const Sound = () => {
               repeat: Infinity,
               repeatType: "reverse",
             }}
-            className="fixed inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center z-[999]"
+            className="fixed inset-0 z-[999] flex items-center justify-center backdrop-blur-sm bg-background/60"
           >
-            <div className="bg-background/20 border border-orange-500 border-dashed backdrop-blur-[6px] py-8 px-6 xs:px-10 sm:px-16 rounded shadow-glass-inset text-center space-y-8">
+            <div className="bg-background/20 border border-dashed border-orange-500 rounded px-6 py-8 text-center shadow-glass-inset backdrop-blur-[6px] space-y-8 xs:px-10 sm:px-16">
               <p className="font-light">
                 Do you like to play background music? <br /> or are you the kind
                 who adds your own soundtrack while exploring galaxies of blogs?
@@ -97,13 +97,13 @@ const Sound = () => {
               <div className="flex items-center justify-center space-x-4">
                 <button
                   onClick={toggle}
-                  className="px-4 py-2 border border-orange-500 border-dashed hover:shadow-glass-sm rounded mr-2 hover:text-orange-500"
+                  className="rounded border border-dashed border-orange-500 px-4 py-2 hover:text-orange-500 hover:shadow-glass-sm mr-2"
                 >
                   Yes
                 </button>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 border border-orange-500 border-dashed hover:shadow-glass-sm rounded hover:text-orange-500"
+                  className="rounded border border-dashed border-orange-500 px-4 py-2 hover:text-orange-500 hover:shadow-glass-sm"
                 >
                   No
                 </button>
@@ -122,18 +122,18 @@ const Sound = () => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1 }}
-        className="w-10 h-10 xs:w-14 xs:h-14 text-foreground rounded-full flex items-center justify-center cursor-pointer z-50 p-2.5 xs:p-4 custom-bg"
+        className="custom-bg flex size-10 cursor-pointer items-center justify-center rounded-full p-2.5 text-foreground xs:size-14 xs:p-4"
         aria-label={"Sound control button"}
         name={"Sound control button"}
       >
         {isPlaying ? (
           <Volume2
-            className="w-full h-full text-foreground group-hover:text-orange-500"
+            className="size-full text-foreground group-hover:text-orange-500"
             strokeWidth={1.5}
           />
         ) : (
           <VolumeX
-            className="w-full h-full text-foreground group-hover:text-orange-500"
+            className="size-full text-foreground group-hover:text-orange-500"
             strokeWidth={1.5}
           />
         )}

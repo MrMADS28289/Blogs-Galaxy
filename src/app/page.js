@@ -17,17 +17,17 @@ export default function Home() {
   }, [setIsPlanetVisible]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between relative">
+    <main className="relative flex min-h-screen flex-col items-center justify-between">
       <Image
         priority
         sizes="100vw"
         src={bg}
         alt="background-image"
         fill
-        className="-z-50 w-full h-full object-cover object-center opacity-50"
+        className="-z-50 size-full object-cover object-center opacity-50"
       />
       <Header />
-      <div id="main-canvas-container" className="w-full h-screen">
+      <div id="main-canvas-container" className="h-screen w-full">
         <Navigation />
         <RenderModel>
           <Planet />
