@@ -20,7 +20,7 @@ const BlogCard = ({ blog, className }) => {
           <p className="text-lg text-center">{blog.content}</p>
         </>
       )}
-      {/* You can add more blog details here, e.g., category, author, etc. */}
+      {/* for add more blog details here, e.g., category, author, etc. */}
     </motion.div>
   );
 };

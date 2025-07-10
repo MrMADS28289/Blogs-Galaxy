@@ -9,8 +9,6 @@ export function useBlogs() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("useBlogs: selectedCategory changed to:", selectedCategory); // Log selectedCategory
-
     async function fetchBlogs() {
       setLoading(true); // Set loading to true at the start of each fetch
       setError(null); // Clear any previous errors
@@ -23,7 +21,6 @@ export function useBlogs() {
             selectedCategory
           )}`;
         }
-        console.log("useBlogs: Fetching from URL:", url); // Log the constructed URL
 
         const response = await fetch(url);
 
@@ -32,8 +29,6 @@ export function useBlogs() {
         }
 
         const data = await response.json();
-
-        console.log(data);
 
         // Adjust this based on your actual API response structure
         // Assuming your API returns an array of blog objects directly or within a 'data' field

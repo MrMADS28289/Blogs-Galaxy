@@ -13,11 +13,13 @@ const RenderModel = ({ children, className }) => {
 
   return (
     <Canvas
-      className={clsx("w-full h-full absolute z-0 pointer-events-auto", className)}
+      className={clsx(
+        "w-full h-full absolute z-0 pointer-events-auto",
+        className
+      )}
       shadows={false}
       dpr={[1, 2]}
       eventSource={eventSource}
-      // dpr is the device pixel ratio. Here we are setting it to 1 and 2 for retina displays to prevent blurriness in the model rendering on high resolution screens.
     >
       <Suspense fallback={null}>{children}</Suspense>
       <Environment preset="dawn" />

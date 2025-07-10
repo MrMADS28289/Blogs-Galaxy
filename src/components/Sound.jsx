@@ -2,7 +2,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { createPortal } from "react-dom";
 
 const Sound = () => {
   const audioRef = useRef(null);

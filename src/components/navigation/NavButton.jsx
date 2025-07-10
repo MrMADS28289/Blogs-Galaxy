@@ -1,11 +1,6 @@
 import {
-  Rocket,
   Earth,
   History,
-  Brain,
-  Gamepad,
-  CreativeCommons,
-  Lightbulb,
   MessageCircle,
   Laptop,
   Bot,
@@ -19,8 +14,8 @@ import React from "react";
 import ResponsiveComponent from "../ResponsiveComponent";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { useSetAtom } from "jotai"; // Import useSetAtom
-import { selectedCategoryAtom } from "@/app/jotaiAtoms"; // Import selectedCategoryAtom
+import { useSetAtom } from "jotai";
+import { selectedCategoryAtom } from "@/app/jotaiAtoms";
 
 const getIcon = (icon) => {
   switch (icon) {
@@ -40,19 +35,6 @@ const getIcon = (icon) => {
       return <Sparkles className="w-full h-auto" strokeWidth={1.5} />;
     case "MessageCircle":
       return <MessageCircle className="w-full h-auto" strokeWidth={1.5} />;
-
-    // Fallback for old icons or if an icon is not found
-    // case "Rocket":
-    //   return <Rocket className="w-full h-auto" strokeWidth={1.5} />;
-    // case "Brain":
-    //   return <Brain className="w-full h-auto" strokeWidth={1.5} />;
-    // case "Gamepad":
-    //   return <Gamepad className="w-full h-auto" strokeWidth={1.5} />;
-    // case "CreativeCommons":
-    //   return <CreativeCommons className="w-full h-auto" strokeWidth={1.5} />;
-    // case "Lightbulb":
-    //   return <Lightbulb className="w-full h-auto" strokeWidth={1.5} />;
-
     default:
       return <HelpCircle className="w-full h-auto" strokeWidth={1.5} />;
   }
@@ -84,7 +66,7 @@ const NavButton = ({
     "Sports Galaxy": "sports",
     "Creative Corner": "creative",
     "Motivation Meteor": "motivation",
-    "Community": "community",
+    Community: "community",
   };
 
   const handleClick = () => {
