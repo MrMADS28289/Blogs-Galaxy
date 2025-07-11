@@ -6,30 +6,3 @@
 4.  **Summarize Answers**: Provide a short summary of each answer to help with quick understanding.
 
 ## current task
-
-# This project's Backend info
-
-The server will run on `http://localhost:5000`.
-
-## API Endpoints
-
-### Authentication
-
-- `POST /api/auth/register`: Register a new user. (Public)
-- `POST /api/auth/login`: Log in a user and get a JWT. (Public)
-
-### Blog Posts
-
-- `POST /api/blogs`: Create a new blog post. (Authenticated)
-- `GET /api/blogs`: Get all blog posts. (Public)
-- `GET /api/blogs/:id`: Get a single blog post by ID. (Public)
-- `PUT /api/blogs/:id`: Update a blog post by ID. (Authenticated & Owner)
-- `DELETE /api/blogs/:id`: Delete a blog post by ID. (Authenticated & Owner)
-- `POST /api/blogs/:id/rate`: Rate a blog post. (Authenticated)
-
-### Comments
-
-- `POST /api/comments`: Create a new comment. (Authenticated)
-- `GET /api/comments/blog/:blogId`: Get all comments for a specific blog. (Public)
-- `PUT /api/comments/:id`: Update a comment by ID. (Authenticated & Owner)
-- `DELETE /api/comments/:id`: Delete a comment by ID. (Authenticated & Owner)

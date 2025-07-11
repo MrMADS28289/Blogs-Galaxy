@@ -89,7 +89,6 @@ const BlogCard = ({ blog, className }) => {
                         // This part needs to update the actual blog object in the state
                         // For now, it's a console log, as direct state update here is complex
                         // without knowing the parent component's state management.
-
                       } catch (error) {
                         console.error("Failed to like blog:", error);
                         // Optionally, show an error message to the user
@@ -141,7 +140,7 @@ const BlogCard = ({ blog, className }) => {
           )}
         </>
       )}
-      {/* You can add more blog details here, e.g., category, author, etc. */}
+      {/* for add more blog details here, e.g., category, author, etc. */}
     </motion.div>
   );
 };

@@ -94,7 +94,7 @@ const NavButton = ({
               scroll={false}
               onClick={handleClick} // Add onClick handler
             >
-              <span className="group-hover:pause relative size-14 animate-spin-slow-reverse p-4 hover:text-orange-500">
+              <span className="group-hover:pause relative size-12 animate-spin-slow-reverse p-3 hover:text-orange-500">
                 {getIcon(icon)}
 
                 <span className="peer absolute left-0 top-0 size-full bg-transparent" />

@@ -13,7 +13,7 @@ const RenderModel = ({ children, className }) => {
 
   return (
     <Canvas
-      className={clsx("absolute size-full pointer-events-auto z-0", className)}
+      className={clsx("pointer-events-auto absolute z-0 size-full", className)}
       shadows={false}
       dpr={[1, 2]}
       eventSource={eventSource}

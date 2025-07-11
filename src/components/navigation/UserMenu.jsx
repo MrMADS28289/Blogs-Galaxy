@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Settings, User, LogIn } from "lucide-react";
 
 const UserMenu = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -83,31 +83,39 @@ const UserMenu = () => {
       <button
         onClick={toggleSidebar}
         className={clsx(
-          "fixed top-4 z-50 rounded-l-lg bg-gray-700 p-2 text-white shadow-lg transition-all duration-300 ease-in-out",
+          "custom-bg fixed top-4 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full p-2 text-foreground shadow-lg transition-all duration-300 ease-in-out",
           {
-            "right-325": isSidebarOpen,
-            "right-1": !isSidebarOpen,
+            "right-150": isSidebarOpen,
+            "right-2": !isSidebarOpen,
           }
         )}
       >
-        <span className="text-xl">{isSidebarOpen ? "→" : "←"}</span>
+        <motion.div
+          animate={{ rotate: isSidebarOpen ? 360 : 0 }}
+          transition={{ duration: 1 }}
+        >
+          <Settings
+            className="size-full text-foreground hover:text-orange-500"
+            strokeWidth={1.5}
+          />
+        </motion.div>
       </button>
 
       <div
         className={clsx(
-          "fixed right-0 top-4 z-40 h-11 w-80 bg-gray-800 shadow-lg transition-transform duration-300 ease-in-out",
+          "fixed right-0 top-4 z-40 h-8 w-36 rounded-xl bg-slate-900 p-1 shadow-lg transition-transform duration-300 ease-in-out",
           {
             "translate-x-0": isSidebarOpen,
             "translate-x-full": !isSidebarOpen,
           }
         )}
       >
-        <div className="flex size-full items-center justify-center gap-4 py-4">
-          <button className="rounded-full bg-gray-700 p-2 text-sm text-white hover:bg-gray-600 focus:outline-none">
-            Profile
-          </button>
-          <button className="rounded-full bg-gray-700 p-2 text-sm text-white hover:bg-gray-600 focus:outline-none">
-            Login
+        <div className="flex size-full items-center justify-evenly">
+          <button className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground">
+            <User
+              className="size-full text-foreground hover:text-orange-500"
+              strokeWidth={1.5}
+            />
           </button>
 
           <motion.button
@@ -115,22 +123,29 @@ const UserMenu = () => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 1 }}
-            className="custom-bg flex size-8 cursor-pointer items-center justify-center rounded-full p-2 text-foreground"
+            className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
             aria-label={"Sound control button"}
             name={"Sound control button"}
           >
             {isPlaying ? (
               <Volume2
-                className="size-full text-foreground group-hover:text-orange-500"
+                className="size-full text-foreground hover:text-orange-500"
                 strokeWidth={1.5}
               />
             ) : (
               <VolumeX
-                className="size-full text-foreground group-hover:text-orange-500"
+                className="size-full text-foreground hover:text-orange-500"
                 strokeWidth={1.5}
               />
             )}
           </motion.button>
+
+          <button className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground">
+            <LogIn
+              className="size-full text-foreground hover:text-orange-500"
+              strokeWidth={1.5}
+            />
+          </button>
         </div>
       </div>
 
@@ -145,30 +160,29 @@ const UserMenu = () => {
             key="my-modal-animation"
             className="fixed inset-0 z-[999] flex items-center justify-center bg-background/60 backdrop-blur-sm"
           >
-              <div className="flex flex-col gap-8 rounded border border-dashed border-orange-500 bg-background/20 px-6 py-8 text-center shadow-glass-inset backdrop-blur-[6px] xs:px-10 sm:px-16">
-                <p className="font-light">
-                  Do you like to play background music? <br /> or are you the
-                  kind who adds your own soundtrack while exploring galaxies of
-                  blogs?
-                </p>
-                <div className="flex items-center justify-center gap-4">
-                  <button
-                    onClick={toggle}
-                    className="rounded border border-dashed border-orange-500 px-4 py-2 hover:text-orange-500 hover:shadow-glass-sm"
-                  >
-                    Yes
-                  </button>
-                  <button
-                    onClick={() => setShowModal(false)}
-                    className="rounded border border-dashed border-orange-500 px-4 py-2 hover:text-orange-500 hover:shadow-glass-sm"
-                  >
-                    No
-                  </button>
-                </div>
+            <div className="flex flex-col gap-8 rounded border border-dashed border-orange-500 bg-background/20 px-6 py-8 text-center shadow-glass-inset backdrop-blur-[6px] xs:px-10 sm:px-16">
+              <p className="font-light">
+                Do you like to play background music? <br /> or are you the kind
+                who adds your own soundtrack while exploring galaxies of blogs?
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  onClick={toggle}
+                  className="rounded border border-dashed border-orange-500 px-4 py-2 hover:text-orange-500 hover:shadow-glass-sm"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="rounded border border-dashed border-orange-500 px-4 py-2 hover:text-orange-500 hover:shadow-glass-sm"
+                >
+                  No
+                </button>
               </div>
-            </div>,
-            document.body
-          )}
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 };
