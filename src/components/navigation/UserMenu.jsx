@@ -4,13 +4,20 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import { Volume2, VolumeX, Settings, User, LogIn } from "lucide-react";
+import { Volume2, VolumeX, Settings, User, LogIn, LogOut } from "lucide-react";
+import { useAtom } from "jotai";
+import { userAtom, isAuthenticatedAtom } from "@/app/jotaiAtoms";
+import { useRouter } from "next/navigation";
 
 const UserMenu = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const audioRef = useRef(null);
+
+  const [user, setUser] = useAtom(userAtom);
+  const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const router = useRouter();
 
   const handleFirstUserInteraction = useCallback(() => {
     const musicConsent = localStorage.getItem("musicConsent");
@@ -78,6 +85,26 @@ const UserMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleProfileClick = () => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+    // else {
+    //   // Navigate to profile page if it exists
+    // }
+  };
+
+  const handleAuthClick = () => {
+    if (isAuthenticated) {
+      // Handle logout
+      setUser(null);
+      setIsAuthenticated(false);
+      router.push("/"); // Redirect to home after logout
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <>
       <button
@@ -111,7 +138,10 @@ const UserMenu = () => {
         )}
       >
         <div className="flex size-full items-center justify-evenly">
-          <button className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground">
+          <button
+            onClick={handleProfileClick}
+            className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
+          >
             <User
               className="size-full text-foreground hover:text-orange-500"
               strokeWidth={1.5}
@@ -140,11 +170,21 @@ const UserMenu = () => {
             )}
           </motion.button>
 
-          <button className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground">
-            <LogIn
-              className="size-full text-foreground hover:text-orange-500"
-              strokeWidth={1.5}
-            />
+          <button
+            onClick={handleAuthClick}
+            className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
+          >
+            {isAuthenticated ? (
+              <LogOut
+                className="size-full text-foreground hover:text-orange-500"
+                strokeWidth={1.5}
+              />
+            ) : (
+              <LogIn
+                className="size-full text-foreground hover:text-orange-500"
+                strokeWidth={1.5}
+              />
+            )}
           </button>
         </div>
       </div>
