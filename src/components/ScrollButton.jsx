@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const ScrollButton = () => {
-    const [isVisible, setIsVisible] = useState(true); // Initially visible at the top
+  const [isVisible, setIsVisible] = useState(true); // Initially visible at the top
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   const toggleVisibility = () => {
@@ -44,7 +44,7 @@ const ScrollButton = () => {
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2">
           <button
             onClick={scrollToBottom}
-            className="custom-bg flex size-14 items-center justify-center rounded-full p-4 text-foreground transition-all duration-300 ease-in-out animate-[drop-animation_2s_infinite] hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="custom-bg flex size-14 animate-[drop-animation_2s_infinite] items-center justify-center rounded-full p-4 text-foreground transition-all duration-300 ease-in-out hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white/50"
           >
             <FaArrowDown className="h-auto w-full" />
           </button>
@@ -55,7 +55,7 @@ const ScrollButton = () => {
         <div className="fixed bottom-4 right-4 z-50">
           <button
             onClick={scrollToTop}
-            className="custom-bg flex size-14 items-center justify-center rounded-full p-4 text-foreground transition-all duration-300 ease-in-out animate-[drop-animation_2s_infinite] hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="custom-bg flex size-14 animate-[drop-animation_2s_infinite] items-center justify-center rounded-full p-4 text-foreground transition-all duration-300 ease-in-out hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-white/50"
           >
             <FaArrowUp className="h-auto w-full" />
           </button>

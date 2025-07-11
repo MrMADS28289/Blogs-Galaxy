@@ -54,7 +54,7 @@ const Navigation = () => {
               variants={container}
               initial="hidden"
               animate="show"
-              className="group relative flex items-center justify-center w-max animate-spin-slow hover:pause"
+              className="hover:pause group relative flex w-max animate-spin-slow items-center justify-center"
             >
               {BtnList.map((btn, index) => {
                 const angleRad = (index * angleIncrement * Math.PI) / 180;
@@ -67,7 +67,10 @@ const Navigation = () => {
                 const y = `calc(${radius}*${Math.sin(angleRad)})`;
 
                 const DynamicModel = dynamic(
-                  () => Promise.resolve(modelComponents[btn.label.replace(/\s/g, '')]),
+                  () =>
+                    Promise.resolve(
+                      modelComponents[btn.label.replace(/\s/g, "")]
+                    ),
                   { ssr: false }
                 );
 
@@ -84,11 +87,14 @@ const Navigation = () => {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className="group relative xs:hidden flex w-full flex-col items-start justify-center px-2.5 space-y-4 xs:w-max xs:items-center xs:p-0"
+                className="group relative flex w-full flex-col items-start justify-center space-y-4 px-2.5 xs:hidden xs:w-max xs:items-center xs:p-0"
               >
                 {BtnList.slice(0, BtnList.length / 2).map((btn) => {
                   const DynamicModel = dynamic(
-                    () => Promise.resolve(modelComponents[btn.label.replace(/\s/g, '')]),
+                    () =>
+                      Promise.resolve(
+                        modelComponents[btn.label.replace(/\s/g, "")]
+                      ),
                     { ssr: false }
                   );
                   return (
@@ -103,12 +109,15 @@ const Navigation = () => {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className="group relative xs:hidden flex w-full flex-col items-end justify-center px-2.5 space-y-4 xs:w-max xs:items-center xs:p-0"
+                className="group relative flex w-full flex-col items-end justify-center space-y-4 px-2.5 xs:hidden xs:w-max xs:items-center xs:p-0"
               >
                 {BtnList.slice(BtnList.length / 2, BtnList.length).map(
                   (btn) => {
                     const DynamicModel = dynamic(
-                      () => Promise.resolve(modelComponents[btn.label.replace(/\s/g, '')]),
+                      () =>
+                        Promise.resolve(
+                          modelComponents[btn.label.replace(/\s/g, "")]
+                        ),
                       { ssr: false }
                     );
                     return (

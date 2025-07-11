@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { showBlogModalAtom, blogModalDataAtom } from "@/app/jotaiAtoms";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdClose } from "react-icons/md";
+import Image from "next/image";
 
 const BlogModal = () => {
   const [showBlogModal, setShowBlogModal] = useAtom(showBlogModalAtom);
@@ -29,7 +30,7 @@ const BlogModal = () => {
             animate={{ y: "0", opacity: 1 }}
             exit={{ y: "100vh", opacity: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="custom-bg relative mx-4 w-full max-w-3xl rounded-xl p-2 shadow-lg sm:p-4 max-h-[90vh] flex flex-col pt-10"
+            className="custom-bg relative mx-4 flex max-h-[90vh] w-full max-w-3xl flex-col rounded-xl p-2 pt-10 shadow-lg sm:p-4"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
           >
             <button
@@ -38,12 +39,14 @@ const BlogModal = () => {
             >
               <MdClose />
             </button>
-            <div className="p-6 overflow-y-auto flex-grow pt-10 blog-modal-content">
+            <div className="blog-modal-content grow overflow-y-auto p-6 pt-10">
               {blogModalData.coverImage && (
-                <img
+                <Image
                   src={blogModalData.coverImage}
                   alt={blogModalData.title}
-                  className="mb-4 w-full max-h-[40vh] rounded-lg object-cover"
+                  height={300}
+                  width={800}
+                  className="mb-4 max-h-[40vh] rounded-lg object-cover"
                 />
               )}
               <h2 className="mb-2 text-center text-3xl font-bold text-white">
@@ -51,17 +54,24 @@ const BlogModal = () => {
               </h2>
               <div className="mb-4 text-center text-sm text-gray-300">
                 {blogModalData.author && <p>By: {blogModalData.author}</p>}
-                {blogModalData.category && <p>Category: {blogModalData.category}</p>}
+                {blogModalData.category && (
+                  <p>Category: {blogModalData.category}</p>
+                )}
                 {blogModalData.tags && blogModalData.tags.length > 0 && (
                   <p>Tags: {blogModalData.tags.join(", ")}</p>
                 )}
                 <div className="flex justify-center space-x-4">
-                  {blogModalData.ratings && <p>Ratings: {blogModalData.ratings}</p>}
+                  {blogModalData.ratings && (
+                    <p>Ratings: {blogModalData.ratings}</p>
+                  )}
                   {blogModalData.likes && <p>Likes: {blogModalData.likes}</p>}
                   {blogModalData.views && <p>Views: {blogModalData.views}</p>}
                 </div>
                 {blogModalData.createdAt && (
-                  <p>Published: {new Date(blogModalData.createdAt).toLocaleDateString()}</p>
+                  <p>
+                    Published:{" "}
+                    {new Date(blogModalData.createdAt).toLocaleDateString()}
+                  </p>
                 )}
               </div>
               <p className="whitespace-pre-wrap text-justify text-base leading-normal text-white">

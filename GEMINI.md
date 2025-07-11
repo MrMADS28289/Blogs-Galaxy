@@ -6,17 +6,7 @@
 4.  **Summarize Answers**: Provide a short summary of each answer to help with quick understanding.
 
 ## current task
-- Implement user authentication with the following specific requirements:
-    - **Purpose:** For liking, commenting, and admin blog handling only. No route protection for other routes yet.
-    - **Implementation Location:** Login/Register functionality will be integrated into `UserMenu.jsx`.
-    - **`UserMenu.jsx` Constraints:**
-        - No style changes to `UserMenu.jsx`.
-        - The existing three buttons (Profile, Music, Login/Logout) must not be removed or modified.
-    - **Login/Logout Button Logic:**
-        - If not logged in: The Profile button/icon should redirect to the login page. The Login/Logout button should display a "login icon".
-        - If logged in: The Login/Logout button should display a "logout icon".
-    - **Login/Register Page Styling:** Must strictly adhere to the existing project theme and design.
-    - **Accuracy:** Take time to ensure correctness and avoid issues.
+- Implement Google authentication with Firebase.
 
 ### Completed Tasks:
 1.  Created `src/components/Auth/Login.jsx` and `src/components/Auth/Register.jsx`.
@@ -28,6 +18,13 @@
 7.  Implemented registration logic in `src/components/Auth/Register.jsx`.
 8.  Implemented login logic in `src/components/Auth/Login.jsx`.
 9.  Added error message display to `src/components/Auth/Login.jsx` and `src/components/Auth/Register.jsx`.
+10. Installed Firebase SDK.
+11. Initialized Firebase in `src/lib/firebase.js` and created `.env.local` placeholders.
+12. Added Google Sign-in button and logic to `src/components/Auth/Login.jsx`.
+13. Confirmed Firebase configuration details are saved in `.env.local`.
+14. Added `googleSignInUser` function to `src/utils/authApi.js`.
+15. Modified `src/components/Auth/Login.jsx` to send Google user data to the backend after successful Google sign-in.
+16. Modified `src/components/Auth/Login.jsx` and `src/components/Auth/Register.jsx` to correctly pass user data to `setIsAuthenticated` for session saving.
 
 ### Pending Tasks:
 - None
