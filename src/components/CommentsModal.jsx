@@ -15,9 +15,6 @@ const CommentsModal = () => {
   const [newComment, setNewComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  console.log("CommentsModal: showCommentsModal", showCommentsModal);
-  console.log("CommentsModal: commentsModalData", commentsModalData);
-
   if (!commentsModalData || !commentsModalData.blog) return null;
 
   const { blog, comments } = commentsModalData;
@@ -125,7 +122,7 @@ const CommentsModal = () => {
               ></textarea>
               <motion.button
                 type="submit"
-                className="mt-2 custom-bg rounded-full px-4 py-2 text-foreground transition-colors hover:text-orange-500 disabled:opacity-50"
+                className="custom-bg mt-2 rounded-full px-4 py-2 text-foreground transition-colors hover:text-orange-500 disabled:opacity-50"
                 disabled={submitting}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
