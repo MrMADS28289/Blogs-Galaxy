@@ -91,6 +91,7 @@ yarn start
 The project follows a standard Next.js application structure with a clear separation of concerns.
 
 ```
+```
 Blogs-Galaxy/
 ├── public/                 # Static assets (images, 3D models, audio)
 │   ├── next.svg
@@ -109,49 +110,28 @@ Blogs-Galaxy/
 │   │   ├── page.js         # Home page component
 │   │   └── (sub pages)/    # Dynamic routes for content categories
 │   │       ├── layout.js   # Layout for sub-pages
-│   │       ├── aiUniverse/ # AI Universe category page
-│   │       │   └── page.js
-│   │       ├── community/  # Community category page
-│   │       │   └── page.js
-│   │       ├── ...         # Other category pages (creativeCorner, geographyNebula, etc.)
-│   │       └── techGalaxy/ # Tech Galaxy category page
+│   │       └── [category]/ # Dynamic category route
 │   │           └── page.js
 │   └── components/         # Reusable React components
-│       ├── FireFliesBackground.jsx # Component for fireflies background
-│       ├── GalaxyBackground.jsx    # Component for galaxy background
-│       ├── Header.jsx              # Application header
-│       ├── HomeBtn.jsx             # Home button component
-│       ├── RenderModel.jsx         # Utility component for rendering 3D models
-│       ├── ResponsiveComponent.jsx # Component for responsive rendering
-│       ├── Sound.jsx               # Sound control component
-│       ├── aiUniverse/             # Components specific to AI Universe category
-│       │   ├── index.jsx
-│       │   └── ItemLayout.jsx
-│       ├── community/              # Components specific to Community category
-│       │   ├── index.jsx
-│       │   └── ItemLayout.jsx
-│       ├── ...                     # Other category-specific components
-│       ├── hooks/                  # Custom React hooks
-│       │   └── useScreenSize.jsx   # Hook to get screen size
-│       ├── models/                 # 3D model components (e.g., AiModel, TechModel)
-│       │   ├── AiModel.jsx
-│       │   ├── CommunityModel.jsx
-│       │   ├── ...
-│       │   └── TechModel.jsx
-│       ├── navigation/             # Navigation components
-│       │   ├── index.jsx
-│       │   └── NavButton.jsx
-│       └── ...
+│       ├── BlogCard.jsx
+│       ├── BlogList.jsx
+│       ├── BlogModal.jsx
+│       ├── CommentsModal.jsx
+│       ├── Header.jsx
+│       ├── HomeBtn.jsx
+│       ├── RenderModel.jsx
+│       ├── ResponsiveComponent.jsx
+│       ├── ScrollButton.jsx
 ├── .eslintrc.json          # ESLint configuration
 ├── .gitignore              # Git ignore file
 ├── jsconfig.json           # JavaScript language service configuration
-├── move_pages.py           # Python script (utility, not part of main app)
 ├── next.config.mjs         # Next.js configuration file
 ├── package-lock.json       # npm dependency lock file
 ├── package.json            # Project metadata and dependencies
 ├── postcss.config.js       # PostCSS configuration
 ├── README.md               # This README file
 └── tailwind.config.js      # Tailwind CSS configuration
+```
 ```
 
 ## How it Works
@@ -185,7 +165,6 @@ Blogs Galaxy is a Next.js application that leverages the App Router for routing 
     - The `public/models` directory stores the 3D models in `.glb` format.
     - `src/components/models/*.jsx` files are React components that encapsulate specific 3D models (e.g., `AiModel.jsx`, `TechModel.jsx`). These components use React Three Fiber to load and display the `.glb` files.
     - `RenderModel.jsx` is a utility component that likely handles the common logic for rendering any 3D model, providing a consistent setup for the Three.js canvas.
-    - `GalaxyBackground.jsx` and `FireFliesBackground.jsx` create the immersive 3D backgrounds for the application.
 
 5.  **Content Categories (`src/app/(sub pages)/[category]/page.js` and `src/components/[category]/`)**:
 
@@ -194,7 +173,7 @@ Blogs Galaxy is a Next.js application that leverages the App Router for routing 
 
 6.  **State Management (Jotai - `src/app/jotaiAtoms.js`, `src/app/JotaiProvider.jsx`)**:
 
-    - Jotai is used for managing global application state, such as the sound state (`Sound.jsx`) or screen size (`useScreenSize.jsx`).
+    - Jotai is used for managing global application state, such as screen size (`useScreenSize.jsx`).
     - `jotaiAtoms.js` defines the individual atoms (pieces of state).
     - `JotaiProvider.jsx` wraps the application to make these atoms accessible to all components.
 
