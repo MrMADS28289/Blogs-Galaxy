@@ -20,23 +20,23 @@ import { selectedCategoryAtom } from "@/app/jotaiAtoms";
 const getIcon = (icon) => {
   switch (icon) {
     case "Laptop":
-      return <Laptop className="w-full h-auto" strokeWidth={1.5} />;
+      return <Laptop className="h-auto w-full" strokeWidth={1.5} />;
     case "Earth":
-      return <Earth className="w-full h-auto" strokeWidth={1.5} />;
+      return <Earth className="h-auto w-full" strokeWidth={1.5} />;
     case "History":
-      return <History className="w-full h-auto" strokeWidth={1.5} />;
+      return <History className="h-auto w-full" strokeWidth={1.5} />;
     case "Bot":
-      return <Bot className="w-full h-auto" strokeWidth={1.5} />;
+      return <Bot className="h-auto w-full" strokeWidth={1.5} />;
     case "Award":
-      return <Award className="w-full h-auto" strokeWidth={1.5} />;
+      return <Award className="h-auto w-full" strokeWidth={1.5} />;
     case "Palette":
-      return <Palette className="w-full h-auto" strokeWidth={1.5} />;
+      return <Palette className="h-auto w-full" strokeWidth={1.5} />;
     case "Sparkles":
-      return <Sparkles className="w-full h-auto" strokeWidth={1.5} />;
+      return <Sparkles className="h-auto w-full" strokeWidth={1.5} />;
     case "MessageCircle":
-      return <MessageCircle className="w-full h-auto" strokeWidth={1.5} />;
+      return <MessageCircle className="h-auto w-full" strokeWidth={1.5} />;
     default:
-      return <HelpCircle className="w-full h-auto" strokeWidth={1.5} />;
+      return <HelpCircle className="h-auto w-full" strokeWidth={1.5} />;
   }
 };
 
@@ -79,57 +79,53 @@ const NavButton = ({
       {({ size }) => {
         return size && size >= 480 ? (
           <div
-            className="absolute cursor-pointer z-50"
+            className="absolute z-50 cursor-pointer"
             style={{ transform: `translate(${x}, ${y})` }}
           >
             <NavLink
               variants={item}
               href={link}
               target={newTab ? "_blank" : "_self"}
-              className="text-foreground  rounded-full flex items-center justify-center
-        custom-bg
-        "
+              className="custom-bg flex items-center justify-center rounded-full text-foreground"
               aria-label={label}
               name={label}
               prefetch={false}
               scroll={false}
               onClick={handleClick} // Add onClick handler
             >
-              <span className="relative  w-14 h-14 p-4 animate-spin-slow-reverse group-hover:pause hover:text-orange-500">
+              <span className="group-hover:pause relative size-14 animate-spin-slow-reverse p-4 hover:text-orange-500">
                 {getIcon(icon)}
 
-                <span className="peer bg-transparent absolute top-0 left-0 w-full h-full" />
+                <span className="peer absolute left-0 top-0 size-full bg-transparent" />
 
-                <span className="absolute hidden peer-hover:block px-2 py-1 left-full mx-2 top-1/2 -translate-y-1/2 bg-background text-foreground text-sm rounded-md shadow-lg whitespace-nowrap">
+                <span className="absolute left-full top-1/2 mx-2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-background px-2 py-1 text-sm text-foreground shadow-lg peer-hover:block">
                   {label}
                 </span>
               </span>
             </NavLink>
           </div>
         ) : (
-          <div className="w-fit cursor-pointer z-50">
+          <div className="z-50 w-fit cursor-pointer">
             <NavLink
               variants={item}
               href={link}
               target={newTab ? "_blank" : "_self"}
-              className="text-foreground  rounded-full flex items-center justify-center
-        custom-bg
-        "
+              className="custom-bg flex items-center justify-center rounded-full text-foreground"
               aria-label={label}
               name={label}
               prefetch={false}
               scroll={false}
               onClick={handleClick} // Add onClick handler
             >
-              <span className="relative  w-10 h-10  xs:w-14 xs:h-14 p-2.5 xs:p-4 animate-spin-slow-reverse hover:text-orange-500">
+              <span className="relative size-10 animate-spin-slow-reverse p-2.5 hover:text-orange-500 xs:size-14 xs:p-4">
                 {getIcon(icon)}
 
-                <span className="peer bg-transparent absolute top-0 left-0 w-full h-full" />
+                <span className="peer absolute left-0 top-0 size-full bg-transparent" />
 
                 <span
                   className={clsx(
-                    "absolute hidden peer-hover:block px-2 py-1 left-full mx-2 top-1/2 -translate-y-1/2 bg-background text-foreground text-sm rounded-md shadow-lg whitespace-nowrap",
-                    labelDirection === "left" ? "right-full left-auto" : ""
+                    "absolute left-full top-1/2 mx-2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-background px-2 py-1 text-sm text-foreground shadow-lg peer-hover:block",
+                    labelDirection === "left" ? "left-auto right-full" : ""
                   )}
                 >
                   {label}

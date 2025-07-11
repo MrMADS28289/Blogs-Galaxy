@@ -1,8 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
-import Sound from "@/components/Sound";
+import UserMenu from "@/components/navigation/UserMenu";
 import JotaiProvider from "./JotaiProvider";
+import CommentsModal from "@/components/CommentsModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,12 +21,13 @@ export default function RootLayout({ children }) {
       <body
         className={clsx(
           inter.variable,
-          "bg-background text-foreground font-inter"
+          "bg-background font-inter text-foreground"
         )}
       >
         <JotaiProvider>
           {children}
-          <Sound />
+          <UserMenu />
+          <CommentsModal />
           <div id="my-modal" />
         </JotaiProvider>
       </body>

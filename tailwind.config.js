@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        '325': '325px',
+      },
       fontFamily: {
         inter: ["var(--font-inter)"],
       },

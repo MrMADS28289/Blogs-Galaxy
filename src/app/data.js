@@ -24,6 +24,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [3.5, 3.5, 3.5],
+    description: "Explore the latest in technology, from software development to hardware innovations."
   },
   {
     label: "Geography Nebula",
@@ -32,6 +33,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [0.4, 0.4, 0.4],
+    description: "Journey through the wonders of our planet and beyond, discovering diverse landscapes and cultures."
   },
   {
     label: "History Constellation",
@@ -40,6 +42,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [3, 3, 3],
+    description: "Uncover the past, from ancient civilizations to modern events that shaped our world."
   },
   {
     label: "AI Universe",
@@ -48,6 +51,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [1.5, 1.5, 1.5],
+    description: "Dive into the world of Artificial Intelligence, machine learning, and intelligent systems."
   },
   {
     label: "Sports Galaxy",
@@ -56,6 +60,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [2.5, 2.5, 2.5],
+    description: "Get updates on your favorite sports, athletes, and major sporting events."
   },
   {
     label: "Creative Corner",
@@ -64,6 +69,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [3, 3, 3],
+    description: "Unleash your imagination with articles on art, design, music, and creative expression."
   },
   {
     label: "Motivation Meteor",
@@ -72,6 +78,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [0.4, 0.4, 0.4],
+    description: "Find inspiration and guidance to achieve your goals and live a fulfilling life."
   },
   {
     label: "Community",
@@ -80,5 +87,6 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [0.6, 0.6, 0.6],
+    description: "Connect with like-minded individuals and explore discussions on various topics."
   },
 ];

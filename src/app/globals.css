@@ -22,6 +22,21 @@
   }
 }
 
+/* Custom scrollbar for BlogModal content */
+.blog-modal-content::-webkit-scrollbar {
+  width: 4px; /* Adjust scrollbar width */
+}
+
+.blog-modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.blog-modal-content::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scroll thumb */
+  border-radius: 40px; /* Roundness of the scroll thumb */
+  border: 2px solid transparent; /* Creates padding around thumb */
+}
+
 @keyframes move {
   0% {
     transform: translate(0, 0);

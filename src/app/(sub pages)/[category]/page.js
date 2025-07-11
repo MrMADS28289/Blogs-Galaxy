@@ -41,16 +41,16 @@ const CategoryPage = ({ params }) => {
   const ModelComponent = modelMap[category];
 
   return (
-    <section className="w-full relative">
+    <section className="relative w-full">
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="text-2xl font-bold text-gray-400 animate-pulse">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="animate-pulse text-2xl font-bold text-gray-400">
             Loading blogs...
           </div>
         </div>
       )}
-      <div className="w-full h-[70vh] flex items-center justify-center">
-        <div className="w-full h-full relative">
+      <div className="flex h-[70vh] w-full items-center justify-center">
+        <div className="relative size-full">
           <Suspense fallback={null}>
             <RenderModel>
               {ModelComponent && (
@@ -63,8 +63,13 @@ const CategoryPage = ({ params }) => {
           </Suspense>
         </div>
       </div>
-      <div className="text-center mt-8">
+      <div className="mt-8 text-center">
         <h1 className="text-4xl font-bold">{categoryDetails.label}</h1>
+        {categoryDetails.description && (
+          <p className="mt-2 text-lg text-gray-400">
+            {categoryDetails.description}
+          </p>
+        )}
       </div>
       <BlogList
         category={category}
