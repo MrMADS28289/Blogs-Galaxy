@@ -1,6 +1,6 @@
 "use client";
 import { useAtom } from "jotai";
-import { showCommentsModalAtom, commentsModalDataAtom } from "@/app/jotaiAtoms";
+import { showCommentsModalAtom, commentsModalDataAtom, userAtom } from "@/app/jotaiAtoms";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
@@ -14,6 +14,7 @@ const CommentsModal = () => {
   );
   const [newComment, setNewComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [user] = useAtom(userAtom);
 
   if (!commentsModalData || !commentsModalData.blog) return null;
 
@@ -30,16 +31,20 @@ const CommentsModal = () => {
 
     setSubmitting(true);
     try {
-      // Assuming you have user authentication and can get the author's name/ID
-      // For now, let's use a placeholder author
-      const author = "Anonymous"; // Replace with actual authenticated user
+      if (!user || !user.token) {
+        console.error("User not authenticated. Cannot submit comment.");
+        // Optionally, show a message to the user that they need to log in
+        setSubmitting(false);
+        return;
+      }
+
+      const author = user.name || user.email; // Use user's name or email as author
 
       const response = await fetch("http://localhost:5000/api/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Include authorization token if your API requires it
-          // 'Authorization': `Bearer YOUR_AUTH_TOKEN`
+          Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify({
           blogId: blog._id,

@@ -2,18 +2,34 @@
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { useAtom } from "jotai";
+import { useState, useEffect } from "react";
 import {
   showBlogModalAtom,
   blogModalDataAtom,
   showCommentsModalAtom,
   commentsModalDataAtom,
+  userAtom,
 } from "@/app/jotaiAtoms";
+import { likeBlog, fetchComments, fetchBlogById } from "@/utils/blogApi";
 
 const BlogCard = ({ blog, className }) => {
+  const [currentBlog, setCurrentBlog] = useState(blog);
+  const [isLikedByUser, setIsLikedByUser] = useState(false);
   const [, setShowBlogModal] = useAtom(showBlogModalAtom);
   const [, setBlogModalData] = useAtom(blogModalDataAtom);
   const [, setShowCommentsModal] = useAtom(showCommentsModalAtom);
   const [, setCommentsModalData] = useAtom(commentsModalDataAtom);
+  const [user] = useAtom(userAtom);
+
+  useEffect(() => {
+    setCurrentBlog(blog);
+    if (user && blog.likedBy) {
+      const likedByUser = blog.likedBy.some(
+        (likedId) => likedId._id.toString() === user.id
+      );
+      setIsLikedByUser(likedByUser);
+    }
+  }, [blog, user]);
 
   const truncateContent = (content, wordLimit) => {
     const words = content.split(" ");
@@ -24,7 +40,7 @@ const BlogCard = ({ blog, className }) => {
   };
 
   const handleReadMore = () => {
-    setBlogModalData(blog);
+    setBlogModalData(currentBlog);
     setShowBlogModal(true);
   };
 
@@ -41,83 +57,64 @@ const BlogCard = ({ blog, className }) => {
         className
       )}
     >
-      {blog && (
+      {currentBlog && (
         <>
-          <h2 className="text-center text-2xl font-bold">{blog.title}</h2>
+          <h2 className="text-center text-2xl font-bold">
+            {currentBlog.title}
+          </h2>
           <p className="text-center text-lg">{truncatedContent}</p>
-          {blog.content.split(" ").length > 100 && ( // Only show button if content is truncated
+          {currentBlog.content.split(" ").length > 100 && ( // Only show button if content is truncated
             <div className="mt-4 flex w-full items-center justify-between">
               <div className="flex items-center space-x-4 text-sm text-gray-400">
-                {blog.views && (
+                {currentBlog.views && (
                   <span className="flex items-center">
-                    <span className="mr-1">👁️</span> {blog.views}
+                    <span className="mr-1">👁️</span> {currentBlog.views}
                   </span>
                 )}
-                {blog.likes && (
+                {currentBlog.likes && (
                   <span
                     className="flex cursor-pointer items-center"
                     onClick={async (e) => {
                       e.stopPropagation();
-                      console.log("Likes icon clicked for blog:", blog._id);
+                      if (!user || !user.token) {
+                        console.error("User not authenticated.");
+                        // Optionally, show a message to the user that they need to log in
+                        return;
+                      }
                       try {
-                        // Placeholder for authentication token
-                        const authToken = "YOUR_AUTH_TOKEN_HERE"; // Replace with actual token
-
-                        const response = await fetch(
-                          `http://localhost:5000/api/blogs/${blog._id}/rate`,
-                          {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                              Authorization: `Bearer ${authToken}`,
-                            },
-                            body: JSON.stringify({ value: 1 }), // Assuming 1 for a 'like'
-                          }
+                        const action = isLikedByUser ? "unlike" : "like";
+                        const { likes, isLiked: newIsLiked } = await likeBlog(
+                          currentBlog._id,
+                          user.token,
+                          action
                         );
-
-                        if (!response.ok) {
-                          throw new Error(
-                            `HTTP error! status: ${response.status}`
-                          );
-                        }
-
-                        // Assuming the API returns the updated blog or a success message
-                        // For now, we'll just increment the likes count on the frontend
-                        // In a real app, you might re-fetch the blog or update state more robustly
-                        // You might need to update the blog object in the parent component's state
-                        console.log("Blog liked successfully!");
-                        // This part needs to update the actual blog object in the state
-                        // For now, it's a console log, as direct state update here is complex
-                        // without knowing the parent component's state management.
+                        setCurrentBlog((prevBlog) => ({
+                          ...prevBlog,
+                          likes: likes,
+                        }));
+                        setIsLikedByUser(newIsLiked);
                       } catch (error) {
                         console.error("Failed to like blog:", error);
                         // Optionally, show an error message to the user
                       }
                     }}
                   >
-                    <span className="mr-1">👍</span> {blog.likes}
+                    <span className="mr-1">{isLikedByUser ? "👎" : "👍"}</span>{" "}
+                    {currentBlog.likes}
                   </span>
                 )}
-                {blog.comments && (
+                {currentBlog.comments && (
                   <span
                     className="flex cursor-pointer items-center"
                     onClick={async (e) => {
                       e.stopPropagation(); // Prevent triggering the blog modal
-                      console.log("Comments icon clicked for blog:", blog._id);
                       try {
-                        const response = await fetch(
-                          `http://localhost:5000/api/comments/blog/${blog._id}`
-                        );
-                        if (!response.ok) {
-                          throw new Error(
-                            `HTTP error! status: ${response.status}`
-                          );
-                        }
-                        const data = await response.json();
-                        console.log("Fetched comments data:", data);
-                        setCommentsModalData({ blog: blog, comments: data });
+                        const data = await fetchComments(currentBlog._id);
+                        setCommentsModalData({
+                          blog: currentBlog,
+                          comments: data,
+                        });
                         setShowCommentsModal(true);
-                        console.log("setShowCommentsModal(true) called.");
                       } catch (error) {
                         console.error("Failed to fetch comments:", error);
                         // Optionally, show an error message to the user

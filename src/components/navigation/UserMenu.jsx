@@ -120,7 +120,7 @@ const UserMenu = () => {
       <button
         onClick={toggleSidebar}
         className={clsx(
-          "custom-bg fixed top-4 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full p-2 text-foreground shadow-lg transition-all duration-300 ease-in-out",
+          "custom-bg group fixed top-4 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full p-2 text-foreground shadow-lg transition-all duration-300 ease-in-out",
           {
             "right-150": isSidebarOpen,
             "right-2": !isSidebarOpen,
@@ -132,9 +132,13 @@ const UserMenu = () => {
           transition={{ duration: 1 }}
         >
           <Settings
-            className="size-full text-foreground hover:text-orange-500"
+            className="size-full text-foreground group-hover:text-orange-500"
             strokeWidth={1.5}
           />
+          <span className="peer absolute left-0 top-0 size-full bg-transparent" />
+          <span className="absolute right-full top-1/2 mx-2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-background px-2 py-1 text-sm text-foreground shadow-lg peer-hover:block">
+            Settings
+          </span>
         </motion.div>
       </button>
 
@@ -150,12 +154,16 @@ const UserMenu = () => {
         <div className="flex size-full items-center justify-evenly">
           <button
             onClick={handleProfileClick}
-            className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
+            className="custom-bg group relative flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
           >
             <User
-              className="size-full text-foreground hover:text-orange-500"
+              className="size-full text-foreground group-hover:text-orange-500"
               strokeWidth={1.5}
             />
+            <span className="peer absolute left-0 top-0 size-full bg-transparent" />
+            <span className="absolute left-1/2 top-full mb-2 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-background px-2 py-1 text-sm text-foreground shadow-lg peer-hover:block">
+              Profile
+            </span>
           </button>
 
           <motion.button
@@ -163,38 +171,48 @@ const UserMenu = () => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 1 }}
-            className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
+            className="custom-bg group relative flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
             aria-label={"Sound control button"}
             name={"Sound control button"}
           >
-            {mounted && (isPlaying ? (
-              <Volume2
-                className="size-full text-foreground hover:text-orange-500"
-                strokeWidth={1.5}
-              />
-            ) : (
-              <VolumeX
-                className="size-full text-foreground hover:text-orange-500"
-                strokeWidth={1.5}
-              />
-            ))}
+            {mounted &&
+              (isPlaying ? (
+                <Volume2
+                  className="size-full text-foreground group-hover:text-orange-500"
+                  strokeWidth={1.5}
+                />
+              ) : (
+                <VolumeX
+                  className="size-full text-foreground group-hover:text-orange-500"
+                  strokeWidth={1.5}
+                />
+              ))}
+            <span className="peer absolute left-0 top-0 size-full bg-transparent" />
+            <span className="absolute left-1/2 top-full mt-2 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-background px-2 py-1 text-sm text-foreground shadow-lg peer-hover:block">
+              Sound
+            </span>
           </motion.button>
 
           <button
             onClick={handleAuthClick}
-            className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
+            className="custom-bg group relative flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
           >
-            {mounted && (isAuthenticated ? (
-              <LogOut
-                className="size-full text-foreground hover:text-orange-500"
-                strokeWidth={1.5}
-              />
-            ) : (
-              <LogIn
-                className="size-full text-foreground hover:text-orange-500"
-                strokeWidth={1.5}
-              />
-            ))}
+            {mounted &&
+              (isAuthenticated ? (
+                <LogOut
+                  className="size-full text-foreground group-hover:text-orange-500"
+                  strokeWidth={1.5}
+                />
+              ) : (
+                <LogIn
+                  className="size-full text-foreground group-hover:text-orange-500"
+                  strokeWidth={1.5}
+                />
+              ))}
+            <span className="peer absolute left-0 top-0 size-full bg-transparent" />
+            <span className="absolute left-1/2 top-full mt-2 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-background px-2 py-1 text-sm text-foreground shadow-lg peer-hover:block">
+              {mounted && (isAuthenticated ? "Logout" : "Login")}
+            </span>
           </button>
         </div>
       </div>
