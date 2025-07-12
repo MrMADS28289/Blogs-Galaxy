@@ -6,17 +6,28 @@ import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { Volume2, VolumeX, Settings, User, LogIn, LogOut } from "lucide-react";
 import { useAtom } from "jotai";
-import { userAtom, isAuthenticatedAtom } from "@/app/jotaiAtoms";
+import {
+  userAtom,
+  isAuthenticatedAtom,
+  showProfileModalAtom,
+} from "@/app/jotaiAtoms";
 import { useRouter } from "next/navigation";
+import ProfileModal from "../ProfileModal";
 
 const UserMenu = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [mounted, setMounted] = useState(false); // New state for hydration
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [user, setUser] = useAtom(userAtom);
   const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [, setShowProfileModal] = useAtom(showProfileModalAtom);
   const router = useRouter();
 
   const handleFirstUserInteraction = useCallback(() => {
@@ -88,10 +99,9 @@ const UserMenu = () => {
   const handleProfileClick = () => {
     if (!isAuthenticated) {
       router.push("/login");
+    } else {
+      setShowProfileModal(true);
     }
-    // else {
-    //   // Navigate to profile page if it exists
-    // }
   };
 
   const handleAuthClick = () => {
@@ -107,6 +117,7 @@ const UserMenu = () => {
 
   return (
     <>
+      <ProfileModal />
       <button
         onClick={toggleSidebar}
         className={clsx(
@@ -157,7 +168,7 @@ const UserMenu = () => {
             aria-label={"Sound control button"}
             name={"Sound control button"}
           >
-            {isPlaying ? (
+            {mounted && (isPlaying ? (
               <Volume2
                 className="size-full text-foreground hover:text-orange-500"
                 strokeWidth={1.5}
@@ -167,14 +178,14 @@ const UserMenu = () => {
                 className="size-full text-foreground hover:text-orange-500"
                 strokeWidth={1.5}
               />
-            )}
+            ))}
           </motion.button>
 
           <button
             onClick={handleAuthClick}
             className="custom-bg flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
           >
-            {isAuthenticated ? (
+            {mounted && (isAuthenticated ? (
               <LogOut
                 className="size-full text-foreground hover:text-orange-500"
                 strokeWidth={1.5}
@@ -184,7 +195,7 @@ const UserMenu = () => {
                 className="size-full text-foreground hover:text-orange-500"
                 strokeWidth={1.5}
               />
-            )}
+            ))}
           </button>
         </div>
       </div>

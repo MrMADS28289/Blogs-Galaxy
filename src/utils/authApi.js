@@ -59,3 +59,24 @@ export const googleSignInUser = async (userData) => {
     throw error;
   }
 };
+
+export const updateUser = async (userData, token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userData),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to update user");
+    }
+    return data;
+  } catch (error) {
+    console.error("Update User Error:", error);
+    throw error;
+  }
+};
