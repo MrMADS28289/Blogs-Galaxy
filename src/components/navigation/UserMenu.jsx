@@ -108,7 +108,6 @@ const UserMenu = () => {
     if (isAuthenticated) {
       // Handle logout
       setUser(null);
-      setIsAuthenticated(false);
       router.push("/"); // Redirect to home after logout
     } else {
       router.push("/login");

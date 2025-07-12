@@ -18,15 +18,14 @@ export const showCommentsModalAtom = atom(false);
 export const commentsModalDataAtom = atom(null);
 export const showProfileModalAtom = atom(false);
 
-export const userAtom = atom(getInitialUser());
-export const isAuthenticatedAtom = atom(
-  (get) => !!get(userAtom),
+export const userAtom = atom(
+  getInitialUser(),
   (get, set, newUser) => {
     set(userAtom, newUser);
     if (typeof window !== "undefined") {
       if (newUser) {
         const userToStore = {
-          id: newUser.id,
+          id: newUser._id,
           email: newUser.email,
           token: newUser.token,
         };
@@ -43,3 +42,5 @@ export const isAuthenticatedAtom = atom(
     }
   }
 );
+
+export const isAuthenticatedAtom = atom((get) => !!get(userAtom));

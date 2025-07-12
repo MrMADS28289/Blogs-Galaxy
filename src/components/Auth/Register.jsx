@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
-import { isAuthenticatedAtom } from "@/app/jotaiAtoms";
+import { isAuthenticatedAtom, userAtom } from "@/app/jotaiAtoms";
 import { registerUser } from "@/utils/authApi";
 
 const Register = () => {
@@ -16,7 +16,7 @@ const Register = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [, setUser] = useAtom(userAtom);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,7 +28,7 @@ const Register = () => {
     setLoading(true);
     try {
       const data = await registerUser(formData);
-      setIsAuthenticated(data); // Automatically log in after registration
+      setUser(data); // Automatically log in after registration
       router.push("/"); // Redirect to home page
     } catch (err) {
       setError(err.message || "Registration failed");
@@ -56,7 +56,7 @@ const Register = () => {
               </label>
               <input
                 id="username"
-                name="username"
+                name="name"
                 type="text"
                 autoComplete="username"
                 required

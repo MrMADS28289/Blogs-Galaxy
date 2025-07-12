@@ -68,6 +68,7 @@ const ProfileModal = () => {
         { name, image: selectedAvatar },
         user.token
       );
+      console.log("Updated user data from API:", updatedUserData); // Add this line
 
       // 2. Update user state locally in Jotai with the returned data
       setUser(updatedUserData);

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
-import { isAuthenticatedAtom } from "@/app/jotaiAtoms";
+import { isAuthenticatedAtom, userAtom } from "@/app/jotaiAtoms";
 import { loginUser, googleSignInUser } from "@/utils/authApi";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebase";
@@ -17,7 +17,7 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [, setUser] = useAtom(userAtom);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +29,7 @@ const Login = () => {
     setLoading(true);
     try {
       const data = await loginUser(formData);
-      setIsAuthenticated(data);
+      setUser(data);
       router.push("/"); // Redirect to home page on successful login
     } catch (err) {
       setError(err.message || "Login failed");
@@ -50,10 +50,10 @@ const Login = () => {
       const backendResponse = await googleSignInUser({
         uid: user.uid,
         email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
+        name: user.displayName,
+        image: user.photoURL,
       });
-      setIsAuthenticated(backendResponse);
+      setUser(backendResponse);
       router.push("/");
     } catch (err) {
       setError(err.message || "Google sign-in failed");
