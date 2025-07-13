@@ -121,7 +121,7 @@ const BlogCard = ({ blog, className }) => {
                       }
                     }}
                   >
-                    <span className="mr-1">💬</span>
+                    <span className="mr-1">💬 {blog.comments.length}</span>
                   </span>
                 )}
               </div>

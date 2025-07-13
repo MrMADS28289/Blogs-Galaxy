@@ -50,3 +50,25 @@ export const fetchBlogById = async (blogId) => {
     throw error;
   }
 };
+
+export const addComment = async (commentData, token) => {
+  try {
+    const response = await fetch("http://localhost:5000/api/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ text: commentData.content, blogId: commentData.blogId, author: commentData.author }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to add comment:", error);
+    throw error;
+  }
+};

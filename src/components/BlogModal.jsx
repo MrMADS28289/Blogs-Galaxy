@@ -8,7 +8,7 @@ import Image from "next/image";
 const BlogModal = () => {
   const [showBlogModal, setShowBlogModal] = useAtom(showBlogModalAtom);
   const [blogModalData] = useAtom(blogModalDataAtom);
-
+  console.log(blogModalData);
   if (!blogModalData) return null;
 
   const handleClose = () => {

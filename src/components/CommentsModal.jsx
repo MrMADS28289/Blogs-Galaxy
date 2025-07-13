@@ -1,9 +1,14 @@
 "use client";
 import { useAtom } from "jotai";
-import { showCommentsModalAtom, commentsModalDataAtom, userAtom } from "@/app/jotaiAtoms";
+import {
+  showCommentsModalAtom,
+  commentsModalDataAtom,
+  userAtom,
+} from "@/app/jotaiAtoms";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
+import { addComment } from "@/utils/blogApi";
 
 const CommentsModal = () => {
   const [showCommentsModal, setShowCommentsModal] = useAtom(
@@ -40,24 +45,14 @@ const CommentsModal = () => {
 
       const author = user.name || user.email; // Use user's name or email as author
 
-      const response = await fetch("http://localhost:5000/api/comments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
+      const addedComment = await addComment(
+        {
           blogId: blog._id,
           author: author,
           content: newComment,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const addedComment = await response.json();
+        },
+        user.token
+      );
       // Update the comments list in the modal
       setCommentsModalData((prev) => ({
         ...prev,
@@ -106,8 +101,8 @@ const CommentsModal = () => {
                     key={comment._id}
                     className="mb-4 border-b border-gray-700 pb-2 last:border-b-0"
                   >
-                    <p className="font-bold">{comment.author}</p>
-                    <p>{comment.content}</p>
+                    <p className="font-bold">{comment.author.name || "N/A"}</p>
+                    <p>{comment.text}</p>
                     <p className="text-sm text-gray-400">
                       {new Date(comment.createdAt).toLocaleString()}
                     </p>
