@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { createPortal } from "react-dom";
+import { useRouter } from "next/navigation";
 import {
   showProfileModalAtom,
   userAtom,
@@ -44,6 +45,7 @@ const ProfileModal = () => {
   const [showProfileModal, setShowProfileModal] = useAtom(showProfileModalAtom);
   const [user, setUser] = useAtom(userAtom);
   const [isAuthenticated] = useAtom(isAuthenticatedAtom);
+  const router = useRouter();
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [name, setName] = useState("");
@@ -185,6 +187,17 @@ const ProfileModal = () => {
                     {user.name || "N/A"}
                   </p>
                   <p className="text-sm text-gray-400">{user.email}</p>
+                  {user.role === "admin" && (
+                    <button
+                      onClick={() => {
+                        router.push("/admin");
+                        setShowProfileModal(false);
+                      }}
+                      className="custom-bg mt-4 rounded border border-dashed border-orange-500 px-4 py-2 text-white hover:shadow-glass-sm"
+                    >
+                      Admin Panel
+                    </button>
+                  )}
                 </div>
               )}
             </div>

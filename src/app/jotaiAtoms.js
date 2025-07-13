@@ -35,6 +35,9 @@ export const userAtom = atom(
         if (newUser.image) {
           userToStore.image = newUser.image;
         }
+        if (newUser.role) {
+          userToStore.role = newUser.role;
+        }
         localStorage.setItem("user", JSON.stringify(userToStore));
       } else {
         localStorage.removeItem("user");

@@ -1,21 +1,25 @@
-// @route POST /api/comments
-// @desc Create a new comment
-// @access Private
-router.post("/", authMiddleware, ...validateCommentCreation, commentController.createComment);
+Based on the project's features and existing functionalities, here are some suggestions for what you can add to an admin panel:
 
-// @route GET /api/comments/blog/:blogId
-// @desc Get all comments for a specific blog
-// @access Public
-router.get("/blog/:blogId", commentController.getCommentsByBlog);
+User Management:
 
-// @route PUT /api/comments/:id
-// @desc Update a comment
-// @access Private
-router.put("/:id", authMiddleware, ...validateCommentUpdate, commentController.updateComment);
+- View, edit, and delete user accounts.
+- Manage user roles (e.g., assign admin privileges).
 
-// @route DELETE /api/comments/:id
-// @desc Delete a comment
-// @access Private
-router.delete("/:id", authMiddleware, ...validateCommentDelete, commentController.deleteComment);
+Blog Management:
 
-module.exports = router;
+- View, edit, and delete all blog posts.
+- Moderate blog posts (e.g., approve/reject submissions if a moderation flow is introduced).
+- Feature or unfeature specific blog posts.
+
+Comment Management:
+
+- View and delete comments.
+- Moderate comments.
+
+Analytics and Reporting:
+
+- Dashboard with key metrics (e.g., total users, total posts, popular posts).
+
+Site Settings:
+
+- Manage general application settings.

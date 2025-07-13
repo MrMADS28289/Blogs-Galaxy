@@ -1,50 +1,54 @@
 # Blogs Galaxy
 
-## Project Overview
+## Project Description
 
-Blogs Galaxy is a celestial-themed blog and content platform built with Next.js. It features an interactive user interface with 3D models and dynamic backgrounds, categorizing content into various "galaxies" and "universes" such as "Tech Galaxy," "AI Universe," "Sports Galaxy," and more. The application aims to provide an engaging and visually rich experience for exploring different topics.
+Blogs Galaxy is a dynamic and interactive blogging platform built with Next.js. It features a visually engaging user interface with 3D models, robust authentication, and a comprehensive blogging system that includes functionalities like creating, viewing, commenting on, and liking blog posts. The application aims to provide a unique and immersive experience for users to explore and share content.
 
 ## Features
 
-- **Categorized Content:** Content is organized into distinct sections like Tech Galaxy, AI Universe, Geography Nebula, History Constellation, Sports Galaxy, Creative Corner, Motivation Meteor, and Community.
-- **Interactive 3D Elements:** Utilizes React Three Fiber and Three.js to render immersive 3D models and dynamic backgrounds, enhancing the user experience.
-- **Responsive Design:** Built with Tailwind CSS to ensure a seamless experience across various devices and screen sizes.
-- **Client-Side Routing:** Leverages Next.js for efficient navigation between different content categories without full page reloads.
-- **Global State Management:** Employs Jotai for lightweight and flexible state management across the application.
-- **Dynamic Data Handling:** Centralized data management for navigation and content categories.
+- **User Authentication**: Secure user registration and login powered by Firebase.
+- **Interactive 3D Models**: Engaging 3D models rendered using Three.js, React Three Fiber, and Drei, enhancing the visual experience.
+- **Blog Management**: Users can create, view, and interact with blog posts.
+- **Commenting System**: Users can comment on blog posts.
+- **Like Functionality**: Users can like and unlike blog posts.
+- **Responsive Design**: Built with Tailwind CSS for a modern and responsive user interface.
+- **Global State Management**: Utilizes Jotai for efficient and scalable state management.
+- **Form Handling**: Implements React Hook Form for streamlined form validation and submission.
+- **Notifications**: Integrated with Sonner for elegant toast notifications.
+- **Email Functionality**: Uses EmailJS for sending emails.
 
 ## Technologies Used
 
-- **Next.js:** React framework for building server-side rendered and statically generated web applications.
-- **React:** JavaScript library for building user interfaces.
-- **Tailwind CSS:** A utility-first CSS framework for rapid UI development.
-- **Jotai:** A primitive and flexible state management library for React.
-- **React Three Fiber:** A React renderer for Three.js, making it easier to build 3D scenes with React components.
-- **Three.js:** A JavaScript 3D library for rendering 3D graphics in the browser.
-- **Node.js:** JavaScript runtime environment.
-- **npm / Yarn:** Package managers.
+- **Framework**: Next.js 14
+- **Styling**: Tailwind CSS, PostCSS, Autoprefixer
+- **3D Graphics**: Three.js, @react-three/fiber, @react-three/drei
+- **State Management**: Jotai
+- **Authentication**: Firebase
+- **Forms**: React Hook Form
+- **Icons**: Lucide React, React Icons
+- **Notifications**: Sonner
+- **Email**: EmailJS
+- **Other**: clsx, framer-motion, sharp
 
 ## Getting Started
 
-Follow these steps to set up and run the Blogs Galaxy project on your local machine.
+Follow these steps to set up and run the project locally.
 
 ### Prerequisites
 
-Make sure you have the following installed:
-
-- [Node.js](https://nodejs.org/en/) (LTS version recommended)
-- [npm](https://www.npmjs.com/) (comes with Node.js) or [Yarn](https://yarnpkg.com/)
+- Node.js (v18 or higher)
+- npm or Yarn
 
 ### Installation
 
-1.  **Clone the repository:**
+1.  **Clone the repository**:
 
     ```bash
     git clone <repository-url>
-    cd Blogs-Galaxy
+    cd blogs-galaxy
     ```
 
-2.  **Install dependencies:**
+2.  **Install dependencies**:
 
     ```bash
     npm install
@@ -52,162 +56,81 @@ Make sure you have the following installed:
     yarn install
     ```
 
-### Running the Development Server
+### Environment Variables
 
-To start the development server:
+Create a `.env.local` file in the root of the project and add your environment variables. You will need Firebase configuration for authentication and potentially other API keys.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the application. The page will automatically reload as you make changes.
-
-### Building for Production
-
-To build the application for production:
-
-```bash
-npm run build
-# or
-yarn build
-```
-
-This command optimizes the application for production and creates a `.next` folder with the build output.
-
-### Starting the Production Server
-
-To run the built application in production mode:
-
-```bash
-npm run start
-# or
-yarn start
-```
-
-## File Structure
-
-The project follows a standard Next.js application structure with a clear separation of concerns.
+Example `.env.local`:
 
 ```
-```
-Blogs-Galaxy/
-├── public/                 # Static assets (images, 3D models, audio)
-│   ├── next.svg
-│   ├── vercel.svg
-│   ├── audio/              # Background audio files
-│   ├── background/         # Background images
-│   └── models/             # 3D model files (.glb)
-├── src/
-│   ├── app/                # Next.js App Router directory
-│   │   ├── data.js         # Centralized data for navigation and content categories
-│   │   ├── favicon.ico
-│   │   ├── globals.css     # Global styles and Tailwind CSS imports
-│   │   ├── jotaiAtoms.js   # Jotai atoms for global state
-│   │   ├── JotaiProvider.jsx # Jotai provider component
-│   │   ├── layout.js       # Root layout for the application
-│   │   ├── page.js         # Home page component
-│   │   └── (sub pages)/    # Dynamic routes for content categories
-│   │       ├── layout.js   # Layout for sub-pages
-│   │       └── [category]/ # Dynamic category route
-│   │           └── page.js
-│   └── components/         # Reusable React components
-│       ├── BlogCard.jsx
-│       ├── BlogList.jsx
-│       ├── BlogModal.jsx
-│       ├── CommentsModal.jsx
-│       ├── Header.jsx
-│       ├── HomeBtn.jsx
-│       ├── RenderModel.jsx
-│       ├── ResponsiveComponent.jsx
-│       ├── ScrollButton.jsx
-├── .eslintrc.json          # ESLint configuration
-├── .gitignore              # Git ignore file
-├── jsconfig.json           # JavaScript language service configuration
-├── next.config.mjs         # Next.js configuration file
-├── package-lock.json       # npm dependency lock file
-├── package.json            # Project metadata and dependencies
-├── postcss.config.js       # PostCSS configuration
-├── README.md               # This README file
-└── tailwind.config.js      # Tailwind CSS configuration
-```
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
+
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_emailjs_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
+
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8080/api
 ```
 
-## How it Works
+**Note**: The `NEXT_PUBLIC_BACKEND_URL` should point to your backend API for blog functionalities. Ensure your backend is running and accessible.
 
-### Architecture Overview
+### Running the Application
 
-Blogs Galaxy is a Next.js application that leverages the App Router for routing and data fetching. It combines React components with 3D rendering capabilities using React Three Fiber and Three.js to create an interactive and visually appealing user interface. State management is handled globally using Jotai.
+1.  **Development Mode**:
 
-### Core Components and Flow
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
 
-1.  **Next.js App Router (`src/app/`)**:
+    Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-    - The `src/app` directory is the heart of the Next.js App Router.
-    - `layout.js` defines the root layout, applying global styles (`globals.css`) and wrapping the entire application with necessary providers like `JotaiProvider.jsx`.
-    - `page.js` at the root (`src/app/page.js`) serves as the main landing page of the application.
-    - The `(sub pages)` directory contains dynamic routes for each content category. For example, `src/app/(sub pages)/techGalaxy/page.js` renders the content for the "Tech Galaxy" section.
+2.  **Build for Production**:
 
-2.  **Data Management (`src/app/data.js`)**:
+    ```bash
+    npm run build
+    # or
+    yarn build
+    ```
 
-    - This file acts as a central data store.
-    - `BtnList`: An array defining the navigation buttons, including their labels, links, icons, and associated 3D model components. This data drives the main navigation of the application.
-    - `projectsData`: Placeholder data for potential project listings.
+    This command builds the application for production to the `.next` folder.
 
-3.  **Navigation (`src/components/navigation/` and `src/components/Header.jsx`)**:
+3.  **Start Production Server**:
 
-    - `Header.jsx` likely contains the main navigation elements.
-    - `src/components/navigation/index.jsx` and `NavButton.jsx` are responsible for rendering the interactive navigation buttons based on the `BtnList` data. Clicking these buttons navigates the user to the respective category pages.
+    ```bash
+    npm run start
+    # or
+    yarn start
+    ```
 
-4.  **3D Rendering (`src/components/models/`, `src/components/RenderModel.jsx`, `public/models/`)**:
+    This command starts a Next.js production server.
 
-    - The `public/models` directory stores the 3D models in `.glb` format.
-    - `src/components/models/*.jsx` files are React components that encapsulate specific 3D models (e.g., `AiModel.jsx`, `TechModel.jsx`). These components use React Three Fiber to load and display the `.glb` files.
-    - `RenderModel.jsx` is a utility component that likely handles the common logic for rendering any 3D model, providing a consistent setup for the Three.js canvas.
+## Project Structure
 
-5.  **Content Categories (`src/app/(sub pages)/[category]/page.js` and `src/components/[category]/`)**:
+- `src/app`: Contains the main application pages and layout.
+- `src/components`: Reusable React components, including UI elements, authentication forms, and 3D models.
+- `src/lib`: Utility functions and configurations (e.g., Firebase initialization).
+- `src/utils`: API service files for interacting with backend endpoints (e.g., `authApi.js`, `blogApi.js`).
+- `public`: Static assets like images, audio, and 3D models.
 
-    - Each category (e.g., `aiUniverse`, `techGalaxy`) has its own `page.js` within `src/app/(sub pages)/`.
-    - Corresponding components in `src/components/[category]/index.jsx` and `ItemLayout.jsx` are responsible for rendering the specific content and layout for that category.
+## Contributing
 
-6.  **State Management (Jotai - `src/app/jotaiAtoms.js`, `src/app/JotaiProvider.jsx`)**:
+Contributions are welcome! Please follow these steps:
 
-    - Jotai is used for managing global application state, such as screen size (`useScreenSize.jsx`).
-    - `jotaiAtoms.js` defines the individual atoms (pieces of state).
-    - `JotaiProvider.jsx` wraps the application to make these atoms accessible to all components.
+1.  Fork the repository.
+2.  Create a new branch (`git checkout -b feature/your-feature-name`).
+3.  Make your changes.
+4.  Commit your changes (`git commit -m 'Add new feature'`).
+5.  Push to the branch (`git push origin feature/your-feature-name`).
+6.  Open a Pull Request.
 
-7.  **Styling (Tailwind CSS - `globals.css`, `tailwind.config.js`, `postcss.config.js`)**:
-    - Tailwind CSS is integrated for utility-first styling.
-    - `globals.css` imports Tailwind's base styles.
-    - `tailwind.config.js` allows for customization of Tailwind's default theme and plugins.
-    - `postcss.config.js` configures PostCSS for processing CSS with Tailwind.
+## License
 
-This detailed `README.md` should provide a comprehensive understanding of the "Blogs Galaxy" project.
-
-# This project's Backend info
-
-The server will run on `http://localhost:5000`.
-
-## API Endpoints
-
-### Authentication
-
-- `POST /api/auth/register`: Register a new user. (Public)
-- `POST /api/auth/login`: Log in a user and get a JWT. (Public)
-
-### Blog Posts
-
-- `POST /api/blogs`: Create a new blog post. (Authenticated)
-- `GET /api/blogs`: Get all blog posts. (Public)
-- `GET /api/blogs/:id`: Get a single blog post by ID. (Public)
-- `PUT /api/blogs/:id`: Update a blog post by ID. (Authenticated & Owner)
-- `DELETE /api/blogs/:id`: Delete a blog post by ID. (Authenticated & Owner)
-- `POST /api/blogs/:id/rate`: Rate a blog post. (Authenticated)
-
-### Comments
-
-- `POST /api/comments`: Create a new comment. (Authenticated)
-- `GET /api/comments/blog/:blogId`: Get all comments for a specific blog. (Public)
-- `PUT /api/comments/:id`: Update a comment by ID. (Authenticated & Owner)
-- `DELETE /api/comments/:id`: Delete a comment by ID. (Authenticated & Owner)
+This project is licensed under the MIT License. See the `LICENSE` file for details.
