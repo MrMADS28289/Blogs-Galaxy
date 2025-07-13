@@ -137,3 +137,58 @@ export const updateUserRoleAdmin = async (userId, newRole, token) => {
     throw error;
   }
 };
+
+export const fetchAllCommentsAdmin = async (token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to fetch comments for admin");
+    }
+    return data;
+  } catch (error) {
+    console.error("Error fetching all comments for admin:", error);
+    throw error;
+  }
+};
+
+export const deleteCommentAdmin = async (commentId, token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/comments/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || "Failed to delete comment");
+    }
+    return { message: "Comment deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    throw error;
+  }
+};
+
+export const fetchAnalyticsData = async (token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/admin/analytics`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to fetch analytics data");
+    }
+    return data;
+  } catch (error) {
+    console.error("Error fetching analytics data:", error);
+    throw error;
+  }
+};

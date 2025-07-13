@@ -57,3 +57,11 @@
     - Implemented `src/components/Admin/UserManagement.jsx` to fetch and display a list of users with a delete option.
     - Added `updateUserRoleAdmin` function to `src/utils/adminApi.js`.
     - Modified `src/components/Admin/UserManagement.jsx` to include functionality to change a user's role (Make Admin/Make User).
+- Implemented Comment Management in Admin Panel:
+    - Added `fetchAllCommentsAdmin` and `deleteCommentAdmin` functions to `src/utils/adminApi.js`.
+    - Implemented `src/components/Admin/CommentManagement.jsx` to fetch and display comments with their content, author, associated blog, and a delete option.
+- Fixed `Objects are not valid as a React child` error in `src/components/Admin/CommentManagement.jsx`.
+- Implemented Analytics and Reporting in Admin Panel:
+    - Added `fetchAnalyticsData` function to `src/utils/adminApi.js`.
+    - Implemented `src/components/Admin/AnalyticsReporting.jsx` to fetch and display basic statistics (total blogs, users, comments).
+- Added "Home" button to Admin Panel navigation in `src/app/admin/page.js`.
