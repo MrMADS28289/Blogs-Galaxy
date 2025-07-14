@@ -113,6 +113,20 @@ const BlogCard = ({ blog, className }) => {
                         setCommentsModalData({
                           blog: currentBlog,
                           comments: data,
+                          onCommentAdded: (newComment) => {
+                            setCurrentBlog((prevBlog) => ({
+                              ...prevBlog,
+                              comments: [...prevBlog.comments, newComment],
+                            }));
+                          },
+                          onCommentAddedSuccess: async () => {
+                            try {
+                              const updatedBlog = await fetchBlogById(currentBlog._id);
+                              setCurrentBlog(updatedBlog);
+                            } catch (error) {
+                              console.error("Failed to re-fetch blog after comment:", error);
+                            }
+                          },
                         });
                         setShowCommentsModal(true);
                       } catch (error) {
@@ -120,7 +134,7 @@ const BlogCard = ({ blog, className }) => {
                       }
                     }}
                   >
-                    <span className="mr-1">💬 {blog.comments.length}</span>
+                    <span className="mr-1">💬 {currentBlog.comments.length}</span>
                   </span>
                 )}
               </div>

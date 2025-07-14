@@ -45,7 +45,7 @@ const CommentsModal = () => {
 
       const author = user.name || user.email; // Use user's name or email as author
 
-      const addedComment = await addComment(
+      const addedCommentResponse = await addComment(
         {
           blogId: blog._id,
           author: author,
@@ -53,11 +53,25 @@ const CommentsModal = () => {
         },
         user.token
       );
+
+      // Ensure the author field is an object with a name property
+      const formattedComment = {
+        ...addedCommentResponse,
+        author: { name: author },
+      };
+
       // Update the comments list in the modal
       setCommentsModalData((prev) => ({
         ...prev,
-        comments: [...prev.comments, addedComment],
+        comments: [...prev.comments, formattedComment],
       }));
+
+      if (commentsModalData.onCommentAdded) {
+        commentsModalData.onCommentAdded(formattedComment);
+      }
+      if (commentsModalData.onCommentAddedSuccess) {
+        commentsModalData.onCommentAddedSuccess();
+      }
       setNewComment(""); // Clear input field
     } catch (error) {
       // The error is already handled and toasted in the API utility
