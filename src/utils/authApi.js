@@ -1,4 +1,6 @@
-const API_BASE_URL = "http://localhost:5000/api/auth";
+import { toast } from "sonner";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth` : "http://localhost:5000/api/auth";
 
 export const registerUser = async (userData) => {
   try {
@@ -16,6 +18,7 @@ export const registerUser = async (userData) => {
     return data;
   } catch (error) {
     console.error("Registration Error:", error);
+    toast.error(error.message || "Registration failed. Please try again.");
     throw error;
   }
 };
@@ -36,6 +39,7 @@ export const loginUser = async (credentials) => {
     return data;
   } catch (error) {
     console.error("Login Error:", error);
+    toast.error(error.message || "Login failed. Please check your credentials.");
     throw error;
   }
 };
@@ -56,6 +60,7 @@ export const googleSignInUser = async (userData) => {
     return data;
   } catch (error) {
     console.error("Google Sign-in Backend Error:", error);
+    toast.error(error.message || "Google sign-in failed. Please try again.");
     throw error;
   }
 };
@@ -77,6 +82,7 @@ export const updateUser = async (userData, token) => {
     return data;
   } catch (error) {
     console.error("Update User Error:", error);
+    toast.error(error.message || "Failed to update profile. Please try again.");
     throw error;
   }
 };

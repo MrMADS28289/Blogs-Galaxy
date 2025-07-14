@@ -10,6 +10,7 @@ import {
   isAuthenticatedAtom,
 } from "@/app/jotaiAtoms";
 import { updateUser } from "@/utils/authApi"; // Import the updateUser function
+import { toast } from "sonner";
 import {
   X,
   User,
@@ -60,7 +61,7 @@ const ProfileModal = () => {
 
   const handleSave = async () => {
     if (!user || !user.token) {
-      console.error("Authentication token not found.");
+      toast.error("Authentication token not found. Please log in again.");
       return; // Or handle this case more gracefully
     }
 
@@ -74,11 +75,12 @@ const ProfileModal = () => {
 
       // 2. Update user state locally in Jotai with the returned data
       setUser(updatedUserData);
+      toast.success("Profile updated successfully!");
 
       // 3. Exit edit mode
       setIsEditMode(false);
     } catch (error) {
-      console.error("Failed to update profile:", error);
+      toast.error("Failed to update profile: " + error.message);
       // Optionally, show an error message to the user
     }
   };

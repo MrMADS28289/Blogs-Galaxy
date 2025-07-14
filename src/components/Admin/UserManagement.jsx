@@ -4,6 +4,8 @@ import { userAtom } from "@/app/jotaiAtoms";
 import { fetchAllUsersAdmin, deleteUserAdmin, updateUserRoleAdmin } from "@/utils/adminApi";
 import { toast } from "sonner";
 
+import ErrorMessage from "../UI/ErrorMessage";
+
 const UserManagement = () => {
   const [user] = useAtom(userAtom);
   const [users, setUsers] = useState([]);
@@ -23,7 +25,6 @@ const UserManagement = () => {
       setError(null);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -70,7 +71,7 @@ const UserManagement = () => {
   };
 
   if (loading) return <p className="text-white">Loading users...</p>;
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error) return <ErrorMessage message={error} />;
   if (users.length === 0) return <p className="text-white">No users found.</p>;
 
   return (

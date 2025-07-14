@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { isAuthenticatedAtom, userAtom } from "@/app/jotaiAtoms";
 import { registerUser } from "@/utils/authApi";
+import { toast } from "sonner";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -29,9 +30,10 @@ const Register = () => {
     try {
       const data = await registerUser(formData);
       setUser(data); // Automatically log in after registration
+      toast.success("Registered successfully!");
       router.push("/"); // Redirect to home page
     } catch (err) {
-      setError(err.message || "Registration failed");
+      toast.error(err.message || "Registration failed");
     } finally {
       setLoading(false);
     }

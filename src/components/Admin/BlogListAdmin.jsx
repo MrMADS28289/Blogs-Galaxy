@@ -4,6 +4,8 @@ import { userAtom } from "@/app/jotaiAtoms";
 import { fetchAllBlogsAdmin, deleteBlogAdmin } from "@/utils/adminApi";
 import { toast } from "sonner";
 
+import ErrorMessage from "../UI/ErrorMessage";
+
 const BlogListAdmin = ({ onEdit }) => {
   const [user] = useAtom(userAtom);
   const [blogs, setBlogs] = useState([]);
@@ -23,7 +25,6 @@ const BlogListAdmin = ({ onEdit }) => {
       setError(null);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -51,7 +52,7 @@ const BlogListAdmin = ({ onEdit }) => {
   };
 
   if (loading) return <p className="text-white">Loading blogs...</p>;
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error) return <ErrorMessage message={error} />;
   if (blogs.length === 0) return <p className="text-white">No blogs found.</p>;
 
   return (

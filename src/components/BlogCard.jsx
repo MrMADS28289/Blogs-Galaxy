@@ -11,6 +11,7 @@ import {
   userAtom,
 } from "@/app/jotaiAtoms";
 import { likeBlog, fetchComments, fetchBlogById } from "@/utils/blogApi";
+import { toast } from "sonner";
 
 const BlogCard = ({ blog, className }) => {
   const [currentBlog, setCurrentBlog] = useState(blog);
@@ -77,8 +78,7 @@ const BlogCard = ({ blog, className }) => {
                     onClick={async (e) => {
                       e.stopPropagation();
                       if (!user || !user.token) {
-                        console.error("User not authenticated.");
-                        // Optionally, show a message to the user that they need to log in
+                        toast.error("You must be logged in to like a post.");
                         return;
                       }
                       try {
@@ -94,8 +94,8 @@ const BlogCard = ({ blog, className }) => {
                         }));
                         setIsLikedByUser(newIsLiked);
                       } catch (error) {
-                        console.error("Failed to like blog:", error);
-                        // Optionally, show an error message to the user
+                        // The error is already handled and toasted in the API utility
+                        // You can add component-specific logic here if needed
                       }
                     }}
                   >
@@ -116,8 +116,7 @@ const BlogCard = ({ blog, className }) => {
                         });
                         setShowCommentsModal(true);
                       } catch (error) {
-                        console.error("Failed to fetch comments:", error);
-                        // Optionally, show an error message to the user
+                        // The error is already handled and toasted in the API utility
                       }
                     }}
                   >

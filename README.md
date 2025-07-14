@@ -16,6 +16,11 @@ Blogs Galaxy is a dynamic and interactive blogging platform built with Next.js. 
 - **Form Handling**: Implements React Hook Form for streamlined form validation and submission.
 - **Notifications**: Integrated with Sonner for elegant toast notifications.
 - **Email Functionality**: Uses EmailJS for sending emails.
+- **Admin Panel**: A comprehensive admin panel for managing the application.
+  - **Blog Management**: Admins can create, edit, and delete blog posts.
+  - **User Management**: Admins can view, delete, and manage user roles.
+  - **Comment Management**: Admins can view and delete comments.
+  - **Analytics and Reporting**: Admins can view basic statistics about the application.
 
 ## Technologies Used
 

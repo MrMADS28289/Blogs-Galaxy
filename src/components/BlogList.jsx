@@ -4,6 +4,8 @@ import { useSetAtom } from "jotai";
 import { selectedCategoryAtom } from "@/app/jotaiAtoms";
 import { useEffect } from "react";
 
+import ErrorMessage from "./UI/ErrorMessage";
+
 const BlogList = ({ blogs, error, category, ItemLayoutComponent }) => {
   const setSelectedCategory = useSetAtom(selectedCategoryAtom);
 
@@ -12,7 +14,7 @@ const BlogList = ({ blogs, error, category, ItemLayoutComponent }) => {
   }, [category, setSelectedCategory]);
 
   if (error) {
-    return <div>Error loading blogs: {error}</div>;
+    return <ErrorMessage message={`Error loading blogs: ${error}`} />;
   }
 
   return (

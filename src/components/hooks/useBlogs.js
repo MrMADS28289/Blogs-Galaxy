@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { selectedCategoryAtom } from "../../app/jotaiAtoms"; // Adjust path as needed
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+
 export function useBlogs() {
   const [selectedCategory] = useAtom(selectedCategoryAtom);
   const [blogs, setBlogs] = useState([]);
@@ -14,10 +16,10 @@ export function useBlogs() {
       setError(null); // Clear any previous errors
 
       try {
-        let url = "http://localhost:5000/api/blogs";
+        let url = `${API_BASE_URL}/blogs`;
         if (selectedCategory) {
           // Only add category if it's not null
-          url = `http://localhost:5000/api/blogs?category=${encodeURIComponent(
+          url = `${API_BASE_URL}/blogs?category=${encodeURIComponent(
             selectedCategory
           )}`;
         }

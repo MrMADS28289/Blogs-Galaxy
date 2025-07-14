@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
 import { addComment } from "@/utils/blogApi";
+import { toast } from "sonner";
 
 const CommentsModal = () => {
   const [showCommentsModal, setShowCommentsModal] = useAtom(
@@ -37,8 +38,7 @@ const CommentsModal = () => {
     setSubmitting(true);
     try {
       if (!user || !user.token) {
-        console.error("User not authenticated. Cannot submit comment.");
-        // Optionally, show a message to the user that they need to log in
+        toast.error("You must be logged in to submit a comment.");
         setSubmitting(false);
         return;
       }
@@ -60,8 +60,7 @@ const CommentsModal = () => {
       }));
       setNewComment(""); // Clear input field
     } catch (error) {
-      console.error("Failed to submit comment:", error);
-      // Optionally, show an error message to the user
+      // The error is already handled and toasted in the API utility
     } finally {
       setSubmitting(false);
     }

@@ -4,6 +4,8 @@ import { userAtom } from "@/app/jotaiAtoms";
 import { fetchAllCommentsAdmin, deleteCommentAdmin } from "@/utils/adminApi";
 import { toast } from "sonner";
 
+import ErrorMessage from "../UI/ErrorMessage";
+
 const CommentManagement = () => {
   const [user] = useAtom(userAtom);
   const [comments, setComments] = useState([]);
@@ -23,7 +25,6 @@ const CommentManagement = () => {
       setError(null);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -51,7 +52,7 @@ const CommentManagement = () => {
   };
 
   if (loading) return <p className="text-white">Loading comments...</p>;
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error) return <ErrorMessage message={error} />;
   if (comments.length === 0)
     return <p className="text-white">No comments found.</p>;
 

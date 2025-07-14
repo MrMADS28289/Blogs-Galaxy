@@ -12,6 +12,7 @@ import {
   showProfileModalAtom,
 } from "@/app/jotaiAtoms";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import ProfileModal from "../ProfileModal";
 
 const UserMenu = () => {
@@ -108,6 +109,7 @@ const UserMenu = () => {
     if (isAuthenticated) {
       // Handle logout
       setUser(null);
+      toast.success("Logged out successfully!");
       router.push("/"); // Redirect to home after logout
     } else {
       router.push("/login");

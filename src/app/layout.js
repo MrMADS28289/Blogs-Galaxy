@@ -4,6 +4,7 @@ import clsx from "clsx";
 import UserMenu from "@/components/navigation/UserMenu";
 import JotaiProvider from "./JotaiProvider";
 import CommentsModal from "@/components/CommentsModal";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
           <UserMenu />
           <CommentsModal />
           <div id="my-modal" />
+          <Toaster />
         </JotaiProvider>
       </body>
     </html>

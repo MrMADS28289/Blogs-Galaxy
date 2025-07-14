@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { isAuthenticatedAtom, userAtom } from "@/app/jotaiAtoms";
 import { loginUser, googleSignInUser } from "@/utils/authApi";
+import { toast } from "sonner";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
@@ -30,9 +31,10 @@ const Login = () => {
     try {
       const data = await loginUser(formData);
       setUser(data);
+      toast.success("Logged in successfully!");
       router.push("/"); // Redirect to home page on successful login
     } catch (err) {
-      setError(err.message || "Login failed");
+      toast.error(err.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -56,7 +58,7 @@ const Login = () => {
       setUser(backendResponse);
       router.push("/");
     } catch (err) {
-      setError(err.message || "Google sign-in failed");
+      toast.error(err.message || "Google sign-in failed");
     } finally {
       setLoading(false);
     }

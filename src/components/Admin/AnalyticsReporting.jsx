@@ -4,6 +4,8 @@ import { userAtom } from "@/app/jotaiAtoms";
 import { fetchAnalyticsData } from "@/utils/adminApi";
 import { toast } from "sonner";
 
+import ErrorMessage from "../UI/ErrorMessage";
+
 const AnalyticsReporting = () => {
   const [user] = useAtom(userAtom);
   const [analytics, setAnalytics] = useState(null);
@@ -23,7 +25,6 @@ const AnalyticsReporting = () => {
       setError(null);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -34,7 +35,7 @@ const AnalyticsReporting = () => {
   }, [user]);
 
   if (loading) return <p className="text-white">Loading analytics...</p>;
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error) return <ErrorMessage message={error} />;
   if (!analytics) return <p className="text-white">No analytics data available.</p>;
 
   return (
