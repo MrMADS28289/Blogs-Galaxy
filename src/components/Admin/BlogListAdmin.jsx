@@ -5,14 +5,18 @@ import { fetchAllBlogsAdmin, deleteBlogAdmin } from "@/utils/adminApi";
 import { toast } from "sonner";
 
 import ErrorMessage from "../UI/ErrorMessage";
+import Pagination from "../Pagination"; // Import the Pagination component
 
-const BlogListAdmin = ({ onEdit }) => {
+const BlogListAdmin = ({ onEdit, refreshTrigger }) => {
   const [user] = useAtom(userAtom);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const blogsPerPage = 10; // Define blogs per page
 
-  const getBlogs = async () => {
+  const getBlogs = async (page) => {
     if (!user || !user.token) {
       setError("User not authenticated.");
       setLoading(false);
@@ -20,8 +24,10 @@ const BlogListAdmin = ({ onEdit }) => {
     }
     try {
       setLoading(true);
-      const data = await fetchAllBlogsAdmin(user.token);
-      setBlogs(data);
+      const data = await fetchAllBlogsAdmin(user.token, page, blogsPerPage);
+      setBlogs(data.blogs || []); // Ensure blogs is an array
+      setTotalPages(data.totalPages || 1);
+      console.log("Blogs fetched in BlogListAdmin:", data.blogs || []); // Add this line
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -31,8 +37,8 @@ const BlogListAdmin = ({ onEdit }) => {
   };
 
   useEffect(() => {
-    getBlogs();
-  }, [user]);
+    getBlogs(currentPage);
+  }, [user, currentPage, refreshTrigger]); // Re-fetch when user, currentPage, or refreshTrigger changes
 
   const handleDelete = async (blogId) => {
     if (!user || !user.token) {
@@ -43,17 +49,22 @@ const BlogListAdmin = ({ onEdit }) => {
       try {
         await deleteBlogAdmin(blogId, user.token);
         toast.success("Blog deleted successfully!");
-        // Refresh the list after deletion
-        getBlogs();
+        // Refresh the list after deletion, staying on the current page
+        getBlogs(currentPage);
       } catch (err) {
         toast.error(err.message);
       }
     }
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   if (loading) return <p className="text-white">Loading blogs...</p>;
   if (error) return <ErrorMessage message={error} />;
-  if (blogs.length === 0) return <p className="text-white">No blogs found.</p>;
+  if (blogs.length === 0 && currentPage === 1) return <p className="text-white">No blogs found.</p>;
+  if (blogs.length === 0 && currentPage > 1) return <p className="text-white">No blogs found on this page.</p>;
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8">
@@ -82,6 +93,11 @@ const BlogListAdmin = ({ onEdit }) => {
           </div>
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

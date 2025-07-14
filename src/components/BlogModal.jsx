@@ -53,7 +53,7 @@ const BlogModal = () => {
                 {blogModalData.title}
               </h2>
               <div className="mb-4 text-center text-sm text-gray-300">
-                {blogModalData.author && <p>By: {blogModalData.author}</p>}
+                {blogModalData.author && <p>By: {blogModalData.author.name || blogModalData.author.email}</p>}
                 {blogModalData.category && (
                   <p>Category: {blogModalData.category}</p>
                 )}

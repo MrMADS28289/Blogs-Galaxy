@@ -5,12 +5,12 @@ import BlogForm from './BlogForm';
 const BlogManagement = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [editingBlog, setEditingBlog] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // State to trigger refresh
 
   const handleBlogCreated = () => {
     setShowCreateForm(false);
     setEditingBlog(null); // Clear editing state
-    // You might want to add a mechanism to refresh the BlogListAdmin here
-    // For example, by passing a refresh function down or using a global state update
+    setRefreshTrigger(prev => prev + 1); // Increment to trigger refresh
   };
 
   const handleEditBlog = (blog) => {
@@ -35,7 +35,7 @@ const BlogManagement = () => {
       {showCreateForm ? (
         <BlogForm onBlogCreated={handleBlogCreated} blog={editingBlog} />
       ) : (
-        <BlogListAdmin onEdit={handleEditBlog} />
+        <BlogListAdmin onEdit={handleEditBlog} refreshTrigger={refreshTrigger} />
       )}
     </div>
   );

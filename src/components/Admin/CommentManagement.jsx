@@ -5,14 +5,18 @@ import { fetchAllCommentsAdmin, deleteCommentAdmin } from "@/utils/adminApi";
 import { toast } from "sonner";
 
 import ErrorMessage from "../UI/ErrorMessage";
+import Pagination from "../Pagination"; // Import the Pagination component
 
 const CommentManagement = () => {
   const [user] = useAtom(userAtom);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const commentsPerPage = 10; // Define comments per page
 
-  const getComments = async () => {
+  const getComments = async (page) => {
     if (!user || !user.token) {
       setError("User not authenticated.");
       setLoading(false);
@@ -20,8 +24,9 @@ const CommentManagement = () => {
     }
     try {
       setLoading(true);
-      const data = await fetchAllCommentsAdmin(user.token);
-      setComments(data);
+      const data = await fetchAllCommentsAdmin(user.token, page, commentsPerPage);
+      setComments(data.comments || []); // Ensure comments is an array
+      setTotalPages(data.totalPages || 1);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -31,8 +36,8 @@ const CommentManagement = () => {
   };
 
   useEffect(() => {
-    getComments();
-  }, [user]);
+    getComments(currentPage);
+  }, [user, currentPage]); // Re-fetch when user or currentPage changes
 
   const handleDelete = async (commentId) => {
     if (!user || !user.token) {
@@ -43,18 +48,22 @@ const CommentManagement = () => {
       try {
         await deleteCommentAdmin(commentId, user.token);
         toast.success("Comment deleted successfully!");
-        // Refresh the list after deletion
-        getComments();
+        // Refresh the list after deletion, staying on the current page
+        getComments(currentPage);
       } catch (err) {
         toast.error(err.message);
       }
     }
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   if (loading) return <p className="text-white">Loading comments...</p>;
   if (error) return <ErrorMessage message={error} />;
-  if (comments.length === 0)
-    return <p className="text-white">No comments found.</p>;
+  if (comments.length === 0 && currentPage === 1) return <p className="text-white">No comments found.</p>;
+  if (comments.length === 0 && currentPage > 1) return <p className="text-white">No comments found on this page.</p>;
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8">
@@ -90,6 +99,11 @@ const CommentManagement = () => {
           </div>
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

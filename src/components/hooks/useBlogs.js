@@ -4,24 +4,23 @@ import { selectedCategoryAtom } from "../../app/jotaiAtoms"; // Adjust path as n
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
-export function useBlogs() {
+export function useBlogs(page = 1, limit = 10) {
   const [selectedCategory] = useAtom(selectedCategoryAtom);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalBlogs, setTotalBlogs] = useState(0);
 
   useEffect(() => {
     async function fetchBlogs() {
-      setLoading(true); // Set loading to true at the start of each fetch
-      setError(null); // Clear any previous errors
+      setLoading(true);
+      setError(null);
 
       try {
-        let url = `${API_BASE_URL}/blogs`;
+        let url = `${API_BASE_URL}/blogs?page=${page}&limit=${limit}`;
         if (selectedCategory) {
-          // Only add category if it's not null
-          url = `${API_BASE_URL}/blogs?category=${encodeURIComponent(
-            selectedCategory
-          )}`;
+          url += `&category=${encodeURIComponent(selectedCategory)}`;
         }
 
         const response = await fetch(url);
@@ -30,14 +29,12 @@ export function useBlogs() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const result = await response.json();
 
-        // Adjust this based on your actual API response structure
-        // Assuming your API returns an array of blog objects directly or within a 'data' field
-        if (Array.isArray(data)) {
-          setBlogs(data);
-        } else if (data && Array.isArray(data.data)) {
-          setBlogs(data.data);
+        if (result && Array.isArray(result.blogs)) {
+          setBlogs(result.blogs);
+          setTotalPages(result.totalPages || 1);
+          setTotalBlogs(result.totalBlogs || 0);
         } else {
           throw new Error("Unexpected API response format");
         }
@@ -49,11 +46,10 @@ export function useBlogs() {
       }
     }
 
-    // Only fetch if selectedCategory is not null (i.e., a category has been set)
     if (selectedCategory !== null) {
       fetchBlogs();
     }
-  }, [selectedCategory]); // Re-run effect whenever selectedCategory changes
+  }, [selectedCategory, page, limit]);
 
-  return { blogs, loading, error };
+  return { blogs, loading, error, totalPages, totalBlogs };
 }

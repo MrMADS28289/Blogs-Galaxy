@@ -14,6 +14,7 @@ import { likeBlog, fetchComments, fetchBlogById } from "@/utils/blogApi";
 import { toast } from "sonner";
 
 const BlogCard = ({ blog, className }) => {
+  console.log("Blog object received by BlogCard:", blog); // Keep this for debugging
   const [currentBlog, setCurrentBlog] = useState(blog);
   const [isLikedByUser, setIsLikedByUser] = useState(false);
   const [, setShowBlogModal] = useAtom(showBlogModalAtom);
@@ -40,9 +41,16 @@ const BlogCard = ({ blog, className }) => {
     return content;
   };
 
-  const handleReadMore = () => {
-    setBlogModalData(currentBlog);
-    setShowBlogModal(true);
+  const handleReadMore = async () => {
+    try {
+      const updatedBlog = await fetchBlogById(currentBlog._id);
+      setCurrentBlog(updatedBlog); // Update state with new view count
+      setBlogModalData(updatedBlog);
+      setShowBlogModal(true);
+    } catch (error) {
+      console.error("Failed to fetch blog for modal:", error);
+      toast.error("Failed to load blog details.");
+    }
   };
 
   const truncatedContent = truncateContent(blog.content, 100); // Truncate to 100 words
@@ -54,90 +62,86 @@ const BlogCard = ({ blog, className }) => {
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
       className={clsx(
-        "custom-bg mt-140 flex flex-col items-center justify-center space-y-8 rounded-xl p-6 sm:p-8",
+        "custom-bg mt-140 flex flex-col items-center justify-between rounded-xl p-6 sm:p-8 min-h-[250px]",
         className
       )}
     >
       {currentBlog && (
         <>
-          <h2 className="text-center text-2xl font-bold">
-            {currentBlog.title}
-          </h2>
-          <p className="text-center text-lg">{truncatedContent}</p>
-          {currentBlog.content.split(" ").length > 100 && ( // Only show button if content is truncated
-            <div className="mt-4 flex w-full items-center justify-between">
-              <div className="flex items-center space-x-4 text-sm text-gray-400">
-                {currentBlog.views && (
-                  <span className="flex items-center">
-                    <span className="mr-1">👁️</span> {currentBlog.views}
-                  </span>
-                )}
-                {currentBlog.likes && (
-                  <span
-                    className="flex cursor-pointer items-center"
-                    onClick={async (e) => {
-                      e.stopPropagation();
-                      if (!user || !user.token) {
-                        toast.error("You must be logged in to like a post.");
-                        return;
-                      }
-                      try {
-                        const action = isLikedByUser ? "unlike" : "like";
-                        const { likes, isLiked: newIsLiked } = await likeBlog(
-                          currentBlog._id,
-                          user.token,
-                          action
-                        );
-                        setCurrentBlog((prevBlog) => ({
-                          ...prevBlog,
-                          likes: likes,
-                        }));
-                        setIsLikedByUser(newIsLiked);
-                      } catch (error) {
-                        // The error is already handled and toasted in the API utility
-                        // You can add component-specific logic here if needed
-                      }
-                    }}
-                  >
-                    <span className="mr-1">{isLikedByUser ? "👎" : "👍"}</span>{" "}
-                    {currentBlog.likes}
-                  </span>
-                )}
-                {currentBlog.comments && (
-                  <span
-                    className="flex cursor-pointer items-center"
-                    onClick={async (e) => {
-                      e.stopPropagation(); // Prevent triggering the blog modal
-                      try {
-                        const data = await fetchComments(currentBlog._id);
-                        setCommentsModalData({
-                          blog: currentBlog,
-                          comments: data,
-                          onCommentAdded: (newComment) => {
-                            setCurrentBlog((prevBlog) => ({
-                              ...prevBlog,
-                              comments: [...prevBlog.comments, newComment],
-                            }));
-                          },
-                          onCommentAddedSuccess: async () => {
-                            try {
-                              const updatedBlog = await fetchBlogById(currentBlog._id);
-                              setCurrentBlog(updatedBlog);
-                            } catch (error) {
-                              console.error("Failed to re-fetch blog after comment:", error);
-                            }
-                          },
-                        });
-                        setShowCommentsModal(true);
-                      } catch (error) {
-                        // The error is already handled and toasted in the API utility
-                      }
-                    }}
-                  >
-                    <span className="mr-1">💬 {currentBlog.comments.length}</span>
-                  </span>
-                )}
-              </div>
+          <div className="flex-grow flex flex-col items-center">
+            <h2 className="text-center text-2xl font-bold mb-2">
+              {currentBlog.title}
+            </h2>
+            <p className="text-center text-lg mb-4">{truncatedContent}</p>
+          </div>
+          <div className="mt-4 flex w-full items-center justify-between">
+            <div className="flex items-center space-x-4 text-sm text-gray-400">
+              <span className="flex items-center">
+                  <span className="mr-1">👁️</span> {currentBlog.views || 0}
+                </span>
+              <span
+                  className="flex cursor-pointer items-center"
+                  onClick={async (e) => {
+                    e.stopPropagation();
+                    if (!user || !user.token) {
+                      toast.error("You must be logged in to like a post.");
+                      return;
+                    }
+                    try {
+                      const action = isLikedByUser ? "unlike" : "like";
+                      const { likes, isLiked: newIsLiked } = await likeBlog(
+                        currentBlog._id,
+                        user.token,
+                        action
+                      );
+                      setCurrentBlog((prevBlog) => ({
+                        ...prevBlog,
+                        likes: likes,
+                      }));
+                      setIsLikedByUser(newIsLiked);
+                    } catch (error) {
+                      // The error is already handled and toasted in the API utility
+                      // You can add component-specific logic here if needed
+                    }
+                  }}
+                >
+                  <span className="mr-1">{isLikedByUser ? "👎" : "👍"}</span>{" "}
+                  {currentBlog.likes || 0}
+                </span>
+              <span
+                  className="flex cursor-pointer items-center"
+                  onClick={async (e) => {
+                    e.stopPropagation(); // Prevent triggering the blog modal
+                    try {
+                      const data = await fetchComments(currentBlog._id);
+                      setCommentsModalData({
+                        blog: currentBlog,
+                        comments: data,
+                        onCommentAdded: (newComment) => {
+                          setCurrentBlog((prevBlog) => ({
+                            ...prevBlog,
+                            comments: [...prevBlog.comments, newComment],
+                          }));
+                        },
+                        onCommentAddedSuccess: async () => {
+                          try {
+                            const updatedBlog = await fetchBlogById(currentBlog._id);
+                            setCurrentBlog(updatedBlog);
+                          } catch (error) {
+                            console.error("Failed to re-fetch blog after comment:", error);
+                          }
+                        },
+                      });
+                      setShowCommentsModal(true);
+                    } catch (error) {
+                      // The error is already handled and toasted in the API utility
+                    }
+                  }}
+                >
+                  <span className="mr-1">💬 {(currentBlog.comments || []).length}</span>
+                </span>
+            </div>
+            {currentBlog.content.split(" ").length > 100 && (
               <motion.button
                 onClick={handleReadMore}
                 className="custom-bg rounded-full px-4 py-2 text-foreground transition-colors hover:text-orange-500"
@@ -146,8 +150,8 @@ const BlogCard = ({ blog, className }) => {
               >
                 Read More
               </motion.button>
-            </div>
-          )}
+            )}
+          </div>
         </>
       )}
       {/* for add more blog details here, e.g., category, author, etc. */}

@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { BtnList } from "@/app/data";
 import BlogList from "@/components/BlogList";
 import BlogCard from "@/components/BlogCard";
@@ -14,6 +14,7 @@ import MotivationModel from "@/components/models/MotivationModel";
 import SportsModel from "@/components/models/SportsModel";
 import TechModel from "@/components/models/TechModel";
 import { useBlogs } from "@/components/hooks/useBlogs";
+import Pagination from "@/components/Pagination";
 
 const modelMap = {
   ai: AiModel,
@@ -28,7 +29,13 @@ const modelMap = {
 
 const CategoryPage = ({ params }) => {
   const { category } = params;
-  const { blogs, loading, error } = useBlogs();
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 10; // You can adjust this value
+
+  const { blogs, loading, error, totalPages } = useBlogs(
+    currentPage,
+    blogsPerPage
+  );
 
   const categoryDetails = BtnList.find(
     (item) => item.link.substring(1) === category
@@ -39,6 +46,10 @@ const CategoryPage = ({ params }) => {
   }
 
   const ModelComponent = modelMap[category];
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <section className="relative w-full">
@@ -76,6 +87,11 @@ const CategoryPage = ({ params }) => {
         ItemLayoutComponent={BlogCard}
         blogs={blogs}
         error={error}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
       />
       <ScrollButton />
     </section>

@@ -60,18 +60,16 @@ const CommentsModal = () => {
         author: { name: author },
       };
 
-      // Update the comments list in the modal
+      // Update the comments list in the modal by prepending the new comment
       setCommentsModalData((prev) => ({
         ...prev,
-        comments: [...prev.comments, formattedComment],
+        comments: [formattedComment, ...prev.comments],
       }));
 
       if (commentsModalData.onCommentAdded) {
         commentsModalData.onCommentAdded(formattedComment);
       }
-      if (commentsModalData.onCommentAddedSuccess) {
-        commentsModalData.onCommentAddedSuccess();
-      }
+      
       setNewComment(""); // Clear input field
     } catch (error) {
       // The error is already handled and toasted in the API utility
@@ -107,7 +105,7 @@ const CommentsModal = () => {
             <h2 className="mb-4 text-center text-3xl font-bold text-white">
               Comments for {blog.title}
             </h2>
-            <div className="max-h-[50vh] overflow-y-auto p-6 text-white">
+            <div className="blog-modal-content max-h-[40vh] overflow-y-auto p-6 text-white">
               {comments.length > 0 ? (
                 comments.map((comment) => (
                   <div

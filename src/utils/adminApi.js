@@ -1,9 +1,9 @@
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
-export const fetchAllBlogsAdmin = async (token) => {
+export const fetchAllBlogsAdmin = async (token, page = 1, limit = 10) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs`, {
+    const response = await fetch(`${API_BASE_URL}/blogs?page=${page}&limit=${limit}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -12,7 +12,9 @@ export const fetchAllBlogsAdmin = async (token) => {
     if (!response.ok) {
       throw new Error(data.message || "Failed to fetch blogs for admin");
     }
-    return data;
+    // Assuming the API might return an object with a 'blogs' key for pagination
+    // or directly an array of blogs.
+    return data.blogs ? data : { blogs: data, totalPages: 1, totalBlogs: data.length };
   } catch (error) {
     console.error("Error fetching all blogs for admin:", error);
     throw error;
@@ -138,9 +140,9 @@ export const updateUserRoleAdmin = async (userId, newRole, token) => {
   }
 };
 
-export const fetchAllCommentsAdmin = async (token) => {
+export const fetchAllCommentsAdmin = async (token, page = 1, limit = 10) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/comments`, {
+    const response = await fetch(`${API_BASE_URL}/comments?page=${page}&limit=${limit}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -149,7 +151,9 @@ export const fetchAllCommentsAdmin = async (token) => {
     if (!response.ok) {
       throw new Error(data.message || "Failed to fetch comments for admin");
     }
-    return data;
+    // Assuming the API might return an object with a 'comments' key for pagination
+    // or directly an array of comments.
+    return data.comments ? data : { comments: data, totalPages: 1, totalComments: data.length };
   } catch (error) {
     console.error("Error fetching all comments for admin:", error);
     throw error;
