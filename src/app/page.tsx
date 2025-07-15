@@ -2,7 +2,9 @@
 import Image from "next/image";
 import bg from "../../public/background/black_sky.jpg";
 import RenderModel from "@/components/RenderModel";
-import Navigation from "@/components/navigation";
+import dynamic from "next/dynamic";
+
+const Navigation = dynamic(() => import("@/components/navigation"), { ssr: false });
 import { useSetAtom } from "jotai";
 import { isPlanetVisibleAtom } from "./jotaiAtoms";
 import { useEffect } from "react";
@@ -27,9 +29,11 @@ export default function Home() {
         className="-z-50 size-full object-cover object-center opacity-50"
       />
       <Header />
-      <div id="main-canvas-container" className="h-screen w-full">
-        <Navigation />
-        <RenderModel>
+      <div id="main-canvas-container" className="h-screen w-full relative">
+        <div className="relative">
+          <Navigation />
+        </div>
+        <RenderModel className="size-full">
           <Planet />
         </RenderModel>
       </div>

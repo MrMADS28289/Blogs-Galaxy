@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import { Volume2, VolumeX, Settings, User, LogIn, LogOut } from "lucide-react";
+import { FaVolumeUp, FaVolumeMute, FaCog, FaUser, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { useAtom } from "jotai";
 import {
   userAtom,
@@ -133,7 +133,7 @@ const UserMenu = () => {
           animate={{ rotate: isSidebarOpen ? 360 : 0 }}
           transition={{ duration: 1 }}
         >
-          <Settings
+          <FaCog
             className="size-full text-foreground group-hover:text-orange-500"
             strokeWidth={1.5}
           />
@@ -158,7 +158,7 @@ const UserMenu = () => {
             onClick={handleProfileClick}
             className="custom-bg group relative flex size-6 cursor-pointer items-center justify-center rounded-full p-1 text-foreground"
           >
-            <User
+            <FaUser
               className="size-full text-foreground group-hover:text-orange-500"
               strokeWidth={1.5}
             />
@@ -179,12 +179,12 @@ const UserMenu = () => {
           >
             {mounted &&
               (isPlaying ? (
-                <Volume2
+                <FaVolumeUp
                   className="size-full text-foreground group-hover:text-orange-500"
                   strokeWidth={1.5}
                 />
               ) : (
-                <VolumeX
+                <FaVolumeMute
                   className="size-full text-foreground group-hover:text-orange-500"
                   strokeWidth={1.5}
                 />
@@ -201,12 +201,12 @@ const UserMenu = () => {
           >
             {mounted &&
               (isAuthenticated ? (
-                <LogOut
+                <FaSignOutAlt
                   className="size-full text-foreground group-hover:text-orange-500"
                   strokeWidth={1.5}
                 />
               ) : (
-                <LogIn
+                <FaSignInAlt
                   className="size-full text-foreground group-hover:text-orange-500"
                   strokeWidth={1.5}
                 />

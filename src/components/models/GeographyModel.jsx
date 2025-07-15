@@ -32,8 +32,7 @@ const GeographyModel = React.memo(function GeographyModel(props) {
       onPointerOut={() => setHovered(false)}
     />
   );
-});
-
+});
 export default GeographyModel;
 
 // Preload model for performance

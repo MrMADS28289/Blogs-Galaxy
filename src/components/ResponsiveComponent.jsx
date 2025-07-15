@@ -1,12 +1,19 @@
 "use client";
-
-import React from "react";
-import useScreenSize from "./hooks/useScreenSize";
+import React, { useState, useEffect } from "react";
 
 const ResponsiveComponent = ({ children }) => {
-  const size = useScreenSize();
+  const [size, setSize] = useState(null);
 
-  return <>{children({ size })}</>;
+  useEffect(() => {
+    const handleResize = () => setSize(window.innerWidth);
+    handleResize(); // set initial size
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (size === null) return null;
+
+  return children({ size }); // ✅ Call the function properly with size
 };
 
 export default ResponsiveComponent;

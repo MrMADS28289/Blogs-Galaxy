@@ -1,9 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
-import { Home } from "lucide-react";
+import { FaHome } from "react-icons/fa";
 import Link from "next/link";
 
-const NavLink = motion.create(Link);
+const NavLink = motion(Link);
 const HomeBtn = () => {
   return (
     <NavLink
@@ -18,7 +18,7 @@ const HomeBtn = () => {
       prefetch={false}
     >
       <span className="relative size-10 p-3 hover:text-orange-500">
-        <Home className="h-auto w-full" strokeWidth={1.5} />
+        <FaHome className="h-auto w-full" strokeWidth={1.5} />
 
         <span className="peer absolute left-0 top-0 size-full bg-transparent" />
 

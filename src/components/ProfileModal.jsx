@@ -11,33 +11,23 @@ import {
 } from "@/app/jotaiAtoms";
 import { updateUser } from "@/utils/authApi"; // Import the updateUser function
 import { toast } from "sonner";
-import {
-  X,
-  User,
-  Edit,
-  Save,
-  Smile,
-  Rocket,
-  Star,
-  Heart,
-  Ghost,
-} from "lucide-react";
+import { FaUser, FaEnvelope, FaLock, FaImage, FaSave, FaTimes, FaSmile, FaRocket, FaStar, FaHeart, FaGhost, FaEdit } from "react-icons/fa";
 
 // --- Avatar Components Map ---
 const avatarComponents = {
-  User: (props) => <User {...props} />,
-  Smile: (props) => <Smile {...props} />,
-  Rocket: (props) => <Rocket {...props} />,
-  Star: (props) => <Star {...props} />,
-  Heart: (props) => <Heart {...props} />,
-  Ghost: (props) => <Ghost {...props} />,
+  User: (props) => <FaUser {...props} />,
+  Smile: (props) => <FaSmile {...props} />,
+  Rocket: (props) => <FaRocket {...props} />,
+  Star: (props) => <FaStar {...props} />,
+  Heart: (props) => <FaHeart {...props} />,
+  Ghost: (props) => <FaGhost {...props} />,
 };
 
 const avatarOptions = Object.keys(avatarComponents);
 
 const AvatarDisplay = ({ avatar, ...props }) => {
   const AvatarComponent = avatarComponents[avatar];
-  if (!AvatarComponent) return <User {...props} />; // Fallback
+  if (!AvatarComponent) return <FaUser {...props} />; // Fallback
   return <AvatarComponent {...props} />;
 };
 
@@ -111,7 +101,7 @@ const ProfileModal = () => {
           }
           className="absolute right-3 top-3 text-white hover:text-orange-500"
         >
-          <X size={24} />
+          <FaTimes size={24} />
         </button>
 
         {isAuthenticated && user ? (
@@ -121,7 +111,7 @@ const ProfileModal = () => {
                 onClick={() => setIsEditMode(true)}
                 className="absolute left-3 top-3 text-white hover:text-orange-500"
               >
-                <Edit size={20} />
+                <FaEdit size={20} />
               </button>
             )}
 
@@ -171,14 +161,14 @@ const ProfileModal = () => {
                       onClick={handleSave}
                       className="flex items-center gap-2 rounded border border-dashed border-green-500 px-4 py-2 text-white hover:bg-green-500/20 hover:shadow-glass-sm"
                     >
-                      <Save size={16} />
+                      <FaSave size={16} />
                       Save
                     </button>
                     <button
                       onClick={handleCancel}
                       className="flex items-center gap-2 rounded border border-dashed border-red-500 px-4 py-2 text-white hover:bg-red-500/20 hover:shadow-glass-sm"
                     >
-                      <X size={16} />
+                      <FaTimes size={16} />
                       Cancel
                     </button>
                   </div>

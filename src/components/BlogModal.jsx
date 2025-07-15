@@ -8,7 +8,6 @@ import Image from "next/image";
 const BlogModal = () => {
   const [showBlogModal, setShowBlogModal] = useAtom(showBlogModalAtom);
   const [blogModalData] = useAtom(blogModalDataAtom);
-  console.log(blogModalData);
   if (!blogModalData) return null;
 
   const handleClose = () => {
@@ -53,7 +52,12 @@ const BlogModal = () => {
                 {blogModalData.title}
               </h2>
               <div className="mb-4 text-center text-sm text-gray-300">
-                {blogModalData.author && <p>By: {blogModalData.author.name || blogModalData.author.email}</p>}
+                {blogModalData.author && (
+                  <p>
+                    By:{" "}
+                    {blogModalData.author.name || blogModalData.author.email}
+                  </p>
+                )}
                 {blogModalData.category && (
                   <p>Category: {blogModalData.category}</p>
                 )}
