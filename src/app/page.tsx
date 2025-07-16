@@ -12,6 +12,7 @@ import { isPlanetVisibleAtom } from "./jotaiAtoms";
 import { useEffect } from "react";
 import Planet from "@/components/models/Planet";
 import Header from "@/components/Header";
+import GeminiChat from "@/components/GeminiChat";
 
 export default function Home() {
   const setIsPlanetVisible = useSetAtom(isPlanetVisibleAtom);
@@ -31,6 +32,7 @@ export default function Home() {
         className="-z-50 size-full object-cover object-center opacity-50"
       />
       <Header />
+      <GeminiChat />
       <div id="main-canvas-container" className="h-screen w-full relative">
         <div className="relative">
           <Navigation />

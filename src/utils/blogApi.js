@@ -89,3 +89,19 @@ export const addComment = async (commentData, token) => {
     throw error;
   }
 };
+
+/**
+ * Fetches all blog posts.
+ */
+export const fetchAllBlogs = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/blogs`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    toast.error(error.message || "Failed to fetch all blogs.");
+    throw error;
+  }
+};

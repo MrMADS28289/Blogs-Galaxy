@@ -40,7 +40,7 @@ const Navigation = () => {
   const isMedium = size >= 768;
 
   return (
-    <div className="fixed z-20 flex h-screen w-full items-center justify-center">
+    <div className="fixed z-51 flex h-screen w-full items-center justify-center">
       {/* Uses ResponsiveComponent to render different layouts based on screen size. */}
       <ResponsiveComponent>
         {({ size }) =>
