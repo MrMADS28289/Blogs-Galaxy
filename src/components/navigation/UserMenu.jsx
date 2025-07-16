@@ -2,9 +2,16 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import clsx from "clsx";
-import { FaVolumeUp, FaVolumeMute, FaCog, FaUser, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaVolumeUp,
+  FaVolumeMute,
+  FaCog,
+  FaUser,
+  FaSignInAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import { useAtom } from "jotai";
 import {
   userAtom,
@@ -15,22 +22,34 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import ProfileModal from "../ProfileModal";
 
+/**
+ * UserMenu component provides navigation and user-related functionalities.
+ * This includes profile access, authentication actions (login/logout), and background music control.
+ */
 const UserMenu = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [mounted, setMounted] = useState(false); // New state for hydration
+  const [mounted, setMounted] = useState(false);
   const audioRef = useRef(null);
 
+  // Effect to set `mounted` state to true once the component has mounted.
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const [user, setUser] = useAtom(userAtom);
-  const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  // Jotai atoms for global state management.
+  const [, setUser] = useAtom(userAtom);
+  const [isAuthenticated] = useAtom(isAuthenticatedAtom);
   const [, setShowProfileModal] = useAtom(showProfileModalAtom);
+  // Next.js router instance for programmatic navigation.
   const router = useRouter();
 
+  /**
+   * Callback function to handle the first user interaction (click, keydown, touchstart).
+   * This is crucial for autoplaying audio, as browsers require a user gesture.
+   * It checks for music consent and plays audio if permitted, then removes event listeners.
+   */
   const handleFirstUserInteraction = useCallback(() => {
     const musicConsent = localStorage.getItem("musicConsent");
     if (musicConsent === "true" && !isPlaying) {
@@ -38,15 +57,22 @@ const UserMenu = () => {
       setIsPlaying(true);
     }
 
+    // Remove event listeners after the first interaction to prevent multiple calls.
     ["click", "keydown", "touchstart"].forEach((event) =>
       document.removeEventListener(event, handleFirstUserInteraction)
     );
-  }, [isPlaying]);
+  }, [isPlaying]); // Dependency on `isPlaying` to ensure the latest state is captured.
 
+  /**
+   * Effect hook to manage background music playback and consent.
+   * It checks for existing music consent in localStorage and prompts the user if needed.
+   * If autoplay fails, it sets up event listeners for the first user interaction.
+   */
   useEffect(() => {
     const consent = localStorage.getItem("musicConsent");
     const consentTime = localStorage.getItem("consentTime");
 
+    // Checks if valid consent exists (consent within the last 24 hours).
     const hasValidConsent =
       consent &&
       consentTime &&
@@ -59,30 +85,32 @@ const UserMenu = () => {
           audioRef.current
             .play()
             .then(() => {
-              setIsPlaying(true); // Autoplay succeeded
+              setIsPlaying(true);
             })
             .catch((error) => {
-              console.log("Autoplay prevented:", error);
-              setIsPlaying(false); // Autoplay failed
+              // If autoplay is blocked, set up listeners for first user interaction.
+              setIsPlaying(false);
               ["click", "keydown", "touchstart"].forEach((event) =>
                 document.addEventListener(event, handleFirstUserInteraction)
               );
             });
         }
       } else {
-        setIsPlaying(false); // User previously consented to NO music
+        setIsPlaying(false);
       }
     } else {
+      // If no valid consent, show the music consent modal.
       setShowModal(true);
-      setIsPlaying(false); // No consent yet, so not playing
+      setIsPlaying(false);
     }
 
+    // Cleanup function: remove event listeners when the component unmounts.
     return () => {
       ["click", "keydown", "touchstart"].forEach((event) =>
         document.removeEventListener(event, handleFirstUserInteraction)
       );
     };
-  }, [handleFirstUserInteraction]);
+  }, [handleFirstUserInteraction]); // Dependency on `handleFirstUserInteraction` to ensure it's up-to-date.
 
   const toggle = () => {
     const newState = !isPlaying;
@@ -107,10 +135,9 @@ const UserMenu = () => {
 
   const handleAuthClick = () => {
     if (isAuthenticated) {
-      // Handle logout
       setUser(null);
       toast.success("Logged out successfully!");
-      router.push("/"); // Redirect to home after logout
+      router.push("/");
     } else {
       router.push("/login");
     }

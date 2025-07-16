@@ -11,6 +11,10 @@ import { useState } from "react";
 import { addComment } from "@/utils/blogApi";
 import { toast } from "sonner";
 
+/**
+ * CommentsModal component displays comments for a specific blog post and allows users to add new comments.
+ * It uses Jotai for global state management to control its visibility and the data it displays.
+ */
 const CommentsModal = () => {
   const [showCommentsModal, setShowCommentsModal] = useAtom(
     showCommentsModalAtom
@@ -18,19 +22,23 @@ const CommentsModal = () => {
   const [commentsModalData, setCommentsModalData] = useAtom(
     commentsModalDataAtom
   );
+
   const [newComment, setNewComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [user] = useAtom(userAtom);
 
+  // If there's no blog data or comments data, don't render the modal.
   if (!commentsModalData || !commentsModalData.blog) return null;
 
   const { blog, comments } = commentsModalData;
 
+  // Function to close the modal and clear the new comment input.
   const handleClose = () => {
     setShowCommentsModal(false);
-    setNewComment(""); // Clear comment input on close
+    setNewComment("");
   };
 
+  // Handles the submission of a new comment.
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
@@ -43,8 +51,9 @@ const CommentsModal = () => {
         return;
       }
 
-      const author = user.name || user.email; // Use user's name or email as author
+      const author = user.name || user.email;
 
+      // Call the API to add the new comment.
       const addedCommentResponse = await addComment(
         {
           blogId: blog._id,
@@ -54,25 +63,27 @@ const CommentsModal = () => {
         user.token
       );
 
-      // Ensure the author field is an object with a name property
+      // Format the new comment to match existing comment structure.
       const formattedComment = {
         ...addedCommentResponse,
         author: { name: author },
       };
 
-      // Update the comments list in the modal by prepending the new comment
+      // Update the comments in the global state, adding the new comment to the top.
       setCommentsModalData((prev) => ({
         ...prev,
         comments: [formattedComment, ...prev.comments],
       }));
 
+      // If a callback for comment added is provided, execute it.
       if (commentsModalData.onCommentAdded) {
         commentsModalData.onCommentAdded(formattedComment);
       }
 
-      setNewComment(""); // Clear input field
+      setNewComment("");
     } catch (error) {
-      // The error is already handled and toasted in the API utility
+      console.log(error);
+      toast.error("Failed to submit comment.");
     } finally {
       setSubmitting(false);
     }
@@ -88,14 +99,17 @@ const CommentsModal = () => {
           className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90"
           onClick={handleClose}
         >
+          {/* Modal content container with entry/exit animations. */}
           <motion.div
             initial={{ y: "-100vh", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
             exit={{ y: "100vh", opacity: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             className="custom-bg relative mx-4 w-full max-w-3xl rounded-xl p-2 shadow-lg sm:p-4"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+            // Prevent clicks on the modal content from closing the modal.
+            onClick={(e) => e.stopPropagation()}
           >
+            {/* Close button for the modal. */}
             <button
               onClick={handleClose}
               className="absolute right-4 top-4 text-3xl text-orange-500 hover:text-orange-200"
@@ -105,6 +119,7 @@ const CommentsModal = () => {
             <h2 className="mb-4 text-center text-3xl font-bold text-white">
               Comments for {blog.title}
             </h2>
+            {/* Scrollable area for displaying existing comments. */}
             <div className="blog-modal-content max-h-[40vh] overflow-y-auto p-6 text-white">
               {comments.length > 0 ? (
                 comments.map((comment) => (
@@ -123,6 +138,7 @@ const CommentsModal = () => {
                 <p className="text-center">No comments yet.</p>
               )}
             </div>
+            {/* Form for submitting a new comment. */}
             <form onSubmit={handleSubmitComment} className="mt-4 p-6">
               <textarea
                 className="w-full rounded-md border border-gray-700 bg-gray-800 p-2 text-white focus:border-orange-500 focus:outline-none"

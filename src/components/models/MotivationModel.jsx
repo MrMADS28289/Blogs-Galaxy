@@ -4,16 +4,13 @@ import { useGLTF, useCursor } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const MotivationModel = React.memo(function MotivationModel(props) {
-  // Use React.memo for performance optimization
   const modelRef = useRef();
   const [hovered, setHovered] = useState(false);
 
   useCursor(hovered);
 
-  // Load the planet model
   const { scene } = useGLTF("/models/Motivation.glb");
 
-  // Float animation
   useFrame((state) => {
     if (modelRef.current) {
       modelRef.current.position.y =
@@ -35,5 +32,4 @@ const MotivationModel = React.memo(function MotivationModel(props) {
 
 export default MotivationModel;
 
-// Preload model for performance
 useGLTF.preload("/models/Motivation.glb");

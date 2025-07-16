@@ -8,7 +8,6 @@
     --foreground: 225 225 225;
     --muted: 115 115 115;
     --accent: 254 254 91;
-    /* hex value of rgb(254,254,91) color is  #FEFE5B  */
   }
 }
 
@@ -24,7 +23,7 @@
 
 /* Custom scrollbar for BlogModal content */
 .blog-modal-content::-webkit-scrollbar {
-  width: 4px; /* Adjust scrollbar width */
+  width: 4px; 
 }
 
 .blog-modal-content::-webkit-scrollbar-track {
@@ -32,9 +31,9 @@
 }
 
 .blog-modal-content::-webkit-scrollbar-thumb {
-  background-color: rgb(185, 154, 96); /* Color of the scroll thumb */
-  border-radius: 40px; /* Roundness of the scroll thumb */
-  border: 2px solid transparent; /* Creates padding around thumb */
+  background-color: rgb(185, 154, 96); 
+  border-radius: 40px; 
+  border: 2px solid transparent;
 }
 
 @keyframes move {

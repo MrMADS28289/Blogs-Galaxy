@@ -4,16 +4,13 @@ import { useGLTF, useCursor } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const CommunityModel = React.memo(function CommunityModel(props) {
-  // Use React.memo for performance optimization
   const modelRef = useRef();
   const [hovered, setHovered] = useState(false);
 
   useCursor(hovered);
 
-  // Load the planet model
   const { scene } = useGLTF("/models/Community.glb");
 
-  // Float animation
   useFrame((state) => {
     if (modelRef.current) {
       modelRef.current.rotation.y += 0.005;
@@ -36,5 +33,4 @@ const CommunityModel = React.memo(function CommunityModel(props) {
 
 export default CommunityModel;
 
-// Preload model for performance
 useGLTF.preload("/models/Community.glb");

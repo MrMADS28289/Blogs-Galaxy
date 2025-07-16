@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const ScrollButton = () => {
-  const [isVisible, setIsVisible] = useState(true); // Initially visible at the top
+  const [isVisible, setIsVisible] = useState(true);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   const toggleVisibility = () => {
@@ -17,9 +17,10 @@ const ScrollButton = () => {
   };
 
   const scrollToBottom = () => {
-    const vh = window.innerHeight; // Get viewport height
+    // This function scrolls the page down by about 90% of the viewport height.
+    const vh = window.innerHeight;
     window.scrollTo({
-      top: window.pageYOffset + vh * 0.9, // Scroll down by 90% of viewport height
+      top: window.pageYOffset + vh * 0.9,
       behavior: "smooth",
     });
   };
@@ -32,14 +33,17 @@ const ScrollButton = () => {
   };
 
   useEffect(() => {
+    // This `toggleVisibility` function will run every time the user scrolls.
     window.addEventListener("scroll", toggleVisibility);
     return () => {
+      // Super important: clean up the event listener when the component unmounts.
       window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
 
   return (
     <>
+      {/* This button shows up when we're near the top of the page, inviting the user to scroll down. */}
       {isVisible && (
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2">
           <button
@@ -51,6 +55,7 @@ const ScrollButton = () => {
         </div>
       )}
 
+      {/* And this button appears when we've scrolled down, offering a quick trip back to the top. */}
       {showScrollToTop && (
         <div className="fixed bottom-4 right-4 z-50">
           <button

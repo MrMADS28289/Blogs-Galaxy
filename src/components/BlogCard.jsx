@@ -16,6 +16,8 @@ import { toast } from "sonner";
 const BlogCard = ({ blog, className }) => {
   const [currentBlog, setCurrentBlog] = useState(blog);
   const [isLikedByUser, setIsLikedByUser] = useState(false);
+
+  // Jotai atoms for global state management, controlling modal visibility and data.
   const [, setShowBlogModal] = useAtom(showBlogModalAtom);
   const [, setBlogModalData] = useAtom(blogModalDataAtom);
   const [, setShowCommentsModal] = useAtom(showCommentsModalAtom);
@@ -24,6 +26,7 @@ const BlogCard = ({ blog, className }) => {
 
   useEffect(() => {
     setCurrentBlog(blog);
+    // Check if the current user has liked this blog post.
     if (user && blog.likedBy) {
       const likedByUser = blog.likedBy.some(
         (likedId) => likedId._id.toString() === user.id
@@ -32,6 +35,10 @@ const BlogCard = ({ blog, className }) => {
     }
   }, [blog, user]);
 
+  /**
+   * Truncates the given content to a specified word limit.
+   * Useful for displaying a preview of the blog post content.
+   */
   const truncateContent = (content, wordLimit) => {
     const words = content.split(" ");
     if (words.length > wordLimit) {
@@ -41,9 +48,11 @@ const BlogCard = ({ blog, className }) => {
   };
 
   const handleReadMore = async () => {
+    // When the user clicks 'Read More', we fetch the full blog details
+    // and then open the blog modal with that data.
     try {
       const updatedBlog = await fetchBlogById(currentBlog._id);
-      setCurrentBlog(updatedBlog); // Update state with new view count
+      setCurrentBlog(updatedBlog);
       setBlogModalData(updatedBlog);
       setShowBlogModal(true);
     } catch (error) {
@@ -52,7 +61,7 @@ const BlogCard = ({ blog, className }) => {
     }
   };
 
-  const truncatedContent = truncateContent(blog.content, 100); // Truncate to 100 words
+  const truncatedContent = truncateContent(blog.content, 100);
 
   return (
     <motion.div
@@ -78,50 +87,59 @@ const BlogCard = ({ blog, className }) => {
               <span className="flex items-center">
                 <span className="mr-1">👁️</span> {currentBlog.views || 0}
               </span>
+              {/* Like/Unlike button logic */}
               <span
                 className="flex cursor-pointer items-center"
                 onClick={async (e) => {
-                  e.stopPropagation();
+                  e.stopPropagation(); // Prevent triggering the card's read more if it had one.
                   if (!user || !user.token) {
                     toast.error("You must be logged in to like a post.");
                     return;
                   }
                   try {
+                    // Determine if liking or unliking based on current state.
                     const action = isLikedByUser ? "unlike" : "like";
                     const { likes, isLiked: newIsLiked } = await likeBlog(
                       currentBlog._id,
                       user.token,
                       action
                     );
+                    // Update the local blog state with new like count and user's like status.
                     setCurrentBlog((prevBlog) => ({
                       ...prevBlog,
                       likes: likes,
                     }));
                     setIsLikedByUser(newIsLiked);
                   } catch (error) {
-                    // The error is already handled and toasted in the API utility
-                    // You can add component-specific logic here if needed
+                    console.log(error);
+                    toast.error("Failed to update like status.");
                   }
                 }}
               >
                 <span className="mr-1">{isLikedByUser ? "👎" : "👍"}</span>{" "}
                 {currentBlog.likes || 0}
               </span>
+              {/* Comments button logic */}
               <span
                 className="flex cursor-pointer items-center"
                 onClick={async (e) => {
-                  e.stopPropagation(); // Prevent triggering the blog modal
+                  e.stopPropagation();
                   try {
+                    // Fetch comments for the current blog and open the comments modal.
                     const data = await fetchComments(currentBlog._id);
                     setCommentsModalData({
                       blog: currentBlog,
                       comments: data,
+                      // Callback for when a new comment is successfully added.
+                      // This updates the local blog state to reflect the new comment count.
                       onCommentAdded: (newComment) => {
                         setCurrentBlog((prevBlog) => ({
                           ...prevBlog,
                           comments: [...prevBlog.comments, newComment],
                         }));
                       },
+                      // Callback to re-fetch the blog after a comment is added,
+                      // ensuring the most up-to-date comment count and data.
                       onCommentAddedSuccess: async () => {
                         try {
                           const updatedBlog = await fetchBlogById(
@@ -133,12 +151,14 @@ const BlogCard = ({ blog, className }) => {
                             "Failed to re-fetch blog after comment:",
                             error
                           );
+                          toast.error("Failed to refresh comments.");
                         }
                       },
                     });
                     setShowCommentsModal(true);
                   } catch (error) {
-                    // The error is already handled and toasted in the API utility
+                    console.log(error);
+                    toast.error("Failed to load comments.");
                   }
                 }}
               >
@@ -160,7 +180,6 @@ const BlogCard = ({ blog, className }) => {
           </div>
         </>
       )}
-      {/* for add more blog details here, e.g., category, author, etc. */}
     </motion.div>
   );
 };

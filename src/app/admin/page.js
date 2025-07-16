@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import AdminDashboard from "@/components/Admin/AdminDashboard";
 import BlogManagement from "@/components/Admin/BlogManagement";
 import UserManagement from "@/components/Admin/UserManagement";
@@ -10,9 +9,13 @@ import AnalyticsReporting from "@/components/Admin/AnalyticsReporting";
 import HomeBtn from "@/components/HomeBtn";
 
 const AdminPage = () => {
-  const [activeSection, setActiveSection] = useState("dashboard"); // 'dashboard', 'blogs', 'users', 'comments', 'analytics'
-  const router = useRouter();
+  // State to keep track of the currently active section in the admin panel.
+  const [activeSection, setActiveSection] = useState("dashboard");
 
+  /**
+   * Renders the appropriate component based on the `activeSection` state.
+   * This acts as a simple router for the admin panel's different views.
+   */
   const renderSection = () => {
     switch (activeSection) {
       case "dashboard":
@@ -32,20 +35,15 @@ const AdminPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-900 text-white py-8">
+      {/* Home button to navigate back to the main application. */}
       <HomeBtn />
       <h1 className="text-4xl font-bold mb-8">Admin Panel</h1>
 
+      {/* Navigation bar for switching between different admin sections. */}
       <nav className="mb-8 w-full px-4">
         <ul className="flex flex-wrap justify-center gap-2 md:flex-nowrap md:space-x-4">
-          {/* <li>
-            <button
-              onClick={() => router.push('/')}
-              className="w-full px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-white"
-            >
-              Home
-            </button>
-          </li> */}
           <li>
+            {/* Button to activate the Dashboard section. */}
             <button
               onClick={() => setActiveSection("dashboard")}
               className={`w-full px-4 py-2 rounded-md ${
@@ -58,6 +56,7 @@ const AdminPage = () => {
             </button>
           </li>
           <li>
+            {/* Button to activate the Manage Blogs section. */}
             <button
               onClick={() => setActiveSection("blogs")}
               className={`w-full px-4 py-2 rounded-md ${
@@ -70,6 +69,7 @@ const AdminPage = () => {
             </button>
           </li>
           <li>
+            {/* Button to activate the Manage Users section. */}
             <button
               onClick={() => setActiveSection("users")}
               className={`w-full px-4 py-2 rounded-md ${
@@ -82,6 +82,7 @@ const AdminPage = () => {
             </button>
           </li>
           <li>
+            {/* Button to activate the Manage Comments section. */}
             <button
               onClick={() => setActiveSection("comments")}
               className={`w-full px-4 py-2 rounded-md ${
@@ -94,6 +95,7 @@ const AdminPage = () => {
             </button>
           </li>
           <li>
+            {/* Button to activate the Analytics & Reporting section. */}
             <button
               onClick={() => setActiveSection("analytics")}
               className={`w-full px-4 py-2 rounded-md ${
@@ -108,6 +110,7 @@ const AdminPage = () => {
         </ul>
       </nav>
 
+      {/* Container for rendering the active admin section component. */}
       <div className="w-full max-w-5xl px-4">{renderSection()}</div>
     </div>
   );

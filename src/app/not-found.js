@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -24,7 +23,9 @@ export default function NotFound() {
         className="custom-bg w-full max-w-lg rounded-xl p-8 text-center shadow-lg"
       >
         <h2 className="mb-4 text-4xl font-bold text-orange-500">404</h2>
-        <h3 className="mb-4 text-2xl font-bold text-white">Page Not Found</h3>
+        <h3 className="mb-4 text-2xl font-bold text-white">
+          You lost in space
+        </h3>
         <p className="mb-6 text-lg text-gray-300">
           Sorry, the page you are looking for does not exist.
         </p>

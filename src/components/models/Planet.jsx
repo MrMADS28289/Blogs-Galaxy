@@ -11,7 +11,6 @@ const Planet = React.memo(function PlanetModel(props) {
 
   useCursor(hovered);
 
-  // Load the planet model
   const { scene } = useGLTF("/models/planet.glb");
 
   if (!isPlanetVisible) {
@@ -35,5 +34,4 @@ const Planet = React.memo(function PlanetModel(props) {
 
 export default Planet;
 
-// Preload model for performance
 useGLTF.preload("/models/planet.glb");

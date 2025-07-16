@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
-import { isAuthenticatedAtom, userAtom } from "@/app/jotaiAtoms";
+import { userAtom } from "@/app/jotaiAtoms";
 import { loginUser, googleSignInUser } from "@/utils/authApi";
 import { toast } from "sonner";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -29,10 +29,11 @@ const Login = () => {
     setError(null);
     setLoading(true);
     try {
+      // Attempt to log in the user with the provided email and password.
       const data = await loginUser(formData);
-      setUser(data);
+      setUser(data); // If successful, store the user data in our global state.
       toast.success("Logged in successfully!");
-      router.push("/"); // Redirect to home page on successful login
+      router.push("/");
     } catch (err) {
       toast.error(err.message || "Login failed");
     } finally {
@@ -46,9 +47,8 @@ const Login = () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      // The signed-in user info.
       const user = result.user;
-      // Send Google user data to your backend
+
       const backendResponse = await googleSignInUser({
         uid: user.uid,
         email: user.email,
@@ -115,8 +115,9 @@ const Login = () => {
             <button
               type="submit"
               className="custom-bg group relative flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              disabled={loading}
             >
-              Sign in
+              {loading ? "Signing in..." : "Sign in"}
             </button>
           </div>
         </form>
@@ -133,6 +134,7 @@ const Login = () => {
         </div>
 
         <div>
+          {/* The Google Sign-in button. */}
           <button
             type="button"
             onClick={handleGoogleSignIn}

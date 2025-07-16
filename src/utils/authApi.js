@@ -1,7 +1,13 @@
 import { toast } from "sonner";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth` : "http://localhost:5000/api/auth";
+// Base URL for authentication API endpoints.
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+  ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth`
+  : "http://localhost:5000/api/auth";
 
+/**
+ * Registers a new user.
+ */
 export const registerUser = async (userData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/register`, {
@@ -17,12 +23,14 @@ export const registerUser = async (userData) => {
     }
     return data;
   } catch (error) {
-    console.error("Registration Error:", error);
     toast.error(error.message || "Registration failed. Please try again.");
     throw error;
   }
 };
 
+/**
+ * Logs in an existing user.
+ */
 export const loginUser = async (credentials) => {
   try {
     const response = await fetch(`${API_BASE_URL}/login`, {
@@ -38,12 +46,16 @@ export const loginUser = async (credentials) => {
     }
     return data;
   } catch (error) {
-    console.error("Login Error:", error);
-    toast.error(error.message || "Login failed. Please check your credentials.");
+    toast.error(
+      error.message || "Login failed. Please check your credentials."
+    );
     throw error;
   }
 };
 
+/**
+ * Handles Google sign-in/registration.
+ */
 export const googleSignInUser = async (userData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/google-signin`, {
@@ -59,12 +71,14 @@ export const googleSignInUser = async (userData) => {
     }
     return data;
   } catch (error) {
-    console.error("Google Sign-in Backend Error:", error);
     toast.error(error.message || "Google sign-in failed. Please try again.");
     throw error;
   }
 };
 
+/**
+ * Updates a user's profile information.
+ */
 export const updateUser = async (userData, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/profile`, {
@@ -81,7 +95,6 @@ export const updateUser = async (userData, token) => {
     }
     return data;
   } catch (error) {
-    console.error("Update User Error:", error);
     toast.error(error.message || "Failed to update profile. Please try again.");
     throw error;
   }

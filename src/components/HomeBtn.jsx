@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FaHome } from "react-icons/fa";
 import Link from "next/link";
 
-const NavLink = motion(Link);
+const NavLink = motion(Link); // Extend Next.js Link component with Framer Motion capabilities.
 const HomeBtn = () => {
   return (
     <NavLink
@@ -26,6 +26,7 @@ const HomeBtn = () => {
           Home
         </span>
       </span>
+      {/* Visually hidden text for screen readers to provide additional context. */}
       <span className="sr-only">Go to Home Page</span>
     </NavLink>
   );

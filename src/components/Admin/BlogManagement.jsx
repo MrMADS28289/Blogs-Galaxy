@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import BlogListAdmin from './BlogListAdmin';
-import BlogForm from './BlogForm';
+import React, { useState } from "react";
+import BlogListAdmin from "./BlogListAdmin";
+import BlogForm from "./BlogForm";
 
 const BlogManagement = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [editingBlog, setEditingBlog] = useState(null);
-  const [refreshTrigger, setRefreshTrigger] = useState(0); // State to trigger refresh
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleBlogCreated = () => {
     setShowCreateForm(false);
-    setEditingBlog(null); // Clear editing state
-    setRefreshTrigger(prev => prev + 1); // Increment to trigger refresh
+    setEditingBlog(null);
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   const handleEditBlog = (blog) => {
     setEditingBlog(blog);
-    setShowCreateForm(true); // Show the form for editing
+    setShowCreateForm(true);
   };
 
   return (
@@ -24,7 +24,7 @@ const BlogManagement = () => {
         <button
           onClick={() => {
             setShowCreateForm(!showCreateForm);
-            setEditingBlog(null); // Clear editing state when toggling
+            setEditingBlog(null);
           }}
           className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
         >
@@ -35,7 +35,10 @@ const BlogManagement = () => {
       {showCreateForm ? (
         <BlogForm onBlogCreated={handleBlogCreated} blog={editingBlog} />
       ) : (
-        <BlogListAdmin onEdit={handleEditBlog} refreshTrigger={refreshTrigger} />
+        <BlogListAdmin
+          onEdit={handleEditBlog}
+          refreshTrigger={refreshTrigger}
+        />
       )}
     </div>
   );

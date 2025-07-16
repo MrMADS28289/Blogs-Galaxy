@@ -1,26 +1,37 @@
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
+/**
+ * Fetches all blog posts for the admin panel with pagination.
+ * Requires an authentication token.
+ */
 export const fetchAllBlogsAdmin = async (token, page = 1, limit = 10) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/blogs?page=${page}&limit=${limit}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/blogs?page=${page}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.message || "Failed to fetch blogs for admin");
     }
-    // Assuming the API might return an object with a 'blogs' key for pagination
-    // or directly an array of blogs.
-    return data.blogs ? data : { blogs: data, totalPages: 1, totalBlogs: data.length };
+    return data.blogs
+      ? data
+      : { blogs: data, totalPages: 1, totalBlogs: data.length };
   } catch (error) {
     console.error("Error fetching all blogs for admin:", error);
     throw error;
   }
 };
 
+/**
+ * Deletes a specific blog post from the admin panel.
+ * Requires the blog ID and an authentication token.
+ */
 export const deleteBlogAdmin = async (blogId, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
@@ -40,6 +51,10 @@ export const deleteBlogAdmin = async (blogId, token) => {
   }
 };
 
+/**
+ * Creates a new blog post from the admin panel.
+ * Requires blog data and an authentication token.
+ */
 export const createBlogAdmin = async (blogData, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogs`, {
@@ -61,6 +76,10 @@ export const createBlogAdmin = async (blogData, token) => {
   }
 };
 
+/**
+ * Fetches all user accounts for the admin panel.
+ * Requires an authentication token.
+ */
 export const fetchAllUsersAdmin = async (token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/users`, {
@@ -79,6 +98,10 @@ export const fetchAllUsersAdmin = async (token) => {
   }
 };
 
+/**
+ * Deletes a specific user account from the admin panel.
+ * Requires the user ID and an authentication token.
+ */
 export const deleteUserAdmin = async (userId, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/users/${userId}`, {
@@ -98,6 +121,10 @@ export const deleteUserAdmin = async (userId, token) => {
   }
 };
 
+/**
+ * Updates an existing blog post from the admin panel.
+ * Requires the blog ID, updated blog data, and an authentication token.
+ */
 export const updateBlogAdmin = async (blogId, blogData, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
@@ -119,6 +146,10 @@ export const updateBlogAdmin = async (blogId, blogData, token) => {
   }
 };
 
+/**
+ * Updates the role of a specific user from the admin panel.
+ * Requires the user ID, the new role, and an authentication token.
+ */
 export const updateUserRoleAdmin = async (userId, newRole, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/users/${userId}/role`, {
@@ -140,26 +171,37 @@ export const updateUserRoleAdmin = async (userId, newRole, token) => {
   }
 };
 
+/**
+ * Fetches all comments for the admin panel with pagination.
+ * Requires an authentication token.
+ */
 export const fetchAllCommentsAdmin = async (token, page = 1, limit = 10) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/comments?page=${page}&limit=${limit}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/comments?page=${page}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.message || "Failed to fetch comments for admin");
     }
-    // Assuming the API might return an object with a 'comments' key for pagination
-    // or directly an array of comments.
-    return data.comments ? data : { comments: data, totalPages: 1, totalComments: data.length };
+    return data.comments
+      ? data
+      : { comments: data, totalPages: 1, totalComments: data.length };
   } catch (error) {
     console.error("Error fetching all comments for admin:", error);
     throw error;
   }
 };
 
+/**
+ * Deletes a specific comment from the admin panel.
+ * Requires the comment ID and an authentication token.
+ */
 export const deleteCommentAdmin = async (commentId, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/comments/${commentId}`, {
@@ -179,6 +221,10 @@ export const deleteCommentAdmin = async (commentId, token) => {
   }
 };
 
+/**
+ * Fetches analytics data for the admin panel.
+ * Requires an authentication token.
+ */
 export const fetchAnalyticsData = async (token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/admin/analytics`, {

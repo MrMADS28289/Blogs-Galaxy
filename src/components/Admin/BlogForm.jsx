@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { userAtom } from "@/app/jotaiAtoms";
 import { createBlogAdmin, updateBlogAdmin } from "@/utils/adminApi";
@@ -7,6 +7,7 @@ import { toast } from "sonner";
 const BlogForm = ({ onBlogCreated, blog }) => {
   const [user] = useAtom(userAtom);
 
+  // These are the predefined categories for blog posts. Makes it easy to keep things organized.
   const categories = [
     "tech",
     "geography",
@@ -18,12 +19,13 @@ const BlogForm = ({ onBlogCreated, blog }) => {
     "community",
   ];
 
+  // State variables to hold the values of form inputs.
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [coverImage, setCoverImage] = useState("");
-  const [category, setCategory] = useState(categories[0] || "");
+  const [category, setCategory] = useState(categories[0] || ""); // Default to the first category.
   const [tags, setTags] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // To show a loading state during form submission.
 
   useEffect(() => {
     if (blog) {
@@ -33,7 +35,6 @@ const BlogForm = ({ onBlogCreated, blog }) => {
       setCategory(blog.category || categories[0] || "");
       setTags(blog.tags ? blog.tags.join(", ") : "");
     } else {
-      // Reset form for new blog creation
       setTitle("");
       setContent("");
       setCoverImage("");
@@ -51,18 +52,21 @@ const BlogForm = ({ onBlogCreated, blog }) => {
 
     setLoading(true);
     try {
+      // Gather all the form data into one object.
       const blogData = {
         title,
         content,
         coverImage,
         category,
+        // Split tags by comma, trim whitespace, and filter out any empty strings.
         tags: tags
           .split(",")
           .map((tag) => tag.trim())
           .filter((tag) => tag !== ""),
-        author: user.id, // Send user.id (ObjectId) as author
+        author: user.id, // Assign the current user as the author.
       };
 
+      // Decide whether to create a new blog or update an existing one.
       if (blog && blog._id) {
         await updateBlogAdmin(blog._id, blogData, user.token);
         toast.success("Blog updated successfully!");
@@ -71,7 +75,7 @@ const BlogForm = ({ onBlogCreated, blog }) => {
         toast.success("Blog created successfully!");
       }
 
-      // Reset form or handle post-submission logic
+      // After a successful submission, clear the form and trigger any parent callbacks.
       setTitle("");
       setContent("");
       setCoverImage("");
@@ -89,7 +93,10 @@ const BlogForm = ({ onBlogCreated, blog }) => {
 
   return (
     <div className="mx-auto mt-8 w-full max-w-md rounded-lg bg-gray-800 p-6 shadow-lg">
-      <h2 className="mb-4 text-2xl font-bold text-white">{blog ? "Edit Blog" : "Create New Blog"}</h2>
+      <h2 className="mb-4 text-2xl font-bold text-white">
+        {/* Dynamically change the heading based on whether we're editing or creating. */}
+        {blog ? "Edit Blog" : "Create New Blog"}
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
@@ -153,7 +160,8 @@ const BlogForm = ({ onBlogCreated, blog }) => {
           >
             {categories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                {/* Just making the category names look nice. */}
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}{" "}
               </option>
             ))}
           </select>
@@ -178,7 +186,14 @@ const BlogForm = ({ onBlogCreated, blog }) => {
           className="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none focus:shadow-outline"
           disabled={loading}
         >
-          {loading ? (blog ? "Updating..." : "Creating...") : (blog ? "Update Blog" : "Create Blog")}
+          {/* Change the button text based on whether loading and if it's an edit or create operation. */}
+          {loading
+            ? blog
+              ? "Updating..."
+              : "Creating..."
+            : blog
+            ? "Update Blog"
+            : "Create Blog"}
         </button>
       </form>
     </div>

@@ -4,16 +4,13 @@ import { useGLTF, useCursor } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const GeographyModel = React.memo(function GeographyModel(props) {
-  // Use React.memo for performance optimization
   const modelRef = useRef();
   const [hovered, setHovered] = useState(false);
 
   useCursor(hovered);
 
-  // Load the planet model
   const { scene } = useGLTF("/models/GeopraphyNebula.glb");
 
-  // Float animation
   useFrame((state) => {
     if (modelRef.current) {
       modelRef.current.position.y =
@@ -32,8 +29,8 @@ const GeographyModel = React.memo(function GeographyModel(props) {
       onPointerOut={() => setHovered(false)}
     />
   );
-});
+});
+
 export default GeographyModel;
 
-// Preload model for performance
 useGLTF.preload("/models/GeopraphyNebula.glb");

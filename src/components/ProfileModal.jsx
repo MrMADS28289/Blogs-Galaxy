@@ -9,11 +9,25 @@ import {
   userAtom,
   isAuthenticatedAtom,
 } from "@/app/jotaiAtoms";
-import { updateUser } from "@/utils/authApi"; // Import the updateUser function
+import { updateUser } from "@/utils/authApi";
 import { toast } from "sonner";
-import { FaUser, FaEnvelope, FaLock, FaImage, FaSave, FaTimes, FaSmile, FaRocket, FaStar, FaHeart, FaGhost, FaEdit } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaImage,
+  FaSave,
+  FaTimes,
+  FaSmile,
+  FaRocket,
+  FaStar,
+  FaHeart,
+  FaGhost,
+  FaEdit,
+} from "react-icons/fa";
 
-// --- Avatar Components Map ---
+// Mapping of avatar names to their corresponding React-Icons components.
+// This allows for dynamic rendering of different avatar icons.
 const avatarComponents = {
   User: (props) => <FaUser {...props} />,
   Smile: (props) => <FaSmile {...props} />,
@@ -23,15 +37,23 @@ const avatarComponents = {
   Ghost: (props) => <FaGhost {...props} />,
 };
 
+// Array of available avatar options, derived from the keys of avatarComponents.
 const avatarOptions = Object.keys(avatarComponents);
 
+/**
+ * Helper component to display the selected avatar icon.
+ * Falls back to a default user icon if the specified avatar is not found.
+ */
 const AvatarDisplay = ({ avatar, ...props }) => {
   const AvatarComponent = avatarComponents[avatar];
-  if (!AvatarComponent) return <FaUser {...props} />; // Fallback
+  if (!AvatarComponent) return <FaUser {...props} />;
   return <AvatarComponent {...props} />;
 };
 
-// --- Main Component ---
+/**
+ * ProfileModal component displays and allows editing of the user's profile information.
+ * It uses Jotai for global state management to control its visibility and user data.
+ */
 const ProfileModal = () => {
   const [showProfileModal, setShowProfileModal] = useAtom(showProfileModalAtom);
   const [user, setUser] = useAtom(userAtom);
@@ -42,6 +64,7 @@ const ProfileModal = () => {
   const [name, setName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("User");
 
+  // Initialize form fields when the user data changes.
   useEffect(() => {
     if (user) {
       setName(user.name || "");
@@ -49,34 +72,29 @@ const ProfileModal = () => {
     }
   }, [user]);
 
+  // Handles saving the updated profile information.
   const handleSave = async () => {
     if (!user || !user.token) {
       toast.error("Authentication token not found. Please log in again.");
-      return; // Or handle this case more gracefully
+      return;
     }
 
     try {
-      // 1. Call the API to update the user's name and avatar
       const updatedUserData = await updateUser(
         { name, image: selectedAvatar },
         user.token
       );
-      console.log("Updated user data from API:", updatedUserData); // Add this line
-
-      // 2. Update user state locally in Jotai with the returned data
       setUser(updatedUserData);
       toast.success("Profile updated successfully!");
 
-      // 3. Exit edit mode
       setIsEditMode(false);
     } catch (error) {
       toast.error("Failed to update profile: " + error.message);
-      // Optionally, show an error message to the user
     }
   };
 
+  // Handles canceling the edit operation, reverting changes.
   const handleCancel = () => {
-    // Reset fields to original state and exit edit mode
     if (user) {
       setName(user.name || "");
       setSelectedAvatar(user.image || "User");
@@ -84,8 +102,10 @@ const ProfileModal = () => {
     setIsEditMode(false);
   };
 
+  // Don't render the modal if it's not set to be shown.
   if (!showProfileModal) return null;
 
+  // Use createPortal to render the modal outside the main DOM hierarchy,
   return createPortal(
     <div
       className="fixed inset-0 z-[999] flex items-center justify-center bg-background/60 backdrop-blur-sm"
@@ -95,6 +115,7 @@ const ProfileModal = () => {
         className="relative w-full max-w-md rounded border border-dashed border-orange-500 bg-background/20 p-6 text-center shadow-glass-inset backdrop-blur-[6px]"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Close button for the modal. Changes behavior based on edit mode. */}
         <button
           onClick={() =>
             isEditMode ? handleCancel() : setShowProfileModal(false)
@@ -104,6 +125,7 @@ const ProfileModal = () => {
           <FaTimes size={24} />
         </button>
 
+        {/* Conditional rendering based on user authentication status. */}
         {isAuthenticated && user ? (
           <>
             {!isEditMode && (
@@ -117,6 +139,7 @@ const ProfileModal = () => {
 
             <h2 className="text-2xl font-bold text-white">Profile</h2>
             <div className="mt-4 flex flex-col items-center gap-4">
+              {/* Display selected avatar. */}
               <div className="flex size-24 items-center justify-center rounded-full border-2 border-orange-500 bg-background/50">
                 <AvatarDisplay
                   avatar={selectedAvatar}
@@ -124,8 +147,10 @@ const ProfileModal = () => {
                 />
               </div>
 
+              {/* Conditional rendering for edit mode vs. display mode. */}
               {isEditMode ? (
                 <div className="flex w-full flex-col items-center gap-4">
+                  {/* Input field for user's name. */}
                   <input
                     type="text"
                     value={name}
@@ -134,6 +159,7 @@ const ProfileModal = () => {
                     placeholder="Enter your name"
                   />
 
+                  {/* Avatar selection options. */}
                   <div className="my-2">
                     <p className="text-sm text-gray-300">Choose your avatar:</p>
                     <div className="mt-2 flex flex-wrap justify-center gap-3">
@@ -156,6 +182,7 @@ const ProfileModal = () => {
                     </div>
                   </div>
 
+                  {/* Save and Cancel buttons for edit mode. */}
                   <div className="flex gap-4">
                     <button
                       onClick={handleSave}
@@ -175,10 +202,12 @@ const ProfileModal = () => {
                 </div>
               ) : (
                 <div className="text-center">
+                  {/* Display user's name and email when not in edit mode. */}
                   <p className="text-xl font-semibold text-white">
                     {user.name || "N/A"}
                   </p>
                   <p className="text-sm text-gray-400">{user.email}</p>
+                  {/* Admin panel button, only shown if the user has an 'admin' role. */}
                   {user.role === "admin" && (
                     <button
                       onClick={() => {

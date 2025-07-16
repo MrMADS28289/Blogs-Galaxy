@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useState } from "react";
+import { Suspense, useState } from "react";
 import { BtnList } from "@/app/data";
 import BlogList from "@/components/BlogList";
 import BlogCard from "@/components/BlogCard";
@@ -15,6 +15,7 @@ import SportsModel from "@/components/models/SportsModel";
 import TechModel from "@/components/models/TechModel";
 import { useBlogs } from "@/components/hooks/useBlogs";
 import Pagination from "@/components/Pagination";
+import CategoryNotFound from "@/components/UI/noCategory";
 
 const modelMap = {
   ai: AiModel,
@@ -30,7 +31,7 @@ const modelMap = {
 const CategoryPage = ({ params }) => {
   const { category } = params;
   const [currentPage, setCurrentPage] = useState(1);
-  const blogsPerPage = 10; // You can adjust this value
+  const blogsPerPage = 10;
 
   const { blogs, loading, error, totalPages } = useBlogs(
     currentPage,
@@ -42,7 +43,7 @@ const CategoryPage = ({ params }) => {
   );
 
   if (!categoryDetails) {
-    return <div>Category not found</div>;
+    return <CategoryNotFound />;
   }
 
   const ModelComponent = modelMap[category];

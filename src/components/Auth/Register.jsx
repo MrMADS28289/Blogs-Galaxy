@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
-import { isAuthenticatedAtom, userAtom } from "@/app/jotaiAtoms";
+import { userAtom } from "@/app/jotaiAtoms";
 import { registerUser } from "@/utils/authApi";
 import { toast } from "sonner";
 
 const Register = () => {
+  // State to manage form input data.
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,10 +29,11 @@ const Register = () => {
     setError(null);
     setLoading(true);
     try {
+      // Calls the registerUser API with form data.
       const data = await registerUser(formData);
-      setUser(data); // Automatically log in after registration
+      setUser(data);
       toast.success("Registered successfully!");
-      router.push("/"); // Redirect to home page
+      router.push("/");
     } catch (err) {
       toast.error(err.message || "Registration failed");
     } finally {
@@ -41,15 +43,18 @@ const Register = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+      // Inner container for the registration form and related elements.
       <div className="custom-bg w-full max-w-md space-y-8 rounded-lg p-10">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
             Create a new account
           </h2>
         </div>
+        {/* Displays registration error messages if any. */}
         {error && (
           <div className="mb-4 text-center text-sm text-red-500">{error}</div>
         )}
+        {/* Registration form for user input. */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="-space-y-px rounded-md shadow-sm">
             <div>
@@ -106,11 +111,13 @@ const Register = () => {
             <button
               type="submit"
               className="custom-bg group relative flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              disabled={loading}
             >
-              Register
+              {loading ? "Registering..." : "Register"}
             </button>
           </div>
         </form>
+        {/* Link to the login page for existing users. */}
         <div className="text-center text-sm">
           <Link
             href="/login"

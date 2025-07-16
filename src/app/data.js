@@ -1,30 +1,18 @@
-/*
-Websites:
-
-- https://github.com/pmndrs/gltfjsx (GLTF JSX for 3D Models)
-- https://lucide.dev/icons/ (Lucide Icons)
-- https://github.com/anuraghazra/github-readme-stats (Github Readme Stats)
-- https://skillicons.dev (Skill Icons to show skills)
-- https://github-readme-streak-stats.herokuapp.com (Github Readme Streak Stats)
-
-:root {
-  --background: 27 27 27;
-  --foreground: 225 225 225;
-  --muted: 115 115 115;
-  --accent: 254 254 91; #FEFE5B
-}
-
-*/
-
+/**
+ * This file defines the data for the main navigation buttons in the application.
+ * Each object in the `BtnList` array represents a navigation item, including its label,
+ * link, associated icon, and properties for its 3D model representation.
+ */
 export const BtnList = [
   {
-    label: "Tech Galaxy",
-    link: "/tech",
-    icon: "Laptop",
-    newTab: false,
-    position: [0, 1, 0],
-    scale: [3.5, 3.5, 3.5],
-    description: "Explore the latest in technology, from software development to hardware innovations."
+    label: "Tech Galaxy", // Display label for the navigation button.
+    link: "/tech", // The URL path for this category.
+    icon: "Laptop", // Icon identifier for the button.
+    newTab: false, // Indicates if the link should open in a new tab.
+    position: [0, 1, 0], // 3D model position [x, y, z].
+    scale: [3.5, 3.5, 3.5], // 3D model scale [x, y, z].
+    description:
+      "Explore the latest in technology, from software development to hardware innovations.", // Description for the category.
   },
   {
     label: "Geography Nebula",
@@ -33,7 +21,8 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [0.4, 0.4, 0.4],
-    description: "Journey through the wonders of our planet and beyond, discovering diverse landscapes and cultures."
+    description:
+      "Journey through the wonders of our planet and beyond, discovering diverse landscapes and cultures.",
   },
   {
     label: "History Constellation",
@@ -42,7 +31,8 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [3, 3, 3],
-    description: "Uncover the past, from ancient civilizations to modern events that shaped our world."
+    description:
+      "Uncover the past, from ancient civilizations to modern events that shaped our world.",
   },
   {
     label: "AI Universe",
@@ -51,7 +41,8 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [1.5, 1.5, 1.5],
-    description: "Dive into the world of Artificial Intelligence, machine learning, and intelligent systems."
+    description:
+      "Dive into the world of Artificial Intelligence, machine learning, and intelligent systems.",
   },
   {
     label: "Sports Galaxy",
@@ -60,7 +51,8 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [2.5, 2.5, 2.5],
-    description: "Get updates on your favorite sports, athletes, and major sporting events."
+    description:
+      "Get updates on your favorite sports, athletes, and major sporting events.",
   },
   {
     label: "Creative Corner",
@@ -69,7 +61,8 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [3, 3, 3],
-    description: "Unleash your imagination with articles on art, design, music, and creative expression."
+    description:
+      "Unleash your imagination with articles on art, design, music, and creative expression.",
   },
   {
     label: "Motivation Meteor",
@@ -78,7 +71,8 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [0.4, 0.4, 0.4],
-    description: "Find inspiration and guidance to achieve your goals and live a fulfilling life."
+    description:
+      "Find inspiration and guidance to achieve your goals and live a fulfilling life.",
   },
   {
     label: "Community",
@@ -87,6 +81,7 @@ export const BtnList = [
     newTab: false,
     position: [0, 1, 0],
     scale: [0.6, 0.6, 0.6],
-    description: "Connect with like-minded individuals and explore discussions on various topics."
+    description:
+      "Connect with like-minded individuals and explore discussions on various topics.",
   },
 ];
