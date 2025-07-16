@@ -69,7 +69,7 @@ const CommentsModal = () => {
       if (commentsModalData.onCommentAdded) {
         commentsModalData.onCommentAdded(formattedComment);
       }
-      
+
       setNewComment(""); // Clear input field
     } catch (error) {
       // The error is already handled and toasted in the API utility
@@ -98,7 +98,7 @@ const CommentsModal = () => {
           >
             <button
               onClick={handleClose}
-              className="absolute right-4 top-4 text-3xl text-white hover:text-gray-300"
+              className="absolute right-4 top-4 text-3xl text-orange-500 hover:text-orange-200"
             >
               <MdClose />
             </button>
@@ -125,7 +125,7 @@ const CommentsModal = () => {
             </div>
             <form onSubmit={handleSubmitComment} className="mt-4 p-6">
               <textarea
-                className="w-full rounded-md border border-gray-700 bg-gray-800 p-2 text-white focus:border-blue-500 focus:outline-none"
+                className="w-full rounded-md border border-gray-700 bg-gray-800 p-2 text-white focus:border-orange-500 focus:outline-none"
                 rows="3"
                 placeholder="Write a comment..."
                 value={newComment}

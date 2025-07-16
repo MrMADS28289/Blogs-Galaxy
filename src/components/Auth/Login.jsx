@@ -87,7 +87,7 @@ const Login = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder:text-gray-500 focus:z-10 focus:border-accent focus:outline-none focus:ring-accent sm:text-sm"
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-orange-300 px-3 py-2 text-gray-900 placeholder:text-gray-500 focus:z-10 focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm"
                 placeholder="Email address"
                 value={formData.email}
                 onChange={handleChange}
@@ -103,7 +103,7 @@ const Login = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder:text-gray-500 focus:z-10 focus:border-accent focus:outline-none focus:ring-accent sm:text-sm"
+                className="relative block w-full appearance-none rounded-none rounded-b-md border border-orange-300 px-3 py-2 text-gray-900 placeholder:text-gray-500 focus:z-10 focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm"
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
@@ -114,7 +114,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="custom-bg group relative flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="custom-bg group relative flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
             >
               Sign in
             </button>
@@ -136,7 +136,7 @@ const Login = () => {
           <button
             type="button"
             onClick={handleGoogleSignIn}
-            className="custom-bg group relative flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+            className="custom-bg group relative flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
             Sign in with Google
           </button>

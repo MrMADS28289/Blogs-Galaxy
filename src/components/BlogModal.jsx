@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { showBlogModalAtom, blogModalDataAtom } from "@/app/jotaiAtoms";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdClose } from "react-icons/md";
-import Image from "next/image";
+import BlogImage from "./UI/BlogImage";
 
 const BlogModal = () => {
   const [showBlogModal, setShowBlogModal] = useAtom(showBlogModalAtom);
@@ -34,13 +34,13 @@ const BlogModal = () => {
           >
             <button
               onClick={handleClose}
-              className="absolute right-4 top-4 text-3xl text-white hover:text-gray-300"
+              className="absolute right-4 top-4 text-3xl text-orange-500 hover:text-orange-200"
             >
               <MdClose />
             </button>
             <div className="blog-modal-content grow overflow-y-auto p-6 pt-10">
               {blogModalData.coverImage && (
-                <Image
+                <BlogImage
                   src={blogModalData.coverImage}
                   alt={blogModalData.title}
                   height={300}
@@ -65,9 +65,6 @@ const BlogModal = () => {
                   <p>Tags: {blogModalData.tags.join(", ")}</p>
                 )}
                 <div className="flex justify-center space-x-4">
-                  {blogModalData.ratings && (
-                    <p>Ratings: {blogModalData.ratings}</p>
-                  )}
                   {blogModalData.likes && <p>Likes: {blogModalData.likes}</p>}
                   {blogModalData.views && <p>Views: {blogModalData.views}</p>}
                 </div>

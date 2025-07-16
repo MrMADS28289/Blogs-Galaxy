@@ -14,7 +14,6 @@ import { likeBlog, fetchComments, fetchBlogById } from "@/utils/blogApi";
 import { toast } from "sonner";
 
 const BlogCard = ({ blog, className }) => {
-  console.log("Blog object received by BlogCard:", blog); // Keep this for debugging
   const [currentBlog, setCurrentBlog] = useState(blog);
   const [isLikedByUser, setIsLikedByUser] = useState(false);
   const [, setShowBlogModal] = useAtom(showBlogModalAtom);
@@ -77,69 +76,76 @@ const BlogCard = ({ blog, className }) => {
           <div className="mt-4 flex w-full items-center justify-between">
             <div className="flex items-center space-x-4 text-sm text-gray-400">
               <span className="flex items-center">
-                  <span className="mr-1">👁️</span> {currentBlog.views || 0}
-                </span>
+                <span className="mr-1">👁️</span> {currentBlog.views || 0}
+              </span>
               <span
-                  className="flex cursor-pointer items-center"
-                  onClick={async (e) => {
-                    e.stopPropagation();
-                    if (!user || !user.token) {
-                      toast.error("You must be logged in to like a post.");
-                      return;
-                    }
-                    try {
-                      const action = isLikedByUser ? "unlike" : "like";
-                      const { likes, isLiked: newIsLiked } = await likeBlog(
-                        currentBlog._id,
-                        user.token,
-                        action
-                      );
-                      setCurrentBlog((prevBlog) => ({
-                        ...prevBlog,
-                        likes: likes,
-                      }));
-                      setIsLikedByUser(newIsLiked);
-                    } catch (error) {
-                      // The error is already handled and toasted in the API utility
-                      // You can add component-specific logic here if needed
-                    }
-                  }}
-                >
-                  <span className="mr-1">{isLikedByUser ? "👎" : "👍"}</span>{" "}
-                  {currentBlog.likes || 0}
-                </span>
+                className="flex cursor-pointer items-center"
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  if (!user || !user.token) {
+                    toast.error("You must be logged in to like a post.");
+                    return;
+                  }
+                  try {
+                    const action = isLikedByUser ? "unlike" : "like";
+                    const { likes, isLiked: newIsLiked } = await likeBlog(
+                      currentBlog._id,
+                      user.token,
+                      action
+                    );
+                    setCurrentBlog((prevBlog) => ({
+                      ...prevBlog,
+                      likes: likes,
+                    }));
+                    setIsLikedByUser(newIsLiked);
+                  } catch (error) {
+                    // The error is already handled and toasted in the API utility
+                    // You can add component-specific logic here if needed
+                  }
+                }}
+              >
+                <span className="mr-1">{isLikedByUser ? "👎" : "👍"}</span>{" "}
+                {currentBlog.likes || 0}
+              </span>
               <span
-                  className="flex cursor-pointer items-center"
-                  onClick={async (e) => {
-                    e.stopPropagation(); // Prevent triggering the blog modal
-                    try {
-                      const data = await fetchComments(currentBlog._id);
-                      setCommentsModalData({
-                        blog: currentBlog,
-                        comments: data,
-                        onCommentAdded: (newComment) => {
-                          setCurrentBlog((prevBlog) => ({
-                            ...prevBlog,
-                            comments: [...prevBlog.comments, newComment],
-                          }));
-                        },
-                        onCommentAddedSuccess: async () => {
-                          try {
-                            const updatedBlog = await fetchBlogById(currentBlog._id);
-                            setCurrentBlog(updatedBlog);
-                          } catch (error) {
-                            console.error("Failed to re-fetch blog after comment:", error);
-                          }
-                        },
-                      });
-                      setShowCommentsModal(true);
-                    } catch (error) {
-                      // The error is already handled and toasted in the API utility
-                    }
-                  }}
-                >
-                  <span className="mr-1">💬 {(currentBlog.comments || []).length}</span>
+                className="flex cursor-pointer items-center"
+                onClick={async (e) => {
+                  e.stopPropagation(); // Prevent triggering the blog modal
+                  try {
+                    const data = await fetchComments(currentBlog._id);
+                    setCommentsModalData({
+                      blog: currentBlog,
+                      comments: data,
+                      onCommentAdded: (newComment) => {
+                        setCurrentBlog((prevBlog) => ({
+                          ...prevBlog,
+                          comments: [...prevBlog.comments, newComment],
+                        }));
+                      },
+                      onCommentAddedSuccess: async () => {
+                        try {
+                          const updatedBlog = await fetchBlogById(
+                            currentBlog._id
+                          );
+                          setCurrentBlog(updatedBlog);
+                        } catch (error) {
+                          console.error(
+                            "Failed to re-fetch blog after comment:",
+                            error
+                          );
+                        }
+                      },
+                    });
+                    setShowCommentsModal(true);
+                  } catch (error) {
+                    // The error is already handled and toasted in the API utility
+                  }
+                }}
+              >
+                <span className="mr-1">
+                  💬 {(currentBlog.comments || []).length}
                 </span>
+              </span>
             </div>
             {currentBlog.content.split(" ").length > 100 && (
               <motion.button

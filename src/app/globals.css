@@ -32,7 +32,7 @@
 }
 
 .blog-modal-content::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of the scroll thumb */
+  background-color: rgb(185, 154, 96); /* Color of the scroll thumb */
   border-radius: 40px; /* Roundness of the scroll thumb */
   border: 2px solid transparent; /* Creates padding around thumb */
 }

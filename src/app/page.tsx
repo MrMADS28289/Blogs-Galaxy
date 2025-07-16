@@ -4,7 +4,9 @@ import bg from "../../public/background/black_sky.jpg";
 import RenderModel from "@/components/RenderModel";
 import dynamic from "next/dynamic";
 
-const Navigation = dynamic(() => import("@/components/navigation"), { ssr: false });
+const Navigation = dynamic(() => import("@/components/navigation"), {
+  ssr: false,
+});
 import { useSetAtom } from "jotai";
 import { isPlanetVisibleAtom } from "./jotaiAtoms";
 import { useEffect } from "react";
