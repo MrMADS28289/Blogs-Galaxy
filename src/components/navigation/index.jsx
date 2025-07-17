@@ -29,6 +29,21 @@ const modelComponents = {
   Community: CommunityModel,
 };
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
+
 const Navigation = () => {
   // Calculates the angle increment for evenly distributing navigation buttons in a circle.
   const angleIncrement = 360 / BtnList.length;

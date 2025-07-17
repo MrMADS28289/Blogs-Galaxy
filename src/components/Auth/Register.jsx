@@ -43,7 +43,6 @@ const Register = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      // Inner container for the registration form and related elements.
       <div className="custom-bg w-full max-w-md space-y-8 rounded-lg p-10">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
