@@ -69,48 +69,16 @@ const UserMenu = () => {
    * If autoplay fails, it sets up event listeners for the first user interaction.
    */
   useEffect(() => {
-    const consent = localStorage.getItem("musicConsent");
-    const consentTime = localStorage.getItem("consentTime");
-
-    // Checks if valid consent exists (consent within the last 24 hours).
-    const hasValidConsent =
-      consent &&
-      consentTime &&
-      new Date(consentTime).getTime() + 24 * 60 * 60 * 1000 > new Date();
-
-    if (hasValidConsent) {
-      const userConsented = consent === "true";
-      if (userConsented) {
-        if (audioRef.current) {
-          audioRef.current
-            .play()
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              // If autoplay is blocked, set up listeners for first user interaction.
-              setIsPlaying(false);
-              ["click", "keydown", "touchstart"].forEach((event) =>
-                document.addEventListener(event, handleFirstUserInteraction)
-              );
-            });
-        }
-      } else {
-        setIsPlaying(false);
-      }
-    } else {
-      // If no valid consent, show the music consent modal.
-      setShowModal(true);
-      setIsPlaying(false);
-    }
-
-    // Cleanup function: remove event listeners when the component unmounts.
-    return () => {
-      ["click", "keydown", "touchstart"].forEach((event) =>
-        document.removeEventListener(event, handleFirstUserInteraction)
-      );
+    const handleUnauthorizedEvent = () => {
+      setUser(null);
     };
-  }, [handleFirstUserInteraction]); // Dependency on `handleFirstUserInteraction` to ensure it's up-to-date.
+
+    window.addEventListener('unauthorized-event', handleUnauthorizedEvent);
+
+    return () => {
+      window.removeEventListener('unauthorized-event', handleUnauthorizedEvent);
+    };
+  }, [setUser]); // Dependency on `handleFirstUserInteraction` to ensure it's up-to-date.
 
   const toggle = () => {
     const newState = !isPlaying;

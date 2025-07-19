@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+import { handleUnauthorized } from "./authUtils";
 
 // Base URL for the blog API endpoints.
 const API_BASE_URL =
@@ -102,6 +103,7 @@ export const fetchAllBlogs = async () => {
     return await response.json();
   } catch (error) {
     toast.error(error.message || "Failed to fetch all blogs.");
+    handleUnauthorized(error);
     throw error;
   }
 };

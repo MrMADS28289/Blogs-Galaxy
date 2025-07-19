@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
 import { addComment } from "@/utils/blogApi";
+import { handleUnauthorized } from "@/utils/authUtils";
 import { toast } from "sonner";
 
 /**
@@ -25,7 +26,7 @@ const CommentsModal = () => {
 
   const [newComment, setNewComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [user] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   // If there's no blog data or comments data, don't render the modal.
   if (!commentsModalData || !commentsModalData.blog) return null;
@@ -83,6 +84,7 @@ const CommentsModal = () => {
       setNewComment("");
     } catch (error) {
       console.log(error);
+      handleUnauthorized(error);
       toast.error("Failed to submit comment.");
     } finally {
       setSubmitting(false);

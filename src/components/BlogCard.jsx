@@ -11,6 +11,7 @@ import {
   userAtom,
 } from "@/app/jotaiAtoms";
 import { likeBlog, fetchComments, fetchBlogById } from "@/utils/blogApi";
+import { handleUnauthorized } from "@/utils/authUtils";
 import { toast } from "sonner";
 
 const BlogCard = ({ blog, className }) => {
@@ -22,7 +23,7 @@ const BlogCard = ({ blog, className }) => {
   const [, setBlogModalData] = useAtom(blogModalDataAtom);
   const [, setShowCommentsModal] = useAtom(showCommentsModalAtom);
   const [, setCommentsModalData] = useAtom(commentsModalDataAtom);
-  const [user] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   useEffect(() => {
     setCurrentBlog(blog);
@@ -112,6 +113,7 @@ const BlogCard = ({ blog, className }) => {
                     setIsLikedByUser(newIsLiked);
                   } catch (error) {
                     console.log(error);
+                    handleUnauthorized(error);
                     toast.error("Failed to update like status.");
                   }
                 }}

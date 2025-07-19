@@ -75,7 +75,7 @@ const GeminiChat = () => {
     }
 
     try {
-      const response = await fetch("/api/gemini", {
+      const response = await fetch(`${window.location.origin}/api/gemini`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

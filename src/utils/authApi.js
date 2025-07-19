@@ -1,16 +1,15 @@
 import { toast } from "sonner";
+import { handleUnauthorized } from "./authUtils";
 
 // Base URL for authentication API endpoints.
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL
-  ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth`
-  : "http://localhost:5000/api/auth";
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
 /**
  * Registers a new user.
  */
 export const registerUser = async (userData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/register`, {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +32,7 @@ export const registerUser = async (userData) => {
  */
 export const loginUser = async (credentials) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/login`, {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +57,7 @@ export const loginUser = async (credentials) => {
  */
 export const googleSignInUser = async (userData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/google-signin`, {
+    const response = await fetch(`${API_BASE_URL}/auth/google-signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +80,7 @@ export const googleSignInUser = async (userData) => {
  */
 export const updateUser = async (userData, token) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/profile`, {
+    const response = await fetch(`${API_BASE_URL}/auth/profile`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -96,6 +95,7 @@ export const updateUser = async (userData, token) => {
     return data;
   } catch (error) {
     toast.error(error.message || "Failed to update profile. Please try again.");
+    handleUnauthorized(error);
     throw error;
   }
 };

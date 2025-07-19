@@ -1,3 +1,5 @@
+import { handleUnauthorized } from "./authUtils";
+
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
@@ -239,6 +241,7 @@ export const fetchAnalyticsData = async (token) => {
     return data;
   } catch (error) {
     console.error("Error fetching analytics data:", error);
+    handleUnauthorized(error);
     throw error;
   }
 };
