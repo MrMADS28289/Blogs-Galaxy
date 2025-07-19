@@ -2,6 +2,9 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+
 const GeminiChat = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
@@ -64,7 +67,9 @@ const GeminiChat = () => {
     let requestBody = { prompt: question };
 
     // Check if the user is asking to summarize a blog
-    const summarizeMatch = question.match(/^summarize blog ID:\s*([a-zA-Z0-9-]+)$/i);
+    const summarizeMatch = question.match(
+      /^summarize blog ID:\s*([a-zA-Z0-9-]+)$/i
+    );
     if (summarizeMatch && summarizeMatch[1]) {
       const blogId = summarizeMatch[1];
       requestBody = { blogId, prompt: `Summarize blog with ID: ${blogId}` }; // Send a generic prompt for summarization
@@ -75,7 +80,7 @@ const GeminiChat = () => {
     }
 
     try {
-      const response = await fetch(`${window.location.origin}/api/gemini`, {
+      const response = await fetch(`${API_BASE_URL}/gemini/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

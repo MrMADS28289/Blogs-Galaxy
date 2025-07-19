@@ -14,7 +14,7 @@
 
 🧠 Powered by AI | 🎨 3D Visuals | 🔐 Secure Auth | 🧩 Modular Structure
 
-🚀 **Live Demo**: [https://blogs-galaxy.vercel.app](https://blogs-galaxy.vercel.app)
+🚀 **Live Demo**: [https://blogs-galaxy.web.app](https://blogs-galaxy.web.app)
 
 Blogs Galaxy is a modern, full-stack blogging platform designed to provide a rich and interactive content experience. It features dynamic blog post management, category-based content organization, user authentication, and an integrated AI chat assistant powered by Google Gemini. The platform also incorporates interactive 3D models to enhance the user interface.
 
@@ -39,9 +39,10 @@ Blogs Galaxy is a modern, full-stack blogging platform designed to provide a ric
   - Framer Motion (v11.0.8)
   - Three.js & React Three Fiber (v8.13.4)
 - **Backend**:
-  - Next.js API Routes
-  - **Firebase** (v11.10.0) (Authentication, Firestore Database, Storage)
+  - Node.js (Express.js)
+  - MongoDB (Mongoose)
   - Google Gemini API (v0.24.1)
+- **Firebase** (v11.10.0) (Authentication, Firestore Database, Storage)
 - **Development Tools**:
   - ESLint (v8.44.0)
   - PostCSS (v8.4.33)
@@ -74,7 +75,7 @@ Make sure you have the following installed:
 
 ### Environment Variables
 
-Create a `.env.local` file in the root of your project and add the following environment variables. You will need to obtain these credentials from your Firebase project and Google Cloud Console (for Gemini API).
+Create a `.env.local` file in the root of your project and add the following environment variables. You will need to obtain these credentials from your Firebase project.
 
 ```
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
@@ -84,10 +85,9 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
-
-GEMINI_API_KEY=your_gemini_api_key
-NEXT_PUBLIC_BACKEND_URL=http://localhost:5000/api
 ```
+
+For the Gemini API key, you will need to set it as an environment variable on your backend server (e.g., Render).
 
 ### Running the Development Server
 
@@ -109,9 +109,8 @@ The project follows a standard Next.js application structure:
 blogs-galaxy/
 ├── public/                 # Static assets (images, 3D models, audio)
 ├── src/
-│   ├── app/                # Next.js App Router (pages, layouts, API routes)
+│   ├── app/                # Next.js App Router (pages, layouts)
 │   │   ├── (sub pages)/    # Layout and pages for blog categories
-│   │   ├── api/            # API routes (e.g., /api/gemini)
 │   │   ├── admin/          # Admin dashboard page
 │   │   ├── login/          # Login page
 │   │   └── register/       # Register page

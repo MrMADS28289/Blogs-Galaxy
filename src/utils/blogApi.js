@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+
 import { handleUnauthorized } from "./authUtils";
 
 // Base URL for the blog API endpoints.
@@ -25,7 +25,6 @@ export const likeBlog = async (blogId, token, action) => {
 
     return await response.json();
   } catch (error) {
-    toast.error(error.message || "Failed to update like status.");
     throw error;
   }
 };
@@ -41,7 +40,6 @@ export const fetchComments = async (blogId) => {
     }
     return await response.json();
   } catch (error) {
-    toast.error(error.message || "Failed to fetch comments.");
     throw error;
   }
 };
@@ -57,7 +55,6 @@ export const fetchBlogById = async (blogId) => {
     }
     return await response.json();
   } catch (error) {
-    toast.error(error.message || "Failed to fetch blog details.");
     throw error;
   }
 };
@@ -86,7 +83,6 @@ export const addComment = async (commentData, token) => {
 
     return await response.json();
   } catch (error) {
-    toast.error(error.message || "Failed to add comment.");
     throw error;
   }
 };
@@ -102,7 +98,6 @@ export const fetchAllBlogs = async () => {
     }
     return await response.json();
   } catch (error) {
-    toast.error(error.message || "Failed to fetch all blogs.");
     handleUnauthorized(error);
     throw error;
   }

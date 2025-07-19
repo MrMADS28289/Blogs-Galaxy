@@ -1,5 +1,10 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { fetchBlogById, fetchAllBlogs } from "@/utils/blogApi";
+const functions = require("firebase-functions");
+const { onRequest } = require("firebase-functions/https");
+const logger = require("firebase-functions/logger");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { fetchBlogById, fetchAllBlogs } = require("../src/utils/blogApi");
+
+setGlobalOptions({ maxInstances: 10 });
 
 const WEBSITE_CONTEXT = `
 This is a blogging platform called "Blogs Galaxy".
@@ -27,58 +32,57 @@ Key areas for improvement:
 When answering questions about the website, use the information provided above.
 `;
 
-export async function POST(req) {
+exports.geminiApi = onRequest(async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
   try {
-    const { prompt, blogId } = await req.json();
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const { prompt, blogId } = req.body;
+    const genAI = new GoogleGenerativeAI(functions.config().gemini.api_key);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     let fullPrompt = "";
 
     if (blogId) {
-      // Handle blog summarization request for a specific blog ID
       const blog = await fetchBlogById(blogId);
       if (!blog || !blog.content) {
-        return new Response(JSON.stringify({ error: "Blog not found or content unavailable." }), { status: 404 });
+        return res.status(404).json({ error: "Blog not found or content unavailable." });
       }
       fullPrompt = `Please summarize the following blog post content:\n\n${blog.content}\n\nProvide a concise summary.`;
     } else if (prompt && prompt.toLowerCase().includes("give me a blog")) {
-      // Handle "give me a blog" request
       const { blogs: allBlogs } = await fetchAllBlogs();
       if (!allBlogs || allBlogs.length === 0) {
-        return new Response(JSON.stringify({ text: "Sorry, I couldn't find any blogs at the moment." }), { status: 200 });
+        return res.status(200).json({ text: "Sorry, I couldn't find any blogs at the moment." });
       }
       const randomBlog = allBlogs[Math.floor(Math.random() * allBlogs.length)];
-      // Ensure randomBlog has title and id properties
       if (!randomBlog || !randomBlog.title || !randomBlog._id || !randomBlog.content) {
-        return new Response(JSON.stringify({ text: "Sorry, I found a blog but it's missing some details (title, ID, or content)." }), { status: 200 });
+        return res.status(200).json({ text: "Sorry, I found a blog but it's missing some details (title, ID, or content)." });
       }
-      return new Response(JSON.stringify({ text: `Here's a random blog for you: "${randomBlog.title}"\n\nContent:\n${randomBlog.content}` }), { status: 200 });
+      return res.status(200).json({ text: `Here's a random blog for you: "${randomBlog.title}"\n\nContent:\n${randomBlog.content}` });
     } else if (prompt && prompt.toLowerCase().includes("summarize a random blog")) {
-      // Handle "summarize a random blog" request
       const { blogs: allBlogs } = await fetchAllBlogs();
       if (!allBlogs || allBlogs.length === 0) {
-        return new Response(JSON.stringify({ text: "Sorry, I couldn't find any blogs to summarize at the moment." }), { status: 200 });
+        return res.status(200).json({ text: "Sorry, I couldn't find any blogs to summarize at the moment." });
       }
       const randomBlog = allBlogs[Math.floor(Math.random() * allBlogs.length)];
       if (!randomBlog || !randomBlog.content) {
-        return new Response(JSON.stringify({ text: `Sorry, the random blog "${randomBlog.title || 'unknown'}" does not have content available for summarization.` }), { status: 200 });
+        return res.status(200).json({ text: `Sorry, the random blog "${randomBlog.title || 'unknown'}" does not have content available for summarization.` });
       }
       fullPrompt = `Please summarize the following blog post content:\n\n${randomBlog.content}\n\nProvide a concise summary.`;
     } else if (prompt) {
-      // Handle general website questions
       fullPrompt = `${WEBSITE_CONTEXT}\n\nUser query: ${prompt}`;
     } else {
-      return new Response(JSON.stringify({ error: "Prompt or blogId is required" }), { status: 400 });
+      return res.status(400).json({ error: "Prompt or blogId is required" });
     }
 
     const result = await model.generateContent(fullPrompt);
     const response = await result.response;
     const text = response.text();
 
-    return new Response(JSON.stringify({ text }), { status: 200 });
+    return res.status(200).json({ text });
   } catch (error) {
-    console.error("Error calling Gemini API:", error);
-    return new Response(JSON.stringify({ error: "Failed to get response from AI" }), { status: 500 });
+    logger.error("Error calling Gemini API:", error);
+    return res.status(500).json({ error: "Failed to get response from AI" });
   }
-}
+});

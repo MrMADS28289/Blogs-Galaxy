@@ -15,7 +15,7 @@ const AiModel = React.memo(function AiModel(props) {
   // Changes the mouse cursor when hovering over the model, giving visual feedback.
   useCursor(hovered);
 
-  const { scene } = useGLTF("/models/ai.glb");
+  const { scene } = useGLTF("/models/Ai.glb");
 
   useFrame((state) => {
     if (modelRef.current) {
@@ -40,4 +40,4 @@ const AiModel = React.memo(function AiModel(props) {
 export default AiModel;
 
 // This tells useGLTF to start loading the model as soon as possible
-useGLTF.preload("/models/ai.glb");
+useGLTF.preload("/models/Ai.glb");

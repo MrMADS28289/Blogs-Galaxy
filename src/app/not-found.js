@@ -2,19 +2,15 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import bg from "../../public/background/black_sky.jpg";
+
+
 
 export default function NotFound() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
-      <Image
-        priority
-        sizes="100vw"
-        src={bg}
-        alt="background-image"
-        fill
-        className="-z-50 size-full object-cover object-center opacity-50"
+      <div
+        className="absolute inset-0 -z-50 size-full bg-cover bg-center opacity-50"
+        style={{ backgroundImage: `url('/background/black_sky.jpg')` }}
       />
       <motion.div
         initial={{ opacity: 0, y: -20 }}

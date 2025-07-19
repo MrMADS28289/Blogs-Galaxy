@@ -3,15 +3,19 @@ import React, { useRef, useState } from "react";
 import { useGLTF, useCursor } from "@react-three/drei";
 import { useAtom } from "jotai";
 import { isPlanetVisibleAtom } from "@/app/jotaiAtoms";
+import useScreenSize from "@/components/hooks/useScreenSize";
 
 const Planet = React.memo(function PlanetModel(props) {
   const modelRef = useRef();
   const [isPlanetVisible] = useAtom(isPlanetVisibleAtom);
   const [hovered, setHovered] = useState(false);
+  const screenSize = useScreenSize();
+
+  const planetScale = screenSize && screenSize < 768 ? [0.2, 0.2, 0.2] : [0.6, 0.6, 0.6];
 
   useCursor(hovered);
 
-  const { scene } = useGLTF("/models/planet.glb");
+  const { scene } = useGLTF("/models/Planet.glb");
 
   if (!isPlanetVisible) {
     return null;
@@ -22,7 +26,7 @@ const Planet = React.memo(function PlanetModel(props) {
       ref={modelRef}
       object={scene}
       {...props}
-      scale={[0.6, 0.6, 0.6]}
+      scale={planetScale}
       position={[0, 0, 0]}
       rotation={[0, 0.5, 0]}
       dispose={null}
@@ -34,4 +38,4 @@ const Planet = React.memo(function PlanetModel(props) {
 
 export default Planet;
 
-useGLTF.preload("/models/planet.glb");
+useGLTF.preload("/models/Planet.glb");
